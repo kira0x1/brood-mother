@@ -113,10 +113,6 @@
           "IgnoreLayers": "",
           "Radius": 16,
           "StepHeight": 18
-        },
-        {
-          "__type": "PlayerController",
-          "MoveSpeed": 50
         }
       ],
       "Children": [
@@ -162,6 +158,6 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-02-07T14:49:02.4535285\u002B00:00",
+  "LastSaved": "2024-02-07T15:12:55.3873399\u002B00:00",
   "__references": []
 }

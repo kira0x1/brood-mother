@@ -3,7 +3,7 @@ using Sandbox;
 public sealed class CameraController : Component
 {
     [Property] public PlayerController PlayerController { get; set; }
-    [Property] public float LerpSpeed { get; set; }
+    [Property] public float LerpSpeed { get; set; } = 5f;
     private Vector3 Offset;
     private GameTransform PlayerTransform;
 

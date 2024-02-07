@@ -12,7 +12,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a42d9c6f-2f37-4555-b65f-30744a54d37f" name="Changes" comment="" />
+    <list default="true" id="a42d9c6f-2f37-4555-b65f-30744a54d37f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.brood_mother/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.brood_mother/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.sbproj" beforeDir="false" afterPath="$PROJECT_DIR$/.sbproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scenes/minimal.scene" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/minimal.scene" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/CameraController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/code/CameraController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/code/PlayerController.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -146,7 +152,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1707315583311</updated>
-      <workItem from="1707315585005" duration="1731000" />
+      <workItem from="1707315585005" duration="2716000" />
     </task>
     <servers />
   </component>
