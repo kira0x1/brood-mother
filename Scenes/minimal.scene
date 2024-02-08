@@ -68,8 +68,8 @@
     {
       "Id": "3ee1c9f4-07be-4e0b-8b23-67bee2d8ec8a",
       "Name": "Camera",
-      "Position": "-200,0,200",
-      "Rotation": "-0.00000002009809,0.3007058,0.000000006336903,0.9537169",
+      "Position": "-338.0872,0,248.1997",
+      "Rotation": "-0.00000002031681,0.2655562,0.000000005596184,0.9640954",
       "Enabled": true,
       "Components": [
         {
@@ -90,7 +90,7 @@
         },
         {
           "__type": "CameraController",
-          "LerpSpeed": 5,
+          "LerpSpeed": 10,
           "PlayerController": {
             "_type": "component",
             "go": "f8f106e2-c310-4514-944d-4455faf1bd42",
@@ -113,6 +113,11 @@
           "IgnoreLayers": "",
           "Radius": 16,
           "StepHeight": 18
+        },
+        {
+          "__type": "PlayerController",
+          "MoveSpeed": 120,
+          "TurnSpeed": 260
         }
       ],
       "Children": [
@@ -158,6 +163,6 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-02-07T15:12:55.3873399\u002B00:00",
+  "LastSaved": "2024-02-08T18:44:24.7618258\u002B00:00",
   "__references": []
 }
