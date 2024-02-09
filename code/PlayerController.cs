@@ -18,14 +18,11 @@ public sealed class PlayerController : Component
     [Property]
     public float MinRunSpeed { get; set; } = 150f;
 
-    public bool IsRunning { get; set; }
-
     private CharacterController Controller;
     private CitizenAnimationHelper Animator;
     private Vector3 WishVelocity;
     private bool IsCrouching;
 
-    private RealTimeSince LastGroundedTime { get; set; }
     private RealTimeSince LastUngroundedTime { get; set; }
 
 
@@ -76,7 +73,6 @@ public sealed class PlayerController : Component
         else
         {
             Controller.Velocity = Controller.Velocity.WithZ(0);
-            LastGroundedTime = 0f;
         }
 
 

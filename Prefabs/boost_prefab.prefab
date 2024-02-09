@@ -1,0 +1,86 @@
+{
+  "RootObject": {
+    "Id": "46f75851-e143-4f81-914e-c9852cad36a4",
+    "Name": "boost_prefab",
+    "Tags": "boost",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "BoxCollider",
+        "Center": "0,0,15",
+        "IsTrigger": true,
+        "Scale": "30,30,30",
+        "Static": false,
+        "Surface": null
+      },
+      {
+        "__type": "BoostPickup",
+        "Cooldown": 1,
+        "Duration": 6,
+        "SpeedBoost": 100,
+        "Trigger": {
+          "_type": "component",
+          "go": "46f75851-e143-4f81-914e-c9852cad36a4",
+          "component_type": "BoxCollider"
+        }
+      }
+    ],
+    "Children": [
+      {
+        "Id": "da5185bf-db11-42fb-be43-ea80170ceebc",
+        "Name": "Sphere",
+        "Position": "0,0,13.45007",
+        "Scale": "0.253533,0.253533,0.253533",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "ModelRenderer",
+            "BodyGroups": 18446744073709551615,
+            "MaterialGroup": null,
+            "MaterialOverride": "materials/boost_mat.vmat",
+            "Model": "models/dev/sphere.vmdl",
+            "RenderType": "Off",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "Id": "4303876d-2e7b-42d7-a659-2ad5fd9bb1d0",
+        "Name": "Text",
+        "Position": "0,0,38.30009",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "TextRenderer",
+            "Color": "0.45103,0.47149,0.5297,1",
+            "FontFamily": "Poppins",
+            "FontSize": 55.93,
+            "Scale": 0.21,
+            "Text": "Boost"
+          }
+        ]
+      },
+      {
+        "Id": "3588efe9-71c5-4fe1-bc28-71ab3994d6e9",
+        "Name": "Point Light",
+        "Position": "0,0,35.84116",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "PointLight",
+            "Attenuation": 1.81,
+            "FogMode": "Enabled",
+            "FogStrength": 1,
+            "LightColor": "0.3483,0.81395,0.43367,1",
+            "Radius": 48.899746,
+            "Shadows": true
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "__references": []
+}
