@@ -181,6 +181,7 @@
       "Id": "f8f106e2-c310-4514-944d-4455faf1bd42",
       "Name": "Player",
       "Position": "-1.942506,0,-0.1237354",
+      "Tags": "player",
       "Enabled": true,
       "Components": [
         {
@@ -198,7 +199,8 @@
           "CrouchHeight": 28,
           "Gravity": "0,0,800",
           "JumpVelocity": 300,
-          "MoveSpeed": 120,
+          "MinRunSpeed": 180,
+          "MoveSpeed": 160,
           "StandHeight": 64,
           "TurnSpeed": 540
         },
@@ -246,6 +248,20 @@
           "__type": "CharacterVitals",
           "Health": 100,
           "MaxHealth": 100
+        },
+        {
+          "__type": "PlayerPickup",
+          "BaseSpeed": 0,
+          "CurrentSpeed": 0
+        },
+        {
+          "__type": "CapsuleCollider",
+          "End": "0,0,55",
+          "IsTrigger": true,
+          "Radius": 20,
+          "Start": "0,0,20",
+          "Static": false,
+          "Surface": null
         }
       ],
       "Children": [
@@ -1036,6 +1052,168 @@
           }
         }
       ]
+    },
+    {
+      "Id": "46f75851-e143-4f81-914e-c9852cad36a4",
+      "Name": "Boost",
+      "Position": "96,-96,0",
+      "Tags": "boost",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "BoxCollider",
+          "Center": "0,0,15",
+          "IsTrigger": true,
+          "Scale": "30,30,30",
+          "Static": false,
+          "Surface": null
+        },
+        {
+          "__type": "BoostPickup",
+          "Cooldown": 1,
+          "Duration": 3,
+          "SpeedBoost": 100,
+          "Trigger": {
+            "_type": "component",
+            "go": "46f75851-e143-4f81-914e-c9852cad36a4",
+            "component_type": "BoxCollider"
+          }
+        }
+      ],
+      "Children": [
+        {
+          "Id": "da5185bf-db11-42fb-be43-ea80170ceebc",
+          "Name": "Sphere",
+          "Position": "0,0,13.45007",
+          "Scale": "0.253533,0.253533,0.253533",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "ModelRenderer",
+              "BodyGroups": 18446744073709551615,
+              "MaterialGroup": null,
+              "MaterialOverride": "materials/boostmat.vmat",
+              "Model": "models/dev/sphere.vmdl",
+              "RenderType": "Off",
+              "Tint": "1,1,1,1"
+            }
+          ]
+        },
+        {
+          "Id": "4303876d-2e7b-42d7-a659-2ad5fd9bb1d0",
+          "Name": "Text",
+          "Position": "0,0,38.30009",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "TextRenderer",
+              "Color": "0.45103,0.47149,0.5297,1",
+              "FontFamily": "Poppins",
+              "FontSize": 55.93,
+              "Scale": 0.21,
+              "Text": "Boost"
+            }
+          ]
+        },
+        {
+          "Id": "3588efe9-71c5-4fe1-bc28-71ab3994d6e9",
+          "Name": "Point Light",
+          "Position": "0,0,35.84116",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "PointLight",
+              "Attenuation": 1.81,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.3483,0.81395,0.43367,1",
+              "Radius": 48.899746,
+              "Shadows": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "ddc8f22a-6f71-4f84-ac84-bab7ef234f8f",
+      "Name": "Boost (1)",
+      "Position": "162.047,-96,0",
+      "Tags": "boost",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "BoxCollider",
+          "Center": "0,0,15",
+          "IsTrigger": true,
+          "Scale": "30,30,30",
+          "Static": false,
+          "Surface": null
+        },
+        {
+          "__type": "BoostPickup",
+          "Cooldown": 1,
+          "Duration": 3,
+          "SpeedBoost": 100,
+          "Trigger": {
+            "_type": "component",
+            "go": "ddc8f22a-6f71-4f84-ac84-bab7ef234f8f",
+            "component_type": "BoxCollider"
+          }
+        }
+      ],
+      "Children": [
+        {
+          "Id": "65dc17a9-7f33-410d-8877-c1dbc68bed70",
+          "Name": "Sphere",
+          "Position": "0,0,13.45007",
+          "Scale": "0.253533,0.253533,0.253533",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "ModelRenderer",
+              "BodyGroups": 18446744073709551615,
+              "MaterialGroup": null,
+              "MaterialOverride": "materials/boostmat.vmat",
+              "Model": "models/dev/sphere.vmdl",
+              "RenderType": "Off",
+              "Tint": "1,1,1,1"
+            }
+          ]
+        },
+        {
+          "Id": "f8782de2-ed13-4be7-a673-e84d703f50b2",
+          "Name": "Text",
+          "Position": "0,0,38.30009",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "TextRenderer",
+              "Color": "0.45103,0.47149,0.5297,1",
+              "FontFamily": "Poppins",
+              "FontSize": 55.93,
+              "Scale": 0.21,
+              "Text": "Boost"
+            }
+          ]
+        },
+        {
+          "Id": "75adee54-1b10-410c-a35e-c32eb2bd60b0",
+          "Name": "Point Light",
+          "Position": "0,0,35.84116",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "PointLight",
+              "Attenuation": 1.81,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.3483,0.81395,0.43367,1",
+              "Radius": 48.899746,
+              "Shadows": true
+            }
+          ]
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -1061,6 +1239,6 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-02-09T00:43:04.5758606\u002B00:00",
+  "LastSaved": "2024-02-09T02:51:55.1402409\u002B00:00",
   "__references": []
 }

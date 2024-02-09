@@ -14,6 +14,12 @@ public sealed class PlayerController : Component
     [Property] public float StandHeight { get; set; } = 64f;
     [Property] public float CrouchHeight { get; set; } = 28f;
 
+    // if current speed exceeds this then set anim to running
+    [Property]
+    public float MinRunSpeed { get; set; } = 150f;
+
+    public bool IsRunning { get; set; }
+
     private CharacterController Controller;
     private CitizenAnimationHelper Animator;
     private Vector3 WishVelocity;
@@ -119,6 +125,7 @@ public sealed class PlayerController : Component
     private void UpdateAnimator()
     {
         Animator.IsGrounded = Controller.IsOnGround;
+        Animator.MoveStyle = MoveSpeed >= MinRunSpeed ? CitizenAnimationHelper.MoveStyles.Run : CitizenAnimationHelper.MoveStyles.Walk;
         Animator.DuckLevel = IsCrouching ? 1f : 0f;
         Animator.FootShuffle = 0f;
         Animator.WithVelocity(Controller.Velocity);
