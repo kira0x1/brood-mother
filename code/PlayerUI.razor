@@ -1,0 +1,29 @@
+@using Sandbox;
+@using Sandbox.UI;
+@inherits PanelComponent
+
+<root>
+    <div class="vitals">
+        @HealthText
+    </div>
+</root>
+
+@code
+{
+    [Property] public CharacterVitals Vitals { get; set; }
+
+    public string HealthText
+    {
+        get
+        {
+            if (Vitals.IsValid())
+                return $"{Vitals.Health:F0} / {Vitals.MaxHealth:F0}";
+            return "null / null";
+        }
+    }
+
+    /// <summary>
+    /// the hash determines if the system should be rebuilt. If it changes, it will be rebuilt
+    /// </summary>
+    protected override int BuildHash() => System.HashCode.Combine(HealthText);
+}

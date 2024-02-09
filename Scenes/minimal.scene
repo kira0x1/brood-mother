@@ -43,7 +43,7 @@
     {
       "Id": "6ad70641-3c6c-4402-9c85-9a4969af4764",
       "Name": "Plane",
-      "Scale": "5,5,0.1",
+      "Scale": "10,10,0.1",
       "Enabled": true,
       "Components": [
         {
@@ -198,7 +198,7 @@
           "CrouchHeight": 28,
           "Gravity": "0,0,800",
           "JumpVelocity": 300,
-          "MoveSpeed": 140,
+          "MoveSpeed": 120,
           "StandHeight": 64,
           "TurnSpeed": 540
         },
@@ -241,6 +241,11 @@
             "go": "e7207587-d8ea-426a-b2f1-f5e4b05d858c",
             "component_type": "SkinnedModelRenderer"
           }
+        },
+        {
+          "__type": "CharacterVitals",
+          "Health": 100,
+          "MaxHealth": 100
         }
       ],
       "Children": [
@@ -1009,6 +1014,28 @@
           ]
         }
       ]
+    },
+    {
+      "Id": "6bf30467-5e2f-44ec-9651-34887621d9d3",
+      "Name": "UI",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "ScreenPanel",
+          "AutoScreenScale": true,
+          "Opacity": 1,
+          "Scale": 1,
+          "ZIndex": 100
+        },
+        {
+          "__type": "PlayerUI",
+          "Vitals": {
+            "_type": "component",
+            "go": "f8f106e2-c310-4514-944d-4455faf1bd42",
+            "component_type": "CharacterVitals"
+          }
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -1034,6 +1061,6 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-02-09T00:22:08.9673057\u002B00:00",
+  "LastSaved": "2024-02-09T00:43:04.5758606\u002B00:00",
   "__references": []
 }
