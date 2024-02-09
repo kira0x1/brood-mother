@@ -7,26 +7,14 @@ namespace Kira;
 [Title("Boost Pickup")]
 public sealed class BoostPickup : Component
 {
-    [Property]
-    public float Cooldown { get; set; } = 5f;
-
-    [Property]
-    public float SpeedBoost { get; set; } = 20f;
-
-    [Property] public Color ActiveColor { get; set; } = Color.Green;
-    [Property] public Color DisabledColor { get; set; } = Color.Red;
-
-
-    [Property]
-    public float Duration { get; set; } = 1f;
-
-    [Property]
-    private Collider Trigger { get; set; }
-
+    [Property] private float Cooldown { get; set; } = 5f;
+    [Property] private float SpeedBoost { get; set; } = 20f;
+    [Property] private Color ActiveColor { get; set; } = Color.Green;
+    [Property] private Color DisabledColor { get; set; } = Color.Red;
+    [Property] private float Duration { get; set; } = 1f;
+    [Property] private Collider Trigger { get; set; }
     private PointLight BoostLight { get; set; }
-
     private TimeSince lastUsed = 0;
-
     private bool CanPickup;
 
     int pickupCount;

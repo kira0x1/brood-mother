@@ -186,12 +186,12 @@
       "Components": [
         {
           "__type": "CharacterController",
-          "Acceleration": 10,
-          "Bounciness": 0.3,
+          "Acceleration": 8.05,
+          "Bounciness": 0.21,
           "GroundAngle": 45,
-          "Height": 67.6,
-          "IgnoreLayers": "",
-          "Radius": 6.15,
+          "Height": 69.64,
+          "IgnoreLayers": "bullet",
+          "Radius": 12.5,
           "StepHeight": 18
         },
         {
@@ -200,7 +200,7 @@
           "Gravity": "0,0,800",
           "JumpVelocity": 300,
           "MinRunSpeed": 180,
-          "MoveSpeed": 160,
+          "MoveSpeed": 180,
           "StandHeight": 64,
           "TurnSpeed": 540
         },
@@ -256,12 +256,25 @@
         },
         {
           "__type": "CapsuleCollider",
+          "__enabled": false,
           "End": "0,0,55",
           "IsTrigger": true,
           "Radius": 20,
           "Start": "0,0,20",
           "Static": false,
           "Surface": null
+        },
+        {
+          "__type": "PlayerShoot",
+          "AimIK": {
+            "_type": "gameobject",
+            "go": "cc36ddb2-3917-47ae-b7b8-d5b917e58056"
+          },
+          "FireRate": 0.25,
+          "Prefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/bullet_prefab.prefab"
+          }
         }
       ],
       "Children": [
@@ -1028,6 +1041,12 @@
               ]
             }
           ]
+        },
+        {
+          "Id": "cc36ddb2-3917-47ae-b7b8-d5b917e58056",
+          "Name": "Aim",
+          "Position": "20,0,50",
+          "Enabled": true
         }
       ]
     },
@@ -1101,6 +1120,6 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-02-09T03:02:34.1292949\u002B00:00",
+  "LastSaved": "2024-02-09T04:04:45.7290966\u002B00:00",
   "__references": []
 }
