@@ -79,10 +79,10 @@ public sealed class PlayerController : Component
 
     private void HandleCrouching()
     {
-        bool wantsToCrouch = Controller.IsOnGround && Input.Down("Duck");
+        if (!Input.Pressed("Duck") || !Controller.IsOnGround) return;
 
         // Toggle Crouching
-        if (wantsToCrouch)
+        if (!IsCrouching)
         {
             Controller.Height = CrouchHeight;
             IsCrouching = true;
