@@ -1,20 +1,11 @@
 {
   "RootObject": {
-    "Id": "d0739c2a-feba-4efd-8d27-5df2eb55c9a4",
+    "Id": "40da6712-5a8c-42cc-b4ec-24aeee64623b",
     "Name": "bullet_prefab",
     "Scale": "0.2,0.2,0.2",
     "Tags": "bullet",
     "Enabled": true,
     "Components": [
-      {
-        "__type": "ModelRenderer",
-        "BodyGroups": 18446744073709551615,
-        "MaterialGroup": null,
-        "MaterialOverride": "materials/dev/dev_metal_rough30.vmat",
-        "Model": "models/dev/sphere.vmdl",
-        "RenderType": "On",
-        "Tint": "1,1,1,1"
-      },
       {
         "__type": "SphereCollider",
         "Center": "0,0,0",
@@ -31,6 +22,15 @@
         "Locking": {},
         "RigidbodyFlags": 0,
         "StartAsleep": false
+      },
+      {
+        "__type": "ModelRenderer",
+        "BodyGroups": 18446744073709551615,
+        "MaterialGroup": null,
+        "MaterialOverride": "materials/dev/dev_metal_rough50.vmat",
+        "Model": "models/dev/sphere.vmdl",
+        "RenderType": "On",
+        "Tint": "1,1,1,1"
       }
     ],
     "Children": []

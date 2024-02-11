@@ -28,6 +28,5 @@ public sealed class PlayerShoot : Component
         GameObject clone = Prefab.Clone(AimIK.Transform.Position);
         var rb = clone.Components.Get<Rigidbody>();
         rb.Velocity = (Vector3.Up * 180) + Transform.Local.Forward * 480f;
-        // rb.ApplyImpulse(Vector3.Forward * 1000f);
     }
 }

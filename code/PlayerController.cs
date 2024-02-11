@@ -19,27 +19,82 @@ public sealed class PlayerController : Component
     public float MinRunSpeed { get; set; } = 150f;
 
     private CharacterController Controller;
-    private CitizenAnimationHelper Animator;
+    private AnimationController Animator;
     private Vector3 WishVelocity;
     private bool IsCrouching;
 
     private RealTimeSince LastUngroundedTime { get; set; }
+
+    private Transform StartLeftHandIkTransform { get; set; }
+    private Vector3 CurLeftHandIkPos { get; set; }
+
+    public enum MoveState
+    {
+        NORMAL,
+        STUNNED,
+        STRETCH
+    }
+
+    [Property] public MoveState CurrentMoveState { get; set; } = MoveState.NORMAL;
 
 
     protected override void OnAwake()
     {
         base.OnAwake();
 
-        Animator = Components.GetInDescendantsOrSelf<CitizenAnimationHelper>();
+        Animator = Components.GetInDescendantsOrSelf<AnimationController>();
         Controller = Components.GetInDescendantsOrSelf<CharacterController>();
 
         if (Controller.IsValid())
         {
             Controller.Height = StandHeight;
         }
+
+        if (Animator.IsValid())
+        {
+        }
+    }
+
+    protected override void OnStart()
+    {
+        base.OnStart();
+
+        StartLeftHandIkTransform = Animator.IkLeftHand.Transform.World;
+        Log.Info($"Start IK: {StartLeftHandIkTransform}");
     }
 
     protected override void OnFixedUpdate()
+    {
+        if (Input.Pressed("Slot1"))
+        {
+            CurrentMoveState = MoveState.NORMAL;
+        }
+        else if (Input.Pressed("Slot2"))
+        {
+            // CurLeftHandIkPos = StartLeftHandIkPos.Position;
+            CurrentMoveState = MoveState.STRETCH;
+        }
+
+        switch (CurrentMoveState)
+        {
+            case MoveState.NORMAL:
+                HandleMove();
+                break;
+            case MoveState.STRETCH:
+                HandleStretch();
+                break;
+        }
+    }
+
+    private void HandleStretch()
+    {
+        var Target = Animator.Target;
+        Target.Set($"ik.left_hand.enabled", true);
+        Target.Set($"ik.left_hand.position", new Vector3(1, 0, 0));
+        Target.Set($"ik.left_hand.rotation", new Vector3(1, 0, 0));
+    }
+
+    private void HandleMove()
     {
         WishVelocity = (Input.AnalogMove.Normal * MoveSpeed).WithZ(0f);
         HandleCrouching();
@@ -121,10 +176,15 @@ public sealed class PlayerController : Component
     private void UpdateAnimator()
     {
         Animator.IsGrounded = Controller.IsOnGround;
-        Animator.MoveStyle = MoveSpeed >= MinRunSpeed ? CitizenAnimationHelper.MoveStyles.Run : CitizenAnimationHelper.MoveStyles.Walk;
+        Animator.MoveStyle = MoveSpeed >= MinRunSpeed ? AnimationController.MoveStyles.Run : AnimationController.MoveStyles.Walk;
         Animator.DuckLevel = IsCrouching ? 1f : 0f;
         Animator.FootShuffle = 0f;
         Animator.WithVelocity(Controller.Velocity);
         Animator.WithWishVelocity(WishVelocity);
+
+        if (CurrentMoveState == MoveState.NORMAL)
+        {
+            Animator.UpdateIk();
+        }
     }
 }

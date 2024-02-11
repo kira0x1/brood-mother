@@ -5,7 +5,7 @@ namespace Kira;
 
 [Group("Kira")]
 [Title("Boost Pickup")]
-public sealed class BoostPickup : Component
+public sealed class BoostPickup : Component, Component.ITriggerListener
 {
     [Property] private float Cooldown { get; set; } = 5f;
     [Property] private float SpeedBoost { get; set; } = 20f;
@@ -13,6 +13,8 @@ public sealed class BoostPickup : Component
     [Property] private Color DisabledColor { get; set; } = Color.Red;
     [Property] private float Duration { get; set; } = 1f;
     [Property] private Collider Trigger { get; set; }
+    [Property] public SoundEvent BoostSound { get; set; }
+
     private PointLight BoostLight { get; set; }
     private TimeSince lastUsed = 0;
     private bool CanPickup;
@@ -40,20 +42,28 @@ public sealed class BoostPickup : Component
             CanPickup = true;
             BoostLight.LightColor = ActiveColor;
         }
+    }
 
-        foreach (Collider collider in Trigger.Touching)
-        {
-            if (collider.Tags.Has("player"))
-            {
-                pickupCount++;
-                PlayerPickup player = collider.Components.Get<PlayerPickup>();
-                if (!player.IsValid()) break;
-                player.GiveSpeed(SpeedBoost, Duration, this.GetHashCode());
-                lastUsed = 0;
-                BoostLight.LightColor = DisabledColor;
-                CanPickup = false;
-                break;
-            }
-        }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (!CanPickup) return;
+        if (!other.Tags.Has("player")) return;
+
+        pickupCount++;
+
+        PlayerPickup player = other.Components.Get<PlayerPickup>();
+        if (!player.IsValid()) return;
+
+        Sound.Play(BoostSound, GameObject.Transform.Position);
+        player.GiveSpeed(SpeedBoost, Duration, this.GetHashCode());
+
+        BoostLight.LightColor = DisabledColor;
+        lastUsed = 0;
+        CanPickup = false;
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        return;
     }
 }

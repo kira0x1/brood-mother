@@ -15,7 +15,10 @@
       },
       {
         "__type": "BoostPickup",
-        "Cooldown": 1,
+        "ActiveColor": "0,1,0,1",
+        "BoostSound": "sounds/physics/props/pottery_flowerpot/impact_bullet_pottery.sound",
+        "Cooldown": 6,
+        "DisabledColor": "1,0,0,1",
         "Duration": 6,
         "SpeedBoost": 100,
         "Trigger": {

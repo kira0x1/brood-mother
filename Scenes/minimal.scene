@@ -68,7 +68,7 @@
     {
       "Id": "3ee1c9f4-07be-4e0b-8b23-67bee2d8ec8a",
       "Name": "Camera",
-      "Position": "-281.1,0.000003023027,180.9993",
+      "Position": "-430.5709,0.000002101294,255.3847",
       "Rotation": "-0.0000000199446,0.2288403,0.000000007524174,0.973464",
       "Enabled": true,
       "Components": [
@@ -197,6 +197,7 @@
         {
           "__type": "PlayerController",
           "CrouchHeight": 28,
+          "CurrentMoveState": "NORMAL",
           "Gravity": "0,0,800",
           "JumpVelocity": 300,
           "MinRunSpeed": 180,
@@ -205,7 +206,47 @@
           "TurnSpeed": 540
         },
         {
-          "__type": "CitizenAnimationHelper",
+          "__type": "CharacterFootsteps",
+          "MinStepTime": 0,
+          "ModelRenderer": {
+            "_type": "component",
+            "go": "e7207587-d8ea-426a-b2f1-f5e4b05d858c",
+            "component_type": "SkinnedModelRenderer"
+          }
+        },
+        {
+          "__type": "CharacterVitals",
+          "Health": 100,
+          "MaxHealth": 100
+        },
+        {
+          "__type": "PlayerPickup",
+          "BaseSpeed": 0,
+          "CurrentSpeed": 0
+        },
+        {
+          "__type": "CapsuleCollider",
+          "End": "0,0,55",
+          "IsTrigger": true,
+          "Radius": 20,
+          "Start": "0,0,20",
+          "Static": false,
+          "Surface": null
+        },
+        {
+          "__type": "PlayerShoot",
+          "AimIK": {
+            "_type": "gameobject",
+            "go": "cc36ddb2-3917-47ae-b7b8-d5b917e58056"
+          },
+          "FireRate": 0.25,
+          "Prefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/bullet_prefab.prefab"
+          }
+        },
+        {
+          "__type": "AnimationController",
           "BodyWeight": 1,
           "EyeSource": null,
           "EyesWeight": 1,
@@ -233,47 +274,6 @@
             "_type": "component",
             "go": "e7207587-d8ea-426a-b2f1-f5e4b05d858c",
             "component_type": "SkinnedModelRenderer"
-          }
-        },
-        {
-          "__type": "CharacterFootsteps",
-          "MinStepTime": 0,
-          "ModelRenderer": {
-            "_type": "component",
-            "go": "e7207587-d8ea-426a-b2f1-f5e4b05d858c",
-            "component_type": "SkinnedModelRenderer"
-          }
-        },
-        {
-          "__type": "CharacterVitals",
-          "Health": 100,
-          "MaxHealth": 100
-        },
-        {
-          "__type": "PlayerPickup",
-          "BaseSpeed": 0,
-          "CurrentSpeed": 0
-        },
-        {
-          "__type": "CapsuleCollider",
-          "__enabled": false,
-          "End": "0,0,55",
-          "IsTrigger": true,
-          "Radius": 20,
-          "Start": "0,0,20",
-          "Static": false,
-          "Surface": null
-        },
-        {
-          "__type": "PlayerShoot",
-          "AimIK": {
-            "_type": "gameobject",
-            "go": "cc36ddb2-3917-47ae-b7b8-d5b917e58056"
-          },
-          "FireRate": 0.25,
-          "Prefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/bullet_prefab.prefab"
           }
         }
       ],
@@ -1083,15 +1083,7 @@
     {
       "Id": "0827d1cd-a132-4533-8d47-e88049e50e90",
       "Name": "Boost (1)",
-      "Position": "192,-96,0",
-      "Tags": "boost",
-      "Enabled": true,
-      "__Prefab": "prefabs/boost_prefab.prefab"
-    },
-    {
-      "Id": "dcefe1f7-a8b0-408e-aad7-abbeff5e6ca3",
-      "Name": "Boost (2)",
-      "Position": "352,-96,0",
+      "Position": "192,-256,0",
       "Tags": "boost",
       "Enabled": true,
       "__Prefab": "prefabs/boost_prefab.prefab"
@@ -1120,6 +1112,6 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-02-09T04:04:45.7290966\u002B00:00",
+  "LastSaved": "2024-02-10T20:50:03.829439\u002B00:00",
   "__references": []
 }
