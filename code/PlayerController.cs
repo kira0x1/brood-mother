@@ -18,6 +18,9 @@ public sealed class PlayerController : Component
     [Property]
     public float MinRunSpeed { get; set; } = 150f;
 
+    [Property]
+    public float StretchIkSpeed { get; set; } = 50f;
+
     private CharacterController Controller;
     private AnimationController Animator;
     private Vector3 WishVelocity;
@@ -26,17 +29,20 @@ public sealed class PlayerController : Component
     private RealTimeSince LastUngroundedTime { get; set; }
 
     private Transform StartLeftHandIkTransform { get; set; }
+    private SkinnedModelRenderer Target;
+
     private Vector3 CurLeftHandIkPos { get; set; }
+    private Vector3 CurLeftFootIkPos { get; set; }
+
 
     public enum MoveState
     {
         NORMAL,
-        STUNNED,
-        STRETCH
+        STRETCH,
+        FREEZE
     }
 
     [Property] public MoveState CurrentMoveState { get; set; } = MoveState.NORMAL;
-
 
     protected override void OnAwake()
     {
@@ -49,18 +55,18 @@ public sealed class PlayerController : Component
         {
             Controller.Height = StandHeight;
         }
-
-        if (Animator.IsValid())
-        {
-        }
     }
 
     protected override void OnStart()
     {
         base.OnStart();
 
-        StartLeftHandIkTransform = Animator.IkLeftHand.Transform.World;
-        Log.Info($"Start IK: {StartLeftHandIkTransform}");
+
+        if (Animator.IsValid())
+        {
+            StartLeftHandIkTransform = Animator.IkLeftHand.Transform.World;
+            Target = Animator.Target;
+        }
     }
 
     protected override void OnFixedUpdate()
@@ -71,8 +77,13 @@ public sealed class PlayerController : Component
         }
         else if (Input.Pressed("Slot2"))
         {
-            // CurLeftHandIkPos = StartLeftHandIkPos.Position;
+            CurLeftFootIkPos = Animator.IkLeftFoot.Transform.LocalPosition;
             CurrentMoveState = MoveState.STRETCH;
+        }
+        else if (Input.Pressed("Slot3"))
+        {
+            FreezeAllIk();
+            CurrentMoveState = MoveState.FREEZE;
         }
 
         switch (CurrentMoveState)
@@ -83,15 +94,35 @@ public sealed class PlayerController : Component
             case MoveState.STRETCH:
                 HandleStretch();
                 break;
+            case MoveState.FREEZE:
+                FreezeAllIk();
+                break;
         }
+    }
+
+    private void SetIk(string name, Vector3 position, Vector3 rotation)
+    {
+        Target.Set($"ik.{name}.enabled", true);
+        Target.Set($"ik.{name}.position", position);
+        Target.Set($"ik.{name}.rotation", rotation);
+    }
+
+    private void FreezeAllIk()
+    {
+        Animator.ClearIk("hand_right");
+        Animator.ClearIk("hand_left");
+        Animator.ClearIk("foot_left");
+        Animator.ClearIk("foot_right");
     }
 
     private void HandleStretch()
     {
-        var Target = Animator.Target;
-        Target.Set($"ik.left_hand.enabled", true);
-        Target.Set($"ik.left_hand.position", new Vector3(1, 0, 0));
-        Target.Set($"ik.left_hand.rotation", new Vector3(1, 0, 0));
+        GameObject leftFoot = Animator.IkLeftFoot;
+        Vector3 stretch = Input.AnalogMove * StretchIkSpeed * Time.Delta;
+
+        CurLeftFootIkPos += leftFoot.Transform.Local.Left * stretch.x;
+        CurLeftFootIkPos += leftFoot.Transform.Local.Forward * stretch.y;
+        SetIk("foot_left", CurLeftFootIkPos, Vector3.Zero);
     }
 
     private void HandleMove()
@@ -175,10 +206,13 @@ public sealed class PlayerController : Component
 
     private void UpdateAnimator()
     {
+        if (CurrentMoveState == MoveState.FREEZE) return;
+
         Animator.IsGrounded = Controller.IsOnGround;
         Animator.MoveStyle = MoveSpeed >= MinRunSpeed ? AnimationController.MoveStyles.Run : AnimationController.MoveStyles.Walk;
         Animator.DuckLevel = IsCrouching ? 1f : 0f;
         Animator.FootShuffle = 0f;
+
         Animator.WithVelocity(Controller.Velocity);
         Animator.WithWishVelocity(WishVelocity);
 
