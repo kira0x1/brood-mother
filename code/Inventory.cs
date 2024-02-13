@@ -33,6 +33,7 @@ public class Inventory : Component
     protected override void OnUpdate()
     {
         HandleScrolling();
+        HandleSlotInput();
 
         var weapon = ActiveWeapon;
         Animator.HoldType = ActiveSlot.hasItem && weapon != null ? weapon.WeaponHoldType : AnimationController.HoldTypes.None;
@@ -43,6 +44,33 @@ public class Inventory : Component
             ActiveSlot.hasItem = false;
             ActiveSlot.icon = "";
         }
+    }
+
+    private void HandleSlotInput()
+    {
+        if (Input.Pressed("Slot1"))
+        {
+            SelectSlot(0);
+        }
+        else if (Input.Pressed("Slot2"))
+        {
+            SelectSlot(1);
+        }
+        else if (Input.Pressed("Slot3"))
+        {
+            SelectSlot(2);
+        }
+        else if (Input.Pressed("Slot4"))
+        {
+            SelectSlot(3);
+        }
+    }
+
+    public void SelectSlot(int slotId)
+    {
+        PreviousSlot = CurrentSlot;
+        CurrentSlot = slotId;
+        OnSlotChanged();
     }
 
     private void HandleScrolling()
@@ -81,11 +109,15 @@ public class Inventory : Component
 
     public bool TryGiveItem(WeaponResource weapon)
     {
-        foreach (Slot slot in Slots)
+        for (var i = 0; i < Slots.Length; i++)
         {
+            Slot slot = Slots[i];
             if (!slot.hasItem)
             {
                 slot.SetItem(weapon);
+                PreviousSlot = CurrentSlot;
+                CurrentSlot = i;
+                OnSlotChanged();
                 return true;
             }
         }

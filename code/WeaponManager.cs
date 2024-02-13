@@ -20,7 +20,6 @@ public sealed class WeaponManager : Component
     public void OnGiveWeapon(WeaponComponent weapon)
     {
         HideWeapon();
-
         ActiveWeapon = weapon.GameObject;
         ActiveWeapon.SetParent(WeaponBone);
         ActiveWeapon.Transform.Position = WeaponBone.Transform.Position;

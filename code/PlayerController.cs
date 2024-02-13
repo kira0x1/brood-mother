@@ -77,6 +77,22 @@ public sealed class PlayerController : Component
 
     protected override void OnFixedUpdate()
     {
+        switch (CurrentMoveState)
+        {
+            case MoveState.NORMAL:
+                HandleMove();
+                break;
+            case MoveState.STRETCH:
+                HandleStretch();
+                break;
+            case MoveState.FREEZE:
+                FreezeAllIk();
+                break;
+        }
+    }
+
+    private void HandleMoveStateInput()
+    {
         if (Input.Pressed("Slot1"))
         {
             CurrentMoveState = MoveState.NORMAL;
@@ -94,19 +110,6 @@ public sealed class PlayerController : Component
         {
             FreezeAllIk();
             CurrentMoveState = MoveState.FREEZE;
-        }
-
-        switch (CurrentMoveState)
-        {
-            case MoveState.NORMAL:
-                HandleMove();
-                break;
-            case MoveState.STRETCH:
-                HandleStretch();
-                break;
-            case MoveState.FREEZE:
-                FreezeAllIk();
-                break;
         }
     }
 
