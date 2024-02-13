@@ -1,3 +1,4 @@
+using System.Linq;
 using Sandbox;
 
 
@@ -15,11 +16,9 @@ public sealed class BoostPickup : Component, Component.ITriggerListener
     [Property] private Collider Trigger { get; set; }
     [Property] public SoundEvent BoostSound { get; set; }
 
-    private PointLight BoostLight { get; set; }
+    private PointLight[] BoostLights { get; set; }
     private TimeSince lastUsed = 0;
     private bool CanPickup;
-
-    int pickupCount;
 
     protected override void OnStart()
     {
@@ -30,8 +29,15 @@ public sealed class BoostPickup : Component, Component.ITriggerListener
     protected override void OnAwake()
     {
         base.OnAwake();
-        BoostLight = Components.GetInDescendantsOrSelf<PointLight>();
-        BoostLight.LightColor = ActiveColor;
+        BoostLights = Components.GetAll<PointLight>().ToArray();
+    }
+
+    private void SetLightColor(Color color)
+    {
+        foreach (PointLight light in BoostLights)
+        {
+            light.LightColor = color;
+        }
     }
 
     protected override void OnUpdate()
@@ -40,7 +46,7 @@ public sealed class BoostPickup : Component, Component.ITriggerListener
         if (!CanPickup)
         {
             CanPickup = true;
-            BoostLight.LightColor = ActiveColor;
+            SetLightColor(ActiveColor);
         }
     }
 
@@ -49,15 +55,13 @@ public sealed class BoostPickup : Component, Component.ITriggerListener
         if (!CanPickup) return;
         if (!other.Tags.Has("player")) return;
 
-        pickupCount++;
-
         PlayerPickup player = other.Components.Get<PlayerPickup>();
         if (!player.IsValid()) return;
 
         Sound.Play(BoostSound, GameObject.Transform.Position);
         player.GiveSpeed(SpeedBoost, Duration, this.GetHashCode());
 
-        BoostLight.LightColor = DisabledColor;
+        SetLightColor(DisabledColor);
         lastUsed = 0;
         CanPickup = false;
     }

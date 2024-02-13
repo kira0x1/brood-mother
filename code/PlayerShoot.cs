@@ -12,6 +12,9 @@ public sealed class PlayerShoot : Component
     [Property] private GameObject AimIK { get; set; }
     private TimeSince LastShootTime = 0;
 
+    public WeaponResource[] Weapons;
+
+
     protected override void OnUpdate()
     {
         Assert.NotNull(Prefab);

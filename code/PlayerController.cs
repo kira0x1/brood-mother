@@ -1,5 +1,5 @@
+using System.Collections.Generic;
 using Sandbox;
-using Sandbox.Citizen;
 
 namespace Kira;
 
@@ -27,12 +27,13 @@ public sealed class PlayerController : Component
     private bool IsCrouching;
 
     private RealTimeSince LastUngroundedTime { get; set; }
-
     private Transform StartLeftHandIkTransform { get; set; }
     private SkinnedModelRenderer Target;
 
-    private Vector3 CurLeftHandIkPos { get; set; }
-    private Vector3 CurLeftFootIkPos { get; set; }
+    [Property]
+    private LimbID LimbSelected { get; set; }
+
+    public Dictionary<LimbID, IkLimb> IkLimbs = new();
 
 
     public enum MoveState
@@ -61,12 +62,17 @@ public sealed class PlayerController : Component
     {
         base.OnStart();
 
-
         if (Animator.IsValid())
         {
             StartLeftHandIkTransform = Animator.IkLeftHand.Transform.World;
             Target = Animator.Target;
         }
+
+        IkLimbs = new Dictionary<LimbID, IkLimb>();
+        IkLimbs.Add(LimbID.LEFT_FOOT, new IkLimb("foot_left", LimbID.LEFT_FOOT, GetAnimatorIkLimb(LimbID.LEFT_FOOT)));
+        IkLimbs.Add(LimbID.RIGHT_FOOT, new IkLimb("foot_right", LimbID.RIGHT_FOOT, GetAnimatorIkLimb(LimbID.RIGHT_FOOT)));
+        IkLimbs.Add(LimbID.RIGHT_HAND, new IkLimb("hand_right", LimbID.RIGHT_HAND, GetAnimatorIkLimb(LimbID.RIGHT_HAND)));
+        IkLimbs.Add(LimbID.LEFT_HAND, new IkLimb("hand_left", LimbID.LEFT_HAND, GetAnimatorIkLimb(LimbID.LEFT_HAND)));
     }
 
     protected override void OnFixedUpdate()
@@ -77,7 +83,11 @@ public sealed class PlayerController : Component
         }
         else if (Input.Pressed("Slot2"))
         {
-            CurLeftFootIkPos = Animator.IkLeftFoot.Transform.LocalPosition;
+            foreach (var limb in IkLimbs.Values)
+            {
+                limb.position = limb.limbObject.Transform.LocalPosition;
+            }
+
             CurrentMoveState = MoveState.STRETCH;
         }
         else if (Input.Pressed("Slot3"))
@@ -115,15 +125,37 @@ public sealed class PlayerController : Component
         Animator.ClearIk("foot_right");
     }
 
+
+    private GameObject GetAnimatorIkLimb(LimbID limbId)
+    {
+        return limbId switch
+        {
+            LimbID.RIGHT_FOOT => Animator.IkRightFoot,
+            LimbID.LEFT_FOOT => Animator.IkLeftFoot,
+            LimbID.LEFT_HAND => Animator.IkLeftHand,
+            LimbID.RIGHT_HAND => Animator.IkRightHand,
+            _ => Animator.IkLeftFoot
+        };
+    }
+
     private void HandleStretch()
     {
-        GameObject leftFoot = Animator.IkLeftFoot;
+        if (Input.Pressed("Score"))
+        {
+            LimbSelected++;
+            if ((int)LimbSelected >= 4) LimbSelected = 0;
+        }
+
         Vector3 stretch = Input.AnalogMove * StretchIkSpeed * Time.Delta;
 
-        CurLeftFootIkPos += leftFoot.Transform.Local.Left * stretch.x;
-        CurLeftFootIkPos += leftFoot.Transform.Local.Forward * stretch.y;
-        SetIk("foot_left", CurLeftFootIkPos, Vector3.Zero);
+        IkLimb limb = IkLimbs[LimbSelected];
+        Transform limbLocal = limb.limbObject.Transform.Local;
+
+        limb.position += limbLocal.Left * stretch.x;
+        limb.position += limbLocal.Forward * stretch.y;
+        SetIk(limb.name, limb.position, Vector3.Zero);
     }
+
 
     private void HandleMove()
     {

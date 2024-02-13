@@ -1,29 +1,68 @@
+@using System
 @using Sandbox;
-@using Sandbox.UI;
+@using Kira
+@using Sandbox.UI
 @inherits PanelComponent
 
 <root>
     <div class="vitals">
         @HealthText
     </div>
+
+    <div class="hotbar">
+        @foreach (var slot in Slots)
+        {
+            var c = slot.id == CurrentSlotId ? "slot-active" : "slot";
+            <button @onclick=@(() => ChangeSlot(slot.id)) class=@c>
+                <img class="slot-icon" src="@slot.icon" alt=""/>
+            </button>
+        }
+    </div>
 </root>
+
 
 @code
 {
-    [Property] public CharacterVitals Vitals { get; set; }
+    [Property] public PlayerManager Player { get; set; }
+
+    private Slot[] Slots => Player.Slots;
+    private int CurrentSlotId => Player.SlotActive;
+
+    private void ChangeSlot(int id)
+    {
+    }
+
+    private CharacterVitals Vitals
+    {
+        get
+        {
+            if (Player.IsValid())
+            {
+                return Player.Vitals;
+            }
+
+            return null;
+        }
+    }
 
     public string HealthText
     {
         get
         {
-            if (Vitals.IsValid())
+            if (Player.IsValid())
                 return $"{Vitals.Health:F0} / {Vitals.MaxHealth:F0}";
             return "null / null";
         }
     }
 
+
+    public string WeaponImage
+    {
+        get { return Player.wep.Icon; }
+    }
+
     /// <summary>
     /// the hash determines if the system should be rebuilt. If it changes, it will be rebuilt
     /// </summary>
-    protected override int BuildHash() => System.HashCode.Combine(HealthText);
+    protected override int BuildHash() => HashCode.Combine(HealthText, CurrentSlotId);
 }

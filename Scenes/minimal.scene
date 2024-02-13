@@ -200,10 +200,11 @@
           "CurrentMoveState": "NORMAL",
           "Gravity": "0,0,800",
           "JumpVelocity": 300,
+          "LimbSelected": "LEFT_FOOT",
           "MinRunSpeed": 180,
           "MoveSpeed": 180,
           "StandHeight": 64,
-          "StretchIkSpeed": 50,
+          "StretchIkSpeed": 250,
           "TurnSpeed": 540
         },
         {
@@ -216,14 +217,7 @@
           }
         },
         {
-          "__type": "CharacterVitals",
-          "Health": 100,
-          "MaxHealth": 100
-        },
-        {
-          "__type": "PlayerPickup",
-          "BaseSpeed": 0,
-          "CurrentSpeed": 0
+          "__type": "PlayerPickup"
         },
         {
           "__type": "CapsuleCollider",
@@ -276,6 +270,11 @@
             "go": "e7207587-d8ea-426a-b2f1-f5e4b05d858c",
             "component_type": "SkinnedModelRenderer"
           }
+        },
+        {
+          "__type": "PlayerManager",
+          "wep": "data/gun.weapon",
+          "Vitals": {}
         }
       ],
       "Children": [
@@ -1054,6 +1053,7 @@
     {
       "Id": "6bf30467-5e2f-44ec-9651-34887621d9d3",
       "Name": "UI",
+      "Position": "0,0,-7.058475",
       "Enabled": true,
       "Components": [
         {
@@ -1065,10 +1065,10 @@
         },
         {
           "__type": "PlayerUI",
-          "Vitals": {
+          "Player": {
             "_type": "component",
             "go": "f8f106e2-c310-4514-944d-4455faf1bd42",
-            "component_type": "CharacterVitals"
+            "component_type": "PlayerManager"
           }
         }
       ]
@@ -1077,6 +1077,7 @@
       "Id": "46f75851-e143-4f81-914e-c9852cad36a4",
       "Name": "Boost",
       "Position": "96,-96,0",
+      "Rotation": "0,0,0.9999928,-0.003778492",
       "Tags": "boost",
       "Enabled": true,
       "__Prefab": "prefabs/boost_prefab.prefab"
@@ -1085,6 +1086,7 @@
       "Id": "0827d1cd-a132-4533-8d47-e88049e50e90",
       "Name": "Boost (1)",
       "Position": "192,-256,0",
+      "Rotation": "0,0,0.9678484,-0.2515341",
       "Tags": "boost",
       "Enabled": true,
       "__Prefab": "prefabs/boost_prefab.prefab"
@@ -1113,6 +1115,6 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-02-12T13:05:54.8459617\u002B00:00",
+  "LastSaved": "2024-02-13T00:11:50.1965695\u002B00:00",
   "__references": []
 }

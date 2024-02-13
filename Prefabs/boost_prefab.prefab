@@ -15,10 +15,10 @@
       },
       {
         "__type": "BoostPickup",
-        "ActiveColor": "0,1,0,1",
+        "ActiveColor": "0.52941,1,0.58431,1",
         "BoostSound": "sounds/physics/props/pottery_flowerpot/impact_bullet_pottery.sound",
         "Cooldown": 6,
-        "DisabledColor": "1,0,0,1",
+        "DisabledColor": "0.84651,0.38585,0.38585,1",
         "Duration": 6,
         "SpeedBoost": 100,
         "Trigger": {
@@ -31,18 +31,16 @@
     "Children": [
       {
         "Id": "da5185bf-db11-42fb-be43-ea80170ceebc",
-        "Name": "Sphere",
-        "Position": "0,0,13.45007",
-        "Scale": "0.253533,0.253533,0.253533",
+        "Name": "Model",
         "Enabled": true,
         "Components": [
           {
             "__type": "ModelRenderer",
-            "BodyGroups": 18446744073709551615,
+            "BodyGroups": 585,
             "MaterialGroup": null,
-            "MaterialOverride": "materials/boost_mat.vmat",
-            "Model": "models/dev/sphere.vmdl",
-            "RenderType": "Off",
+            "MaterialOverride": null,
+            "Model": "models/citizen_props/foamhand.vmdl",
+            "RenderType": "On",
             "Tint": "1,1,1,1"
           }
         ]
@@ -50,8 +48,7 @@
       {
         "Id": "4303876d-2e7b-42d7-a659-2ad5fd9bb1d0",
         "Name": "Text",
-        "Position": "0,0,38.30009",
-        "Enabled": true,
+        "Position": "0,0,74.73937",
         "Components": [
           {
             "__type": "TextRenderer",
@@ -66,16 +63,33 @@
       {
         "Id": "3588efe9-71c5-4fe1-bc28-71ab3994d6e9",
         "Name": "Point Light",
-        "Position": "0,0,35.84116",
+        "Position": "23.37576,0,34.0853",
         "Enabled": true,
         "Components": [
           {
             "__type": "PointLight",
-            "Attenuation": 1.81,
+            "Attenuation": 5.47,
             "FogMode": "Enabled",
             "FogStrength": 1,
-            "LightColor": "0.3483,0.81395,0.43367,1",
-            "Radius": 48.899746,
+            "LightColor": "0.53023,1,0.58504,1",
+            "Radius": 52.999706,
+            "Shadows": true
+          }
+        ]
+      },
+      {
+        "Id": "7fe22962-18e5-4042-9f5a-4841f1f6284a",
+        "Name": "Point Light (1)",
+        "Position": "-22.26159,0,34.0853",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "PointLight",
+            "Attenuation": 5.47,
+            "FogMode": "Enabled",
+            "FogStrength": 1,
+            "LightColor": "0.53023,1,0.58504,1",
+            "Radius": 52.999706,
             "Shadows": true
           }
         ]

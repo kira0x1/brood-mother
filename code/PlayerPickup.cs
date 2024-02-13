@@ -26,12 +26,8 @@ public class BoostTime
 [Title("Player Pickup")]
 public sealed class PlayerPickup : Component
 {
-    [Property]
-    public float BaseSpeed { get; set; }
-
-    [Property]
-    public float CurrentSpeed { get; set; }
-
+    private float BaseSpeed { get; set; }
+    private float CurrentSpeed { get; set; }
     private Dictionary<int, BoostTime> Boosts = new Dictionary<int, BoostTime>();
     private PlayerController Controller { get; set; }
 

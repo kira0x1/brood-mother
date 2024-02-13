@@ -22,4 +22,35 @@ PlayerUI {
     left: 10px;
     bottom: 10px;
   }
+
+  .hotbar {
+    display: flex;
+    background-color: rgba(0.0, 0.0, 0.0, 0.4);
+    padding: 20px 10px;
+    position: absolute;
+    bottom: 10px;
+  }
+
+  .slot {
+    width: 100px;
+    height: 100px;
+    background-color: rgba(0.0, 0.0, 0.0, 0.4);
+    margin: 0 5px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .slot-icon {
+    width: 80%;
+    height: 80%;
+  }
+
+  .slot-active {
+    width: 100px;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px;
+    background-color: rgba(0.0, 0.0, 0.0, 0.7);
+  }
 }
