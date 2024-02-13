@@ -31,7 +31,6 @@ public sealed class PlayerPickup : Component
     private Dictionary<int, BoostTime> Boosts = new Dictionary<int, BoostTime>();
     private PlayerController Controller { get; set; }
 
-
     protected override void OnStart()
     {
         Controller = Components.Get<PlayerController>();

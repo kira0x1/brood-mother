@@ -13,4 +13,7 @@ public partial class WeaponResource : GameResource
 
     [Property]
     public float FireRate { get; set; }
+
+    [Property]
+    public AnimationController.HoldTypes WeaponHoldType { get; set; } = AnimationController.HoldTypes.None;
 }

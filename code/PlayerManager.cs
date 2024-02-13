@@ -1,3 +1,4 @@
+using System;
 using Sandbox;
 
 namespace Kira;
@@ -7,6 +8,22 @@ public class Slot
     public string icon;
     public string title;
     public int id;
+
+    public bool hasItem;
+    public WeaponResource weapon;
+
+    public void SetItem(WeaponResource weapon)
+    {
+        this.weapon = weapon;
+        this.icon = weapon.Icon;
+        this.title = weapon.Name;
+        this.hasItem = true;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(hasItem, weapon, hasItem);
+    }
 }
 
 [Group("Kira")]
@@ -17,49 +34,52 @@ public sealed class PlayerManager : Component
     [Property]
     public CharacterVitals Vitals { get; set; }
 
-    [Property]
-    public WeaponResource wep;
+    public WeaponManager weaponManager;
+    public Inventory Inventory { get; set; }
 
-    public Slot[] Slots = new Slot[0];
     [Property]
-    public int SlotActive;
+    public WeaponResource crowbar;
+
+    private AnimationController Animator;
 
     protected override void OnAwake()
     {
         base.OnAwake();
-        Slots = new Slot[4];
-
-        for (int i = 0; i < 4; i++)
-        {
-            var slot = new Slot();
-            slot.title = $"{i + 1}";
-            slot.id = i;
-            if (i == 0)
-                slot.icon = wep.Icon;
-            Slots[i] = slot;
-        }
-    }
-
-    protected override void OnStart()
-    {
-        base.OnStart();
-        Log.Info(wep.Icon);
+        Animator = GameObject.Components.Get<AnimationController>();
+        weaponManager = GameObject.Components.Get<WeaponManager>();
+        Inventory = new Inventory();
+        Inventory.Init();
     }
 
     protected override void OnUpdate()
     {
         base.OnUpdate();
+        Inventory.Update();
 
-        var ym = (int)Input.MouseWheel.y;
-        if (ym == -1)
+        var weapon = Inventory.ActiveWeapon;
+        Animator.HoldType = Inventory.ActiveSlot.hasItem && weapon != null ? weapon.WeaponHoldType : AnimationController.HoldTypes.None;
+    }
+
+    public bool TryGiveItem(GameObject WeaponPrefab)
+    {
+        var go = WeaponPrefab.Clone();
+        var weapon = go.Components.Get<WeaponComponent>();
+        var gaveItem = Inventory.TryGiveItem(weapon.WeaponResource);
+
+        if (gaveItem)
         {
-            SlotActive--;
-            if (SlotActive < 0) SlotActive = Slots.Length;
+            // var pos = Animator.Transform.Position;
+            // var clone = new GameObject();
+            // clone.Transform.Position = pos;
+            // clone.SetParent(Animator.Transform.GameObject);
+            // var mr = clone.Components.Create<ModelRenderer>();
+            // mr.Model = item.Model;
+
+            weaponManager.OnGiveWeapon(weapon);
+            // weaponManager.ShowWeapon();
+            // Animator.TriggerDeploy();
         }
-        else if (ym == 1)
-        {
-            SlotActive++;
-            if (SlotActive >= Slots.Length) SlotActive = 0;
-        }
+
+        return gaveItem;
     }
 }

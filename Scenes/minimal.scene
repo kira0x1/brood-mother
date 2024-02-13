@@ -180,7 +180,6 @@
     {
       "Id": "f8f106e2-c310-4514-944d-4455faf1bd42",
       "Name": "Player",
-      "Position": "-1.942506,0,-0.1237354",
       "Tags": "player",
       "Enabled": true,
       "Components": [
@@ -273,15 +272,21 @@
         },
         {
           "__type": "PlayerManager",
-          "wep": "data/gun.weapon",
+          "crowbar": "data/gun.weapon",
           "Vitals": {}
+        },
+        {
+          "__type": "WeaponManager",
+          "WeaponBone": {
+            "_type": "gameobject",
+            "go": "14df2e92-35d4-4642-9bd8-95733501a227"
+          }
         }
       ],
       "Children": [
         {
           "Id": "e7207587-d8ea-426a-b2f1-f5e4b05d858c",
           "Name": "Model",
-          "Position": "0,0,0",
           "Enabled": true,
           "Components": [
             {
@@ -314,7 +319,7 @@
                 {
                   "Id": "741c1662-d1d8-43fa-948d-1c82f503c7f3",
                   "Name": "spine_0",
-                  "Position": "3.921825,-0.002448045,-0.0001164233",
+                  "Position": "3.921827,-0.002448045,-0.0001164233",
                   "Rotation": "0.0002581775,-0.0000002980232,-0.00005638599,1",
                   "Enabled": true,
                   "Children": [
@@ -335,7 +340,7 @@
                             {
                               "Id": "9d3b57d2-cb40-495e-97c2-5163646a04fd",
                               "Name": "neck_0",
-                              "Position": "5.82002,-0.09348675,-0.002965247",
+                              "Position": "5.820016,-0.09348675,-0.002965245",
                               "Rotation": "0.0000821203,-0.000251025,0.01994136,-0.9998012",
                               "Enabled": true,
                               "Children": [
@@ -423,7 +428,7 @@
                                     {
                                       "Id": "a3236a97-b130-4b53-ac97-3e2fa44a834b",
                                       "Name": "arm_lower_L",
-                                      "Position": "10.04519,0.00001561641,-0.00004673001",
+                                      "Position": "10.04519,0.0000154972,-0.00004673001",
                                       "Rotation": "0.00000004470348,0.0000004693866,0.1484236,0.9889238",
                                       "Enabled": true,
                                       "Children": [
@@ -437,9 +442,18 @@
                                             {
                                               "Id": "f5b2e21a-872e-401d-8db9-12bde3e642e8",
                                               "Name": "hold_L",
-                                              "Position": "5.361059,0.6217195,3.394406",
+                                              "Position": "5.361056,0.6217204,3.394403",
                                               "Rotation": "-0.6958921,-0.170415,-0.392899,0.5764749",
-                                              "Enabled": true
+                                              "Enabled": true,
+                                              "Children": [
+                                                {
+                                                  "Id": "14df2e92-35d4-4642-9bd8-95733501a227",
+                                                  "Name": "WeaponBone",
+                                                  "Position": "0,-4.599996,-4.899988",
+                                                  "Rotation": "0.007054446,-0.04736439,0.6362414,0.7700024",
+                                                  "Enabled": true
+                                                }
+                                              ]
                                             },
                                             {
                                               "Id": "dedd1af2-8319-40e7-880e-3dba5e42c13f",
@@ -476,7 +490,7 @@
                                                 {
                                                   "Id": "c5187a88-a3c3-4a67-8638-c9ce69d9b3d4",
                                                   "Name": "finger_index_0_L",
-                                                  "Position": "3.06891,-0.0000297427,-0.0001138448",
+                                                  "Position": "3.068911,-0.0000297427,-0.0001138448",
                                                   "Rotation": "-0.00339286,-0.2652392,-0.06862513,0.9617316",
                                                   "Enabled": true,
                                                   "Children": [
@@ -558,7 +572,7 @@
                                                         {
                                                           "Id": "db9dc9a9-a71c-4e72-86b8-f6f69480f2b7",
                                                           "Name": "finger_ring_2_L",
-                                                          "Position": "1.535339,-0.00002676247,-0.0001718699",
+                                                          "Position": "1.535339,-0.00002688168,-0.0001718699",
                                                           "Rotation": "-0.00001230836,-0.05038811,0.000008925796,0.9987297",
                                                           "Enabled": true
                                                         }
@@ -580,7 +594,7 @@
                                         {
                                           "Id": "35acb41f-4c30-41fb-97d4-2820e6f25dd7",
                                           "Name": "arm_lower_L_twist0",
-                                          "Position": "0.000006817048,0.000007478092,-0.00006465612",
+                                          "Position": "0.000006837199,0.000007548724,-0.00006464363",
                                           "Enabled": true
                                         },
                                         {
@@ -592,7 +606,7 @@
                                         {
                                           "Id": "d87b7d87-0835-402f-9c95-875476732385",
                                           "Name": "arm_elbow_helper_L",
-                                          "Position": "-0.000005218801,0.000003105416,-0.00006175371",
+                                          "Position": "-0.000005216786,0.000003112479,-0.00006175246",
                                           "Rotation": "0.0000003278255,-0.00000005960464,-0.7577646,0.6525283",
                                           "Enabled": true
                                         }
@@ -601,7 +615,7 @@
                                     {
                                       "Id": "5d860bf3-f553-486b-8636-1fc128201d35",
                                       "Name": "arm_upper_L_twist0",
-                                      "Position": "0.00001492742,0.00001383215,-0.00002694347",
+                                      "Position": "0.00001492683,0.00001386152,-0.00002693847",
                                       "Enabled": true
                                     },
                                     {
@@ -617,7 +631,7 @@
                             {
                               "Id": "3ec212a2-9d41-4bb8-b1b6-52a513a1576a",
                               "Name": "clavicle_R",
-                              "Position": "4.036985,0.2748705,-1.108162",
+                              "Position": "4.036982,0.2748705,-1.108162",
                               "Rotation": "-0.08130813,0.6814711,-0.08696642,0.7220963",
                               "Enabled": true,
                               "Children": [
@@ -631,7 +645,7 @@
                                     {
                                       "Id": "3e79a496-e8b2-4d08-b086-ebe4ed30cf4d",
                                       "Name": "arm_lower_R",
-                                      "Position": "10.04517,0.000009775159,-0.00005674361",
+                                      "Position": "10.04517,0.00000965595,-0.00005674361",
                                       "Rotation": "-0.0000000372529,0.0000001937151,0.1484233,0.9889239",
                                       "Enabled": true,
                                       "Children": [
@@ -659,14 +673,14 @@
                                                 {
                                                   "Id": "2a5ce4ad-6087-4e0a-a687-d271b2bc842b",
                                                   "Name": "finger_thumb_1_R",
-                                                  "Position": "1.906573,0.00001242756,-0.00005292891",
+                                                  "Position": "1.906573,0.00001248717,-0.00005304812",
                                                   "Rotation": "0.00000147149,0.1627604,-0.000003732741,0.9866656",
                                                   "Enabled": true,
                                                   "Children": [
                                                     {
                                                       "Id": "18b67ac5-50db-4eb4-bfd6-7225f20ba21c",
                                                       "Name": "finger_thumb_2_R",
-                                                      "Position": "2.136316,0.00003886221,-0.00007772442",
+                                                      "Position": "2.136316,0.00003880261,-0.00007760521",
                                                       "Rotation": "0.0000000782311,0.08420044,0.0000005532056,0.9964489",
                                                       "Enabled": true
                                                     }
@@ -684,7 +698,7 @@
                                                 {
                                                   "Id": "63e88900-b5c1-4475-ba62-595b8191ada1",
                                                   "Name": "finger_index_0_R",
-                                                  "Position": "3.068901,0.00003278255,-0.00002348423",
+                                                  "Position": "3.068901,0.00003266334,-0.00002348423",
                                                   "Rotation": "0.003392495,0.2652348,-0.06862299,0.9617328",
                                                   "Enabled": true,
                                                   "Children": [
@@ -794,13 +808,13 @@
                                         {
                                           "Id": "c15c2e43-8f85-432c-8f05-c18d1893c65d",
                                           "Name": "arm_lower_R_twist0",
-                                          "Position": "-0.00001609574,0.00002611883,-0.00004465628",
+                                          "Position": "-0.0000160776,0.0000261824,-0.00004466753",
                                           "Enabled": true,
                                           "Children": [
                                             {
                                               "Id": "f1da0743-709b-44cd-a2ed-c75aba80943a",
                                               "Name": "arm_elbow_helper_R",
-                                              "Position": "-0.000006011557,0.00003114919,-0.00005398168",
+                                              "Position": "-0.000006003497,0.00003117744,-0.00005398668",
                                               "Rotation": "-0.0000007376075,0.0000002682209,0.7577677,-0.6525244",
                                               "Enabled": true
                                             }
@@ -811,7 +825,7 @@
                                     {
                                       "Id": "2f4745e3-584a-41fe-bbb4-c3695830ca94",
                                       "Name": "arm_upper_R_twist0",
-                                      "Position": "-0.00001032988,0.00001787245,-0.00005866811",
+                                      "Position": "-0.00001033032,0.00001789448,-0.00005867187",
                                       "Enabled": true
                                     },
                                     {
@@ -827,7 +841,7 @@
                             {
                               "Id": "32477d53-08af-4476-8e77-e47a2bf9d8fa",
                               "Name": "neck_clothing",
-                              "Position": "5.82002,-0.09348675,-0.002965247",
+                              "Position": "5.820016,-0.09348675,-0.002965245",
                               "Rotation": "0.0000821203,-0.000251025,0.01994136,-0.9998012",
                               "Enabled": true
                             }
@@ -840,7 +854,7 @@
                 {
                   "Id": "259c398c-bea8-4cdc-880e-477d339b5249",
                   "Name": "leg_upper_R",
-                  "Position": "-0.2881514,-0.4264439,-4.427378",
+                  "Position": "-0.2881533,-0.4264439,-4.427378",
                   "Rotation": "-0.000001549721,1,0.0000001788139,-0.000000923872",
                   "Enabled": true,
                   "Children": [
@@ -876,13 +890,13 @@
                         {
                           "Id": "5947c526-b36b-453d-9f40-48cd83dd34ec",
                           "Name": "leg_lower_R_twist0",
-                          "Position": "-0.000005888145,0.000004436899,-0.00001049043",
+                          "Position": "-0.000005885966,0.000004377334,-0.00001049043",
                           "Enabled": true
                         },
                         {
                           "Id": "87ba36e4-f057-496b-a25b-c7ff39b83aa8",
                           "Name": "leg_knee_helper_R",
-                          "Position": "0.000001736146,0.000004715821,-0.000009536719",
+                          "Position": "0.000001733967,0.000004775387,-0.000009536718",
                           "Rotation": "0.0000009241048,-0.000001251698,0.7135268,0.7006278",
                           "Enabled": true
                         }
@@ -904,7 +918,7 @@
                     {
                       "Id": "4b0eac75-1ffb-4bea-b8df-21bf36398002",
                       "Name": "leg_glute_helper_R",
-                      "Position": "0.00002098089,0.000005483719,-0.00001764288",
+                      "Position": "0.00002098089,0.000005543324,-0.00001764288",
                       "Rotation": "-0.000001056968,-0.0000006258488,-0.7071052,0.7071084",
                       "Enabled": true
                     }
@@ -970,13 +984,13 @@
                     {
                       "Id": "4ccf0666-8df6-48c8-854a-a6e76cdcdd80",
                       "Name": "leg_upper_L_twist0",
-                      "Position": "0.000007629403,0.000009894407,-0.000009059861",
+                      "Position": "0.000007629402,0.000009954012,-0.000009059861",
                       "Enabled": true
                     },
                     {
                       "Id": "de96a053-5cf1-44f8-b86d-690fe9de610e",
                       "Name": "leg_glute_helper_L",
-                      "Position": "0.0000190735,0.00000953682,-0.000009536643",
+                      "Position": "0.0000190735,0.000009596425,-0.000009536643",
                       "Rotation": "-0.000001011624,-0.0000006854534,-0.7071055,0.707108",
                       "Enabled": true
                     }
@@ -1013,7 +1027,7 @@
                     {
                       "Id": "3b3c84d7-414f-4f52-b893-593b016b2bcb",
                       "Name": "aim_matrix_02b",
-                      "Position": "3.937002,-0.0000004822493,-0.00000143021",
+                      "Position": "3.937001,-0.0000004822493,-0.00000143021",
                       "Enabled": true
                     }
                   ]
@@ -1090,6 +1104,250 @@
       "Tags": "boost",
       "Enabled": true,
       "__Prefab": "prefabs/boost_prefab.prefab"
+    },
+    {
+      "Id": "09e50ff3-d373-4d8a-91a8-db6ca0a69eab",
+      "Name": "WeaponPickup",
+      "Position": "18.24518,-142.3599,2.729793",
+      "Rotation": "0,0,0.9238796,-0.3826833",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "BoxCollider",
+          "Center": "0,0,10",
+          "IsTrigger": true,
+          "Scale": "50,50,25",
+          "Static": false,
+          "Surface": null
+        },
+        {
+          "__type": "WeaponPickup",
+          "Weapon": "data/crowbar.weapon",
+          "WeaponPrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/mp5_prefab.prefab"
+          }
+        }
+      ],
+      "Children": [
+        {
+          "Id": "53e0feee-4040-4299-8c9e-c989983b51c7",
+          "Name": "Cube",
+          "Position": "0,0,26.98375",
+          "Scale": "0.4613536,0.4613536,0.4613536",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "ModelRenderer",
+              "BodyGroups": 18446744073709551615,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Model": "models/citizen_props/crowbar01.vmdl",
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "f9fe71e6-6ac4-41a1-bd81-683778cd6077",
+      "Name": "WeaponPickup (1)",
+      "Position": "-64,-224,2.729793",
+      "Rotation": "0,0,0.9238796,-0.3826833",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "BoxCollider",
+          "Center": "0,0,10",
+          "IsTrigger": true,
+          "Scale": "50,50,25",
+          "Static": false,
+          "Surface": null
+        },
+        {
+          "__type": "WeaponPickup",
+          "Weapon": "data/gun.weapon",
+          "WeaponPrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/mp5_prefab.prefab"
+          }
+        }
+      ],
+      "Children": [
+        {
+          "Id": "6c034d4c-ba14-48bb-a15d-61b6aae07cbd",
+          "Name": "Cube",
+          "Position": "0,0,0",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "ModelRenderer",
+              "BodyGroups": 18446744073709551615,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Model": "models/items/ammo.vmdl",
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "4067a8e5-4a13-4b62-82ec-34918e9f9522",
+      "Name": "WeaponPickup (2)",
+      "Position": "-5.042416,-282.9577,2.729793",
+      "Rotation": "0,0,0.9238796,-0.3826833",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "BoxCollider",
+          "Center": "0,0,10",
+          "IsTrigger": true,
+          "Scale": "50,50,25",
+          "Static": false,
+          "Surface": null
+        },
+        {
+          "__type": "WeaponPickup",
+          "Weapon": "data/gun.weapon",
+          "WeaponPrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/mp5_prefab.prefab"
+          }
+        }
+      ],
+      "Children": [
+        {
+          "Id": "861e9a4c-15c4-49bf-bdac-71b9b50db20b",
+          "Name": "Cube",
+          "Position": "0,0,0",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "ModelRenderer",
+              "BodyGroups": 18446744073709551615,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Model": "models/items/ammo.vmdl",
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "83e72144-54f1-48c5-9d6e-9e9253e16d51",
+      "Name": "WeaponPickup (3)",
+      "Position": "46.0637,-231.8516,2.729793",
+      "Rotation": "0,0,0.9238796,-0.3826833",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "BoxCollider",
+          "Center": "0,0,10",
+          "IsTrigger": true,
+          "Scale": "50,50,25",
+          "Static": false,
+          "Surface": null
+        },
+        {
+          "__type": "WeaponPickup",
+          "Weapon": "data/gun.weapon",
+          "WeaponPrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/mp5_prefab.prefab"
+          }
+        }
+      ],
+      "Children": [
+        {
+          "Id": "7a9877b7-9a9c-4c69-b1eb-53b22ab3a29e",
+          "Name": "Cube",
+          "Position": "0,0,0",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "ModelRenderer",
+              "BodyGroups": 18446744073709551615,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Model": "models/items/ammo.vmdl",
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "74cdcafb-11c4-442d-a05a-54837eb5f45e",
+      "Name": "WeaponPickup (4)",
+      "Position": "105.6449,-291.4329,9.148099",
+      "Rotation": "0,0,0.9238796,-0.3826833",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "BoxCollider",
+          "Center": "0,0,10",
+          "IsTrigger": true,
+          "Scale": "50,50,25",
+          "Static": false,
+          "Surface": null
+        },
+        {
+          "__type": "WeaponPickup",
+          "Weapon": "data/gun.weapon",
+          "WeaponPrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/mp5_prefab.prefab"
+          }
+        }
+      ],
+      "Children": [
+        {
+          "Id": "588bb8e7-bdc1-4405-8c3a-49498996478e",
+          "Name": "Cube",
+          "Position": "0,0,0",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "ModelRenderer",
+              "BodyGroups": 18446744073709551615,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Model": "models/items/ammo.vmdl",
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "f0f4131e-c8a1-4a59-94e7-75cede798288",
+      "Name": "MP5",
+      "Scale": "2,2,2",
+      "Components": [
+        {
+          "__type": "SkinnedModelRenderer",
+          "BodyGroups": 3,
+          "BoneMergeTarget": null,
+          "CreateBoneObjects": false,
+          "MaterialGroup": null,
+          "MaterialOverride": null,
+          "Model": "models/weapons/sbox_smg_mp5/w_mp5.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "WeaponComponent",
+          "WeaponName": "MP5",
+          "WeaponResource": null
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -1115,6 +1373,9 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-02-13T00:11:50.1965695\u002B00:00",
-  "__references": []
+  "LastSaved": "2024-02-13T12:10:53.0448467\u002B00:00",
+  "__references": [
+    "facepunch.w_mp5",
+    "nolankicks.dead4left"
+  ]
 }

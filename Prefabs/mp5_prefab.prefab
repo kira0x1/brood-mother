@@ -1,0 +1,33 @@
+{
+  "RootObject": {
+    "Id": "c59e4a8a-23ca-4d6f-a15e-7a2238167a85",
+    "Name": "mp5_prefab",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "SkinnedModelRenderer",
+        "__enabled": false,
+        "BodyGroups": 3,
+        "BoneMergeTarget": null,
+        "CreateBoneObjects": false,
+        "MaterialGroup": null,
+        "MaterialOverride": null,
+        "Model": "models/weapons/sbox_smg_mp5/w_mp5.vmdl",
+        "RenderType": "On",
+        "Tint": "1,1,1,1"
+      },
+      {
+        "__type": "WeaponComponent",
+        "WeaponName": "MP5",
+        "WeaponResource": "data/gun.weapon"
+      }
+    ],
+    "Children": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "__references": [
+    "facepunch.w_mp5"
+  ]
+}
