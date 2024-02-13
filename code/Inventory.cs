@@ -3,14 +3,22 @@ using Sandbox;
 
 namespace Kira;
 
-public class Inventory
+[Group("Kira")]
+public class Inventory : Component
 {
     public Slot[] Slots = Array.Empty<Slot>();
-    [Property]
-    public int SlotActive;
+    public int PreviousSlot { get; set; }
+    public int CurrentSlot { get; set; }
+    public PlayerManager Player { get; set; }
+    public AnimationController Animator { get; set; }
 
-    public void Init()
+    protected override void OnAwake()
     {
+        base.OnAwake();
+
+        Player = Components.Get<PlayerManager>();
+        Animator = Components.Get<AnimationController>();
+
         Slots = new Slot[4];
 
         for (int i = 0; i < 4; i++)
@@ -22,12 +30,16 @@ public class Inventory
         }
     }
 
-    public void Update()
+    protected override void OnUpdate()
     {
         HandleScrolling();
 
+        var weapon = ActiveWeapon;
+        Animator.HoldType = ActiveSlot.hasItem && weapon != null ? weapon.WeaponHoldType : AnimationController.HoldTypes.None;
+
         if (Input.Pressed("Drop") && ActiveWeapon != null)
         {
+            Player.weaponManager.HideWeapon();
             ActiveSlot.hasItem = false;
             ActiveSlot.icon = "";
         }
@@ -35,16 +47,33 @@ public class Inventory
 
     private void HandleScrolling()
     {
-        var ym = (int)Input.MouseWheel.y;
-        if (ym == 1)
+        var scroll = (int)Input.MouseWheel.y;
+
+        if (scroll == 0)
         {
-            SlotActive--;
-            if (SlotActive < 0) SlotActive = Slots.Length - 1;
+            return;
         }
-        else if (ym == -1)
+
+        PreviousSlot = CurrentSlot;
+        CurrentSlot -= scroll;
+        if (CurrentSlot < 0) CurrentSlot = Slots.Length - 1;
+        if (CurrentSlot >= Slots.Length) CurrentSlot = 0;
+        OnSlotChanged();
+    }
+
+    private void OnSlotChanged()
+    {
+        var prevSlot = Slots[PreviousSlot];
+        var curSlot = Slots[CurrentSlot];
+
+        if (prevSlot.hasItem || !curSlot.hasItem)
         {
-            SlotActive++;
-            if (SlotActive >= Slots.Length) SlotActive = 0;
+            Player.weaponManager.HideWeapon();
+        }
+
+        if (curSlot.hasItem)
+        {
+            Player.weaponManager.ShowWeapon();
         }
     }
 
@@ -64,6 +93,6 @@ public class Inventory
         return false;
     }
 
-    public Slot ActiveSlot => Slots[SlotActive];
+    public Slot ActiveSlot => Slots[CurrentSlot];
     public WeaponResource ActiveWeapon => ActiveSlot.weapon;
 }

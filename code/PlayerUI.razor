@@ -31,7 +31,7 @@
     [Property] public PlayerManager Player { get; set; }
 
     private Slot[] Slots => Player.Inventory.Slots;
-    private int CurrentSlotId => Player.Inventory.SlotActive;
+    private int CurrentSlotId => Player.Inventory.CurrentSlot;
 
 
     private CharacterVitals Vitals

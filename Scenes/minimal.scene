@@ -12,7 +12,7 @@
           "FogMode": "Enabled",
           "FogStrength": 1,
           "LightColor": "0.91373,0.98039,1,1",
-          "Shadows": true,
+          "Shadows": false,
           "SkyColor": "0.05882,0.07451,0.08235,1"
         }
       ]
@@ -42,7 +42,7 @@
     },
     {
       "Id": "6ad70641-3c6c-4402-9c85-9a4969af4764",
-      "Name": "Plane",
+      "Name": "Floor",
       "Scale": "10,10,0.1",
       "Enabled": true,
       "Components": [
@@ -51,7 +51,7 @@
           "BodyGroups": 18446744073709551615,
           "MaterialGroup": null,
           "MaterialOverride": "materials/dev/normal_test.vmat",
-          "Model": "models/dev/plane.vmdl",
+          "Model": "models/floor.vmdl",
           "RenderType": "On",
           "Tint": "1,1,1,1"
         },
@@ -281,6 +281,9 @@
             "_type": "gameobject",
             "go": "14df2e92-35d4-4642-9bd8-95733501a227"
           }
+        },
+        {
+          "__type": "Inventory"
         }
       ],
       "Children": [
@@ -1090,8 +1093,8 @@
     {
       "Id": "46f75851-e143-4f81-914e-c9852cad36a4",
       "Name": "Boost",
-      "Position": "96,-96,0",
-      "Rotation": "0,0,0.9999928,-0.003778492",
+      "Position": "195.359,-81.88818,0",
+      "Rotation": "0,0,0.9253188,0.3791898",
       "Tags": "boost",
       "Enabled": true,
       "__Prefab": "prefabs/boost_prefab.prefab"
@@ -1107,7 +1110,7 @@
     },
     {
       "Id": "09e50ff3-d373-4d8a-91a8-db6ca0a69eab",
-      "Name": "WeaponPickup",
+      "Name": "Crowbar_Pickup",
       "Position": "18.24518,-142.3599,2.729793",
       "Rotation": "0,0,0.9238796,-0.3826833",
       "Enabled": true,
@@ -1134,7 +1137,7 @@
           "Id": "53e0feee-4040-4299-8c9e-c989983b51c7",
           "Name": "Cube",
           "Position": "0,0,26.98375",
-          "Scale": "0.4613536,0.4613536,0.4613536",
+          "Scale": "0.4613536,0.4613536,0.3910604",
           "Enabled": true,
           "Components": [
             {
@@ -1151,142 +1154,10 @@
       ]
     },
     {
-      "Id": "f9fe71e6-6ac4-41a1-bd81-683778cd6077",
-      "Name": "WeaponPickup (1)",
-      "Position": "-64,-224,2.729793",
-      "Rotation": "0,0,0.9238796,-0.3826833",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "BoxCollider",
-          "Center": "0,0,10",
-          "IsTrigger": true,
-          "Scale": "50,50,25",
-          "Static": false,
-          "Surface": null
-        },
-        {
-          "__type": "WeaponPickup",
-          "Weapon": "data/gun.weapon",
-          "WeaponPrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/mp5_prefab.prefab"
-          }
-        }
-      ],
-      "Children": [
-        {
-          "Id": "6c034d4c-ba14-48bb-a15d-61b6aae07cbd",
-          "Name": "Cube",
-          "Position": "0,0,0",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "ModelRenderer",
-              "BodyGroups": 18446744073709551615,
-              "MaterialGroup": null,
-              "MaterialOverride": null,
-              "Model": "models/items/ammo.vmdl",
-              "RenderType": "On",
-              "Tint": "1,1,1,1"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Id": "4067a8e5-4a13-4b62-82ec-34918e9f9522",
-      "Name": "WeaponPickup (2)",
-      "Position": "-5.042416,-282.9577,2.729793",
-      "Rotation": "0,0,0.9238796,-0.3826833",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "BoxCollider",
-          "Center": "0,0,10",
-          "IsTrigger": true,
-          "Scale": "50,50,25",
-          "Static": false,
-          "Surface": null
-        },
-        {
-          "__type": "WeaponPickup",
-          "Weapon": "data/gun.weapon",
-          "WeaponPrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/mp5_prefab.prefab"
-          }
-        }
-      ],
-      "Children": [
-        {
-          "Id": "861e9a4c-15c4-49bf-bdac-71b9b50db20b",
-          "Name": "Cube",
-          "Position": "0,0,0",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "ModelRenderer",
-              "BodyGroups": 18446744073709551615,
-              "MaterialGroup": null,
-              "MaterialOverride": null,
-              "Model": "models/items/ammo.vmdl",
-              "RenderType": "On",
-              "Tint": "1,1,1,1"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Id": "83e72144-54f1-48c5-9d6e-9e9253e16d51",
-      "Name": "WeaponPickup (3)",
-      "Position": "46.0637,-231.8516,2.729793",
-      "Rotation": "0,0,0.9238796,-0.3826833",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "BoxCollider",
-          "Center": "0,0,10",
-          "IsTrigger": true,
-          "Scale": "50,50,25",
-          "Static": false,
-          "Surface": null
-        },
-        {
-          "__type": "WeaponPickup",
-          "Weapon": "data/gun.weapon",
-          "WeaponPrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/mp5_prefab.prefab"
-          }
-        }
-      ],
-      "Children": [
-        {
-          "Id": "7a9877b7-9a9c-4c69-b1eb-53b22ab3a29e",
-          "Name": "Cube",
-          "Position": "0,0,0",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "ModelRenderer",
-              "BodyGroups": 18446744073709551615,
-              "MaterialGroup": null,
-              "MaterialOverride": null,
-              "Model": "models/items/ammo.vmdl",
-              "RenderType": "On",
-              "Tint": "1,1,1,1"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "Id": "74cdcafb-11c4-442d-a05a-54837eb5f45e",
-      "Name": "WeaponPickup (4)",
-      "Position": "105.6449,-291.4329,9.148099",
-      "Rotation": "0,0,0.9238796,-0.3826833",
+      "Name": "MP5_PickUp",
+      "Position": "93.30149,-37.50366,9.148099",
+      "Rotation": "0,0,0.6087617,-0.7933533",
       "Enabled": true,
       "Components": [
         {
@@ -1325,29 +1196,6 @@
           ]
         }
       ]
-    },
-    {
-      "Id": "f0f4131e-c8a1-4a59-94e7-75cede798288",
-      "Name": "MP5",
-      "Scale": "2,2,2",
-      "Components": [
-        {
-          "__type": "SkinnedModelRenderer",
-          "BodyGroups": 3,
-          "BoneMergeTarget": null,
-          "CreateBoneObjects": false,
-          "MaterialGroup": null,
-          "MaterialOverride": null,
-          "Model": "models/weapons/sbox_smg_mp5/w_mp5.vmdl",
-          "RenderType": "On",
-          "Tint": "1,1,1,1"
-        },
-        {
-          "__type": "WeaponComponent",
-          "WeaponName": "MP5",
-          "WeaponResource": null
-        }
-      ]
     }
   ],
   "SceneProperties": {
@@ -1373,9 +1221,8 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-02-13T12:10:53.0448467\u002B00:00",
+  "LastSaved": "2024-02-13T16:01:17.6089237\u002B00:00",
   "__references": [
-    "facepunch.w_mp5",
     "nolankicks.dead4left"
   ]
 }

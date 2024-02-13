@@ -1,6 +1,7 @@
 {
-  "Name": null,
-  "Icon": null,
+  "Name": "MP5",
+  "Icon": "textures/kenney_board-game-icons-64/card_tap_outline_up.png",
   "FireRate": 0,
+  "WeaponHoldType": "Rifle",
   "__references": []
 }

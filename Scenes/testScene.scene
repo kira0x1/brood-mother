@@ -63,7 +63,7 @@
           "BodyGroups": 18446744073709551615,
           "MaterialGroup": null,
           "MaterialOverride": "materials/architecture/tiles/brick_wall_large01a.vmat",
-          "Model": "models/dev/plane.vmdl",
+          "Model": "models/floor.vmdl",
           "RenderType": "On",
           "Tint": "1,1,1,1"
         },
@@ -84,7 +84,15 @@
       "Components": [
         {
           "__type": "PlayerController",
+          "CrouchHeight": 28,
+          "CurrentMoveState": "NORMAL",
+          "Gravity": "0,0,800",
+          "JumpVelocity": 300,
+          "LimbSelected": "LEFT_FOOT",
+          "MinRunSpeed": 150,
           "MoveSpeed": 80,
+          "StandHeight": 64,
+          "StretchIkSpeed": 50,
           "TurnSpeed": 500
         },
         {
@@ -912,6 +920,6 @@
   },
   "Title": "testscene",
   "Description": "",
-  "LastSaved": "2024-02-08T20:48:17.1545601\u002B00:00",
+  "LastSaved": "2024-02-13T15:41:25.7828556\u002B00:00",
   "__references": []
 }
