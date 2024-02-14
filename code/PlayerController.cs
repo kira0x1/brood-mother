@@ -162,7 +162,11 @@ public sealed class PlayerController : Component
 
     private void HandleMove()
     {
-        WishVelocity = (Input.AnalogMove.Normal * MoveSpeed).WithZ(0f);
+        var inputVal = Input.AnalogMove.Normal.WithZ(0f);
+        var fwd = Transform.LocalRotation;
+        var finalVal = (inputVal * fwd * MoveSpeed).WithZ(0f);
+        // WishVelocity = (Input.AnalogMove.Normal * MoveSpeed).WithZ(0f);
+        WishVelocity = finalVal;
         HandleCrouching();
 
         if (Controller.IsOnGround && Input.Down("Jump"))

@@ -13,14 +13,9 @@ public sealed class PlayerManager : Component
     public WeaponManager weaponManager;
     public Inventory Inventory { get; set; }
 
-    [Property]
-    public WeaponResource crowbar;
-    private AnimationController Animator;
-
     protected override void OnAwake()
     {
         base.OnAwake();
-        Animator = GameObject.Components.Get<AnimationController>();
         Inventory = Components.Get<Inventory>();
         weaponManager = GameObject.Components.Get<WeaponManager>();
     }

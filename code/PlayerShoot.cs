@@ -12,17 +12,30 @@ public sealed class PlayerShoot : Component
     [Property] private GameObject AimIK { get; set; }
     private TimeSince LastShootTime = 0;
 
-    public WeaponResource[] Weapons;
+    PlayerManager player;
 
+    protected override void OnAwake()
+    {
+        base.OnAwake();
+        player = Components.Get<PlayerManager>();
+    }
 
     protected override void OnUpdate()
     {
         Assert.NotNull(Prefab);
 
+        if (!player.Inventory.ActiveSlot.hasItem)
+        {
+            return;
+        }
+
+        var weapon = player.weaponManager.Weapon;
+        if (!weapon.IsValid()) return;
+
         if (Input.Down("Attack1") && LastShootTime > FireRate)
         {
             LastShootTime = 0;
-            Shoot();
+            weapon.Shoot();
         }
     }
 

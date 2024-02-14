@@ -1,0 +1,63 @@
+{
+  "RootObject": {
+    "Id": "d0a78229-8b38-49ee-ae37-b8c55f3dc36a",
+    "Name": "mp5_prop",
+    "Scale": "1.4,1.4,1.4",
+    "Tags": "weapon",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "SkinnedModelRenderer",
+        "BodyGroups": 3,
+        "BoneMergeTarget": null,
+        "CreateBoneObjects": false,
+        "MaterialGroup": null,
+        "MaterialOverride": null,
+        "Model": "models/weapons/sbox_smg_mp5/w_mp5.vmdl",
+        "RenderType": "On",
+        "Tint": "1,1,1,1"
+      },
+      {
+        "__type": "Rigidbody",
+        "AngularDamping": 0,
+        "Gravity": true,
+        "LinearDamping": 0,
+        "Locking": {},
+        "MassOverride": 0,
+        "RigidbodyFlags": 0,
+        "StartAsleep": false
+      },
+      {
+        "__type": "ModelCollider",
+        "IsTrigger": false,
+        "Model": "models/weapons/sbox_smg_mp5/w_mp5.vmdl",
+        "Static": false,
+        "Surface": "surfaces/watermelon.surface"
+      },
+      {
+        "__type": "BoxCollider",
+        "Center": "0,0,14.99998",
+        "IsTrigger": true,
+        "Scale": "50,50,50",
+        "Static": false,
+        "Surface": null
+      },
+      {
+        "__type": "WeaponPickup",
+        "hasPickedUp": false,
+        "Weapon": "data/gun.weapon",
+        "WeaponPrefab": {
+          "_type": "gameobject",
+          "prefab": "prefabs/mp5_prefab.prefab"
+        }
+      }
+    ],
+    "Children": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "__references": [
+    "facepunch.w_mp5"
+  ]
+}

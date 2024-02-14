@@ -1,12 +1,11 @@
 {
   "RootObject": {
-    "Id": "48dca170-1c18-4593-8863-dc52770cf587",
+    "Id": "ea998c3e-7744-4467-a8cd-b4ec6f5d8865",
     "Name": "mp5_prefab",
     "Enabled": true,
     "Components": [
       {
         "__type": "SkinnedModelRenderer",
-        "__enabled": false,
         "BodyGroups": 3,
         "BoneMergeTarget": null,
         "CreateBoneObjects": false,
@@ -18,11 +17,27 @@
       },
       {
         "__type": "WeaponComponent",
+        "WeaponProp": {
+          "_type": "gameobject",
+          "prefab": "prefabs/mp5_prop.prefab"
+        },
+        "Muzzle": {
+          "_type": "gameobject",
+          "go": "996f3893-4139-4c53-a4e8-bcb821d821dc"
+        },
+        "Spread": 0.01,
         "WeaponName": "MP5",
         "WeaponResource": "data/gun.weapon"
       }
     ],
-    "Children": []
+    "Children": [
+      {
+        "Id": "996f3893-4139-4c53-a4e8-bcb821d821dc",
+        "Name": "Muzzle",
+        "Position": "13.61779,0,7.894307",
+        "Enabled": true
+      }
+    ]
   },
   "ShowInMenu": false,
   "MenuPath": null,

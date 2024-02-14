@@ -12,6 +12,11 @@ public class Inventory : Component
     public PlayerManager Player { get; set; }
     public AnimationController Animator { get; set; }
 
+    private TimeSince timeSinceLastPickup { get; set; }
+
+    [Property]
+    private float PickupCooldown { get; set; } = 1.0f;
+
     protected override void OnAwake()
     {
         base.OnAwake();
@@ -38,12 +43,33 @@ public class Inventory : Component
         var weapon = ActiveWeapon;
         Animator.HoldType = ActiveSlot.hasItem && weapon != null ? weapon.WeaponHoldType : AnimationController.HoldTypes.None;
 
-        if (Input.Pressed("Drop") && ActiveWeapon != null)
+        if (Input.Pressed("Drop") && ActiveSlot.hasItem)
         {
+            OnWeaponDrop(Player.weaponManager.Weapon);
             Player.weaponManager.HideWeapon();
             ActiveSlot.hasItem = false;
             ActiveSlot.icon = "";
         }
+    }
+
+    // Spawn prop
+    private void OnWeaponDrop(WeaponComponent weapon)
+    {
+        if (!weapon.IsValid())
+        {
+            Log.Warning("Weapon Not Valid");
+            return;
+        }
+
+        if (!weapon.WeaponProp.IsValid())
+        {
+            Log.Warning("Weapon Prop is not valid!");
+            return;
+        }
+
+        var pos = Transform.Position + Transform.LocalRotation.Forward * 50f;
+        var prop = weapon.WeaponProp.Clone(pos);
+        prop.BreakFromPrefab();
     }
 
     private void HandleSlotInput()
@@ -109,11 +135,18 @@ public class Inventory : Component
 
     public bool TryGiveItem(WeaponResource weapon)
     {
+        if (timeSinceLastPickup < PickupCooldown)
+        {
+            return false;
+        }
+
         for (var i = 0; i < Slots.Length; i++)
         {
             Slot slot = Slots[i];
+
             if (!slot.hasItem)
             {
+                timeSinceLastPickup = 0;
                 slot.SetItem(weapon);
                 PreviousSlot = CurrentSlot;
                 CurrentSlot = i;
