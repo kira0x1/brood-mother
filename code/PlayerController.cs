@@ -13,14 +13,13 @@ public sealed class PlayerController : Component
     [Property] public float JumpVelocity { get; set; } = 300f;
     [Property] public float StandHeight { get; set; } = 64f;
     [Property] public float CrouchHeight { get; set; } = 28f;
+    [Property] public float AimSpeed { get; set; } = 2f;
 
     // if current speed exceeds this then set anim to running
-    [Property]
-    public float MinRunSpeed { get; set; } = 150f;
+    [Property] public float MinRunSpeed { get; set; } = 150f;
+    [Property] public float StretchIkSpeed { get; set; } = 50f;
 
-    [Property]
-    public float StretchIkSpeed { get; set; } = 50f;
-
+    private Angles EyeAngles { get; set; }
     private CharacterController Controller;
     private AnimationController Animator;
     private Vector3 WishVelocity;
@@ -241,6 +240,7 @@ public sealed class PlayerController : Component
     protected override void OnUpdate()
     {
         UpdateAnimator();
+        HandleEyes();
     }
 
     private void UpdateAnimator()
@@ -259,5 +259,15 @@ public sealed class PlayerController : Component
         {
             Animator.UpdateIk();
         }
+    }
+
+    private void HandleEyes()
+    {
+        var ee = EyeAngles;
+        ee += Input.AnalogLook * AimSpeed;
+        ee.roll = 0;
+        EyeAngles = ee;
+
+        Animator.WithLook(EyeAngles.Forward, 1, 1, 1.0f);
     }
 }

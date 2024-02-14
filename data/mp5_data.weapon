@@ -1,7 +1,11 @@
 {
   "Name": "MP5",
   "Icon": "textures/kenney_board-game-icons-64/card_tap_outline_up.png",
-  "FireRate": 0,
+  "Damage": 10,
+  "DecalEffect": null,
+  "FireRate": 0.1,
+  "Spread": 0.01,
+  "ShootSound": "sounds/smg_shoot.sound",
   "WeaponHoldType": "Rifle",
   "__references": []
 }

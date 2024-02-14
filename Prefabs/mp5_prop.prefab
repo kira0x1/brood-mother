@@ -1,13 +1,14 @@
 {
   "RootObject": {
-    "Id": "d0a78229-8b38-49ee-ae37-b8c55f3dc36a",
+    "Id": "8f162121-39db-44a0-ad28-2c569ea747bf",
     "Name": "mp5_prop",
-    "Scale": "1.4,1.4,1.4",
+    "Scale": "2,2,2",
     "Tags": "weapon",
     "Enabled": true,
     "Components": [
       {
         "__type": "SkinnedModelRenderer",
+        "AnimationGraph": null,
         "BodyGroups": 3,
         "BoneMergeTarget": null,
         "CreateBoneObjects": false,
@@ -36,16 +37,16 @@
       },
       {
         "__type": "BoxCollider",
-        "Center": "0,0,14.99998",
+        "Center": "0,0,5",
         "IsTrigger": true,
-        "Scale": "50,50,50",
+        "Scale": "70,70,70",
         "Static": false,
         "Surface": null
       },
       {
         "__type": "WeaponPickup",
         "hasPickedUp": false,
-        "Weapon": "data/gun.weapon",
+        "Weapon": "data/mp5_data.weapon",
         "WeaponPrefab": {
           "_type": "gameobject",
           "prefab": "prefabs/mp5_prefab.prefab"

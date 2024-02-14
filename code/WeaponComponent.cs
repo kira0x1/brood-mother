@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Sandbox;
 
@@ -17,22 +18,44 @@ public struct FromTo
 
 public sealed class WeaponComponent : Component
 {
-    [Property]
     public string WeaponName { get; set; }
+    public float FireRate { get; set; } = 2f;
+    public WeaponManager Shooter { get; set; }
 
-    [Property]
-    public GameObject Muzzle { get; set; }
+    [Property] public GameObject Muzzle { get; set; }
+    [Property] public WeaponData WeaponData { get; set; }
+    [Property] public GameObject WeaponProp { get; set; }
 
-    [Property] public WeaponResource WeaponResource { get; set; }
-    [Property] public float Spread { get; set; } = 0.01f;
-    public SkinnedModelRenderer Model { get; set; }
-    public List<FromTo> arrows = new List<FromTo>();
+    [Group("Effects"), Property] public ParticleSystem MuzzleFlash { get; set; }
+    [Group("Effects"), Property] public ParticleSystem MuzzleSmoke { get; set; }
+    [Group("Effects"), Property] public GameObject ImpactEffect { get; set; }
+    [Group("Effects"), Property] private GameObject DecalEffect { get; set; }
 
-    [Property] public GameObject WeaponProp;
+    [Group("Gizmos"), Property] private bool ShowArrowGizmos { get; set; } = false;
+    [Group("Gizmos"), Property] private bool ShowHitGizmos { get; set; } = true;
+
+
+    private Angles Recoil { get; set; }
+    private float Spread { get; set; }
+    private float Damage { get; set; }
+    private SkinnedModelRenderer Model { get; set; }
+    private ParticleSystem MuzzleParticleSystem { get; set; }
+    private SoundEvent ShootSound { get; set; }
+
+    private readonly List<FromTo> arrows = new List<FromTo>();
+    private readonly List<Vector3> hits = new List<Vector3>();
+
 
     protected override void OnAwake()
     {
         Model = Components.GetInDescendantsOrSelf<SkinnedModelRenderer>(true);
+        MuzzleParticleSystem = Muzzle.Components.GetInChildren<ParticleSystem>(true);
+
+        WeaponName = WeaponData.Name;
+        Spread = WeaponData.Spread;
+        FireRate = WeaponData.FireRate;
+        ShootSound = WeaponData.ShootSound;
+        Damage = WeaponData.Damage;
         base.OnAwake();
     }
 
@@ -49,24 +72,41 @@ public sealed class WeaponComponent : Component
     protected override void OnUpdate()
     {
         base.OnUpdate();
+        UpdateGizmos();
+    }
 
-        foreach (FromTo ft in arrows)
+    private void UpdateGizmos()
+    {
+        if (ShowArrowGizmos)
         {
-            Gizmo.Draw.Arrow(ft.from, ft.to);
+            foreach (FromTo ft in arrows)
+            {
+                Gizmo.Draw.Arrow(ft.from, ft.to);
+            }
+        }
+
+        if (ShowHitGizmos)
+        {
+            foreach (var pos in hits)
+            {
+                Gizmo.Draw.Color = Color.Green.WithAlpha(0.3f);
+                Gizmo.Draw.LineSphere(pos, 5);
+            }
         }
     }
 
     public SceneTraceResult GunTrace()
     {
-        Vector3 startPos = Scene.Camera.Transform.Position;
-        Vector3 direction = Scene.Camera.Transform.Rotation.Forward;
+        Vector3 startPos = Transform.Position;
+        Vector3 direction = Transform.World.Forward.WithZ(-0.1f);
         direction += Vector3.Random * Spread;
 
-        Vector3 endPos = startPos + direction * 10000f;
+        Vector3 endPos = startPos + direction * 500f;
         var trace = Scene.Trace.Ray(startPos, endPos)
             .IgnoreGameObjectHierarchy(GameObject.Root)
             .UsePhysicsWorld()
             .UseHitboxes()
+            .Radius(5f)
             .Run();
 
         return trace;
@@ -74,20 +114,37 @@ public sealed class WeaponComponent : Component
 
     public void Shoot()
     {
-        // var x = Scene.Trace.PhysicsTrace.FromTo(Muzzle.Transform.Position, Muzzle.Transform.Local.Forward * 100).Run();
         var trace = GunTrace();
-        FromTo ft = new FromTo(Muzzle.Transform.Position, trace.HitPosition);
-        arrows.Add(ft);
+
+        if (ShootSound is not null)
+        {
+            Sound.Play(ShootSound, Muzzle.Transform.Position);
+        }
 
         if (trace.Hit)
         {
-            Log.Info("HIT " + trace.Body.GetGameObject().Name);
+            hits.Add(trace.HitPosition);
+            HandleHit(trace);
         }
         else
         {
-            // FromTo ft = new FromTo(Muzzle.Transform.Position, Muzzle.Transform.Local.Forward * 100);
-            // arrows.Add(ft);
-            Log.Info("NOTHING HIT");
+            FromTo ft = new FromTo(trace.StartPosition, trace.EndPosition);
+            arrows.Add(ft);
         }
+    }
+
+    private void HandleHit(SceneTraceResult trace)
+    {
+        var damageInfo = new DamageInfo(Damage, Shooter.GameObject, GameObject);
+
+        foreach (var damageable in trace.GameObject.Components.GetAll<IDamageable>())
+        {
+            damageable.OnDamage(damageInfo);
+        }
+
+        var spawnPos = new Transform(trace.HitPosition + trace.Normal * 2.0f, Rotation.LookAt(-trace.Normal, Vector3.Random), Random.Shared.Float(0.8f, 1.2f));
+        var decal = DecalEffect.Clone(spawnPos);
+        var impactEffect = ImpactEffect.Clone(spawnPos);
+        decal.SetParent(trace.GameObject);
     }
 }

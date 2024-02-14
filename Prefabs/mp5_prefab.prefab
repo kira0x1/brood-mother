@@ -1,11 +1,37 @@
 {
   "RootObject": {
-    "Id": "ea998c3e-7744-4467-a8cd-b4ec6f5d8865",
+    "Id": "ed77ee15-a49c-4698-a544-d02ef9c496a1",
     "Name": "mp5_prefab",
+    "Scale": "1.5,1.5,1.5",
     "Enabled": true,
     "Components": [
       {
+        "__type": "WeaponComponent",
+        "DecalEffect": {
+          "_type": "gameobject",
+          "prefab": "prefabs/bullethole_decal.prefab"
+        },
+        "ImpactEffect": {
+          "_type": "gameobject",
+          "prefab": "prefabs/particles_puff.prefab"
+        },
+        "Muzzle": {
+          "_type": "gameobject",
+          "go": "f71846a4-6689-4ca5-a1dd-7158cefdf146"
+        },
+        "MuzzleFlash": "particles/pistol_muzzleflash.vpcf",
+        "MuzzleSmoke": "particles/pistol_muzzleflash.vpcf",
+        "ShowArrowGizmos": false,
+        "ShowHitGizmos": false,
+        "WeaponData": "data/mp5_data.weapon",
+        "WeaponProp": {
+          "_type": "gameobject",
+          "prefab": "prefabs/mp5_prop.prefab"
+        }
+      },
+      {
         "__type": "SkinnedModelRenderer",
+        "AnimationGraph": null,
         "BodyGroups": 3,
         "BoneMergeTarget": null,
         "CreateBoneObjects": false,
@@ -14,28 +40,24 @@
         "Model": "models/weapons/sbox_smg_mp5/w_mp5.vmdl",
         "RenderType": "On",
         "Tint": "1,1,1,1"
-      },
-      {
-        "__type": "WeaponComponent",
-        "WeaponProp": {
-          "_type": "gameobject",
-          "prefab": "prefabs/mp5_prop.prefab"
-        },
-        "Muzzle": {
-          "_type": "gameobject",
-          "go": "996f3893-4139-4c53-a4e8-bcb821d821dc"
-        },
-        "Spread": 0.01,
-        "WeaponName": "MP5",
-        "WeaponResource": "data/gun.weapon"
       }
     ],
     "Children": [
       {
-        "Id": "996f3893-4139-4c53-a4e8-bcb821d821dc",
+        "Id": "f71846a4-6689-4ca5-a1dd-7158cefdf146",
         "Name": "Muzzle",
-        "Position": "13.61779,0,7.894307",
-        "Enabled": true
+        "Position": "12.94044,0,8.133644",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "LegacyParticleSystem",
+            "__enabled": false,
+            "ControlPoints": [],
+            "Looped": false,
+            "Particles": "particles/pistol_muzzleflash.vpcf",
+            "PlaybackSpeed": 1
+          }
+        ]
       }
     ]
   },

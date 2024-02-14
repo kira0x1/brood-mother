@@ -45,30 +45,28 @@ public class Inventory : Component
 
         if (Input.Pressed("Drop") && ActiveSlot.hasItem)
         {
-            OnWeaponDrop(Player.weaponManager.Weapon);
-            Player.weaponManager.HideWeapon();
+            DropWeapon(Player.WeaponManager.Weapon);
+            Player.WeaponManager.DropWeapon();
+
+            // Clear Inventory Slot
             ActiveSlot.hasItem = false;
             ActiveSlot.icon = "";
         }
     }
 
     // Spawn prop
-    private void OnWeaponDrop(WeaponComponent weapon)
+    private void DropWeapon(WeaponComponent weapon)
     {
-        if (!weapon.IsValid())
+        if (!weapon.IsValid() || !weapon.WeaponProp.IsValid())
         {
-            Log.Warning("Weapon Not Valid");
-            return;
-        }
-
-        if (!weapon.WeaponProp.IsValid())
-        {
-            Log.Warning("Weapon Prop is not valid!");
             return;
         }
 
         var pos = Transform.Position + Transform.LocalRotation.Forward * 50f;
         var prop = weapon.WeaponProp.Clone(pos);
+
+        // doing this just so i can inspect the object in the scene, withought having to open the prefab in the editor
+        // probably better to comment this out when done
         prop.BreakFromPrefab();
     }
 
@@ -122,18 +120,18 @@ public class Inventory : Component
 
         if (prevSlot.hasItem || !curSlot.hasItem)
         {
-            Player.weaponManager.HideWeapon();
+            Player.WeaponManager.HideWeapon();
         }
 
         if (curSlot.hasItem)
         {
-            Player.weaponManager.ShowWeapon();
+            Player.WeaponManager.ShowWeapon();
         }
     }
 
     public new int GetHashCode => HashCode.Combine(Slots[0].GetHashCode(), Slots[1].GetHashCode(), Slots[2].GetHashCode(), Slots[3].GetHashCode());
 
-    public bool TryGiveItem(WeaponResource weapon)
+    public bool TryGiveItem(WeaponData weapon)
     {
         if (timeSinceLastPickup < PickupCooldown)
         {
@@ -159,5 +157,5 @@ public class Inventory : Component
     }
 
     public Slot ActiveSlot => Slots[CurrentSlot];
-    public WeaponResource ActiveWeapon => ActiveSlot.weapon;
+    public WeaponData ActiveWeapon => ActiveSlot.weapon;
 }

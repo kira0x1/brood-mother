@@ -13,9 +13,7 @@ namespace Kira;
 public sealed class AnimationController : Component, Component.ExecuteInEditor
 {
     [Property] public SkinnedModelRenderer Target { get; set; }
-
     [Property] public GameObject EyeSource { get; set; }
-
     [Property, Range(0.5f, 1.5f), Title("Avatar Height Scale")] public float Height { get; set; } = 1.0f;
 
     [Property, ToggleGroup("LookAtEnabled", Label = "Look At")]
@@ -30,7 +28,7 @@ public sealed class AnimationController : Component, Component.ExecuteInEditor
     [Property, Group("Inverse kinematics"), Title("Right Hand")] public GameObject IkRightHand { get; set; }
     [Property, Group("Inverse kinematics"), Title("Left Foot")] public GameObject IkLeftFoot { get; set; }
     [Property, Group("Inverse kinematics"), Title("Right Foot")] public GameObject IkRightFoot { get; set; }
-
+    
     public void UpdateIk()
     {
         if (Target is null)

@@ -9,9 +9,9 @@ public class Slot
     public int id;
 
     public bool hasItem;
-    public WeaponResource weapon;
+    public WeaponData weapon;
 
-    public void SetItem(WeaponResource weapon)
+    public void SetItem(WeaponData weapon)
     {
         this.weapon = weapon;
         this.icon = weapon.Icon;
