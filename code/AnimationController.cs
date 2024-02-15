@@ -28,7 +28,7 @@ public sealed class AnimationController : Component, Component.ExecuteInEditor
     [Property, Group("Inverse kinematics"), Title("Right Hand")] public GameObject IkRightHand { get; set; }
     [Property, Group("Inverse kinematics"), Title("Left Foot")] public GameObject IkLeftFoot { get; set; }
     [Property, Group("Inverse kinematics"), Title("Right Foot")] public GameObject IkRightFoot { get; set; }
-    
+
     public void UpdateIk()
     {
         if (Target is null)
