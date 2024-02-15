@@ -31,10 +31,9 @@ public sealed class CameraController : Component
         switch (FollowMode)
         {
             case CameraFollowMode.FIXED_FOLLOW:
-                GameObject.SetParent(PlayerTransform.GameObject, false);
                 break;
             case CameraFollowMode.SMOOTH_FOLLOW:
-                GameObject.SetParent(Scene);
+                // GameObject.SetParent(Scene);
                 break;
         }
     }
@@ -44,5 +43,12 @@ public sealed class CameraController : Component
         if (FollowMode != CameraFollowMode.SMOOTH_FOLLOW) return;
         var targetPos = PlayerTransform.Position - Offset;
         Transform.Position = Vector3.Lerp(Transform.Position, targetPos, LerpSpeed * Time.Delta);
+    }
+
+    protected override void OnFixedUpdate()
+    {
+        if (FollowMode != CameraFollowMode.FIXED_FOLLOW) return;
+        Vector3 targetPos = PlayerTransform.Position - Offset;
+        Transform.Position = targetPos;
     }
 }
