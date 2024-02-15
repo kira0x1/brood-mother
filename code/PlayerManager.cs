@@ -26,13 +26,7 @@ public sealed class PlayerManager : Component
     {
         var go = WeaponPrefab.Clone();
         var weapon = go.Components.Get<WeaponComponent>(true);
-        var gaveItem = Inventory.TryGiveItem(weapon.WeaponData);
-
-        if (gaveItem)
-        {
-            WeaponManager.OnGiveWeapon(weapon);
-        }
-
+        var gaveItem = Inventory.TryGiveItem(weapon);
         return gaveItem;
     }
 }

@@ -7,15 +7,17 @@ namespace Kira;
 public class Inventory : Component
 {
     public Slot[] Slots = Array.Empty<Slot>();
+
     public int PreviousSlot { get; set; }
     public int CurrentSlot { get; set; }
     public PlayerManager Player { get; set; }
     public AnimationController Animator { get; set; }
-
     private TimeSince timeSinceLastPickup { get; set; }
 
     [Property]
     private float PickupCooldown { get; set; } = 1.0f;
+
+    public override int ComponentVersion => 1;
 
     protected override void OnAwake()
     {
@@ -40,13 +42,19 @@ public class Inventory : Component
         HandleScrolling();
         HandleSlotInput();
 
-        var weapon = ActiveWeapon;
-        Animator.HoldType = ActiveSlot.hasItem && weapon != null ? weapon.WeaponHoldType : AnimationController.HoldTypes.None;
+        if (!ActiveSlot.hasItem)
+        {
+            Animator.HoldType = AnimationController.HoldTypes.None;
+
+            return;
+        }
+
+        Animator.HoldType = ActiveWeapon.WeaponData.WeaponHoldType;
 
         if (Input.Pressed("Drop") && ActiveSlot.hasItem)
         {
             DropWeapon(Player.WeaponManager.Weapon);
-            Player.WeaponManager.DropWeapon();
+            Player.WeaponManager.DropWeapon(ActiveSlot.id);
 
             // Clear Inventory Slot
             ActiveSlot.hasItem = false;
@@ -118,24 +126,30 @@ public class Inventory : Component
         var prevSlot = Slots[PreviousSlot];
         var curSlot = Slots[CurrentSlot];
 
-        if (prevSlot.hasItem || !curSlot.hasItem)
+        if (prevSlot.hasItem)
         {
-            Player.WeaponManager.HideWeapon();
+            Player.WeaponManager.HideWeapon(prevSlot.id);
         }
 
         if (curSlot.hasItem)
         {
-            Player.WeaponManager.ShowWeapon();
+            Player.WeaponManager.ShowWeapon(curSlot.id);
         }
     }
 
     public new int GetHashCode => HashCode.Combine(Slots[0].GetHashCode(), Slots[1].GetHashCode(), Slots[2].GetHashCode(), Slots[3].GetHashCode());
 
-    public bool TryGiveItem(WeaponData weapon)
+    public bool TryGiveItem(WeaponComponent weapon)
     {
         if (timeSinceLastPickup < PickupCooldown)
         {
             return false;
+        }
+
+        if (!ActiveSlot.hasItem)
+        {
+            GiveItemToSlot(ActiveSlot.id, weapon);
+            return true;
         }
 
         for (var i = 0; i < Slots.Length; i++)
@@ -145,10 +159,9 @@ public class Inventory : Component
             if (!slot.hasItem)
             {
                 timeSinceLastPickup = 0;
-                slot.SetItem(weapon);
                 PreviousSlot = CurrentSlot;
                 CurrentSlot = i;
-                OnSlotChanged();
+                GiveItemToSlot(CurrentSlot, weapon);
                 return true;
             }
         }
@@ -156,6 +169,12 @@ public class Inventory : Component
         return false;
     }
 
+    private void GiveItemToSlot(int slotId, WeaponComponent weapon)
+    {
+        Slots[slotId].SetItem(weapon);
+        Player.WeaponManager.OnGiveWeapon(weapon, slotId);
+    }
+
     public Slot ActiveSlot => Slots[CurrentSlot];
-    public WeaponData ActiveWeapon => ActiveSlot.weapon;
+    public WeaponComponent ActiveWeapon => ActiveSlot.Weapon;
 }
