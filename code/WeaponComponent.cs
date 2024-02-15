@@ -35,9 +35,10 @@ public sealed class WeaponComponent : Component
     [Group("Gizmos"), Property] private bool ShowHitGizmos { get; set; } = true;
 
 
-    private Angles Recoil { get; set; }
+    public Angles Recoil { get; set; }
     private float Spread { get; set; }
     private float Damage { get; set; }
+    private DecalRenderer CrosshairDecal { get; set; }
     private SkinnedModelRenderer Model { get; set; }
     private ParticleSystem MuzzleParticleSystem { get; set; }
     private SoundEvent ShootSound { get; set; }
@@ -50,6 +51,7 @@ public sealed class WeaponComponent : Component
     {
         Model = Components.GetInDescendantsOrSelf<SkinnedModelRenderer>(true);
         MuzzleParticleSystem = Muzzle.Components.GetInChildren<ParticleSystem>(true);
+        CrosshairDecal = Components.GetInDescendants<DecalRenderer>(true);
 
         WeaponName = WeaponData.Name;
         Spread = WeaponData.Spread;
@@ -62,11 +64,19 @@ public sealed class WeaponComponent : Component
     public void HolsterWeapon()
     {
         Model.Enabled = false;
+        if (CrosshairDecal.IsValid())
+        {
+            CrosshairDecal.Enabled = false;
+        }
     }
 
     public void DeployWeapon()
     {
         Model.Enabled = true;
+        if (CrosshairDecal.IsValid())
+        {
+            CrosshairDecal.Enabled = true;
+        }
     }
 
     protected override void OnUpdate()
@@ -95,13 +105,13 @@ public sealed class WeaponComponent : Component
         }
     }
 
-    public SceneTraceResult GunTrace()
+    private SceneTraceResult GunTrace()
     {
         Vector3 startPos = Transform.Position;
-        Vector3 direction = Transform.World.Forward.WithZ(-0.1f);
+        Vector3 direction = Muzzle.Transform.Rotation.Forward;
         direction += Vector3.Random * Spread;
 
-        Vector3 endPos = startPos + direction * 500f;
+        Vector3 endPos = startPos + direction * 5000f;
         var trace = Scene.Trace.Ray(startPos, endPos)
             .IgnoreGameObjectHierarchy(GameObject.Root)
             .UsePhysicsWorld()
@@ -144,7 +154,7 @@ public sealed class WeaponComponent : Component
 
         var spawnPos = new Transform(trace.HitPosition + trace.Normal * 2.0f, Rotation.LookAt(-trace.Normal, Vector3.Random), Random.Shared.Float(0.8f, 1.2f));
         var decal = DecalEffect.Clone(spawnPos);
-        var impactEffect = ImpactEffect.Clone(spawnPos);
+        ImpactEffect.Clone(spawnPos);
         decal.SetParent(trace.GameObject);
     }
 }

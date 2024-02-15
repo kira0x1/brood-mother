@@ -1,8 +1,8 @@
 {
   "RootObject": {
-    "Id": "ed77ee15-a49c-4698-a544-d02ef9c496a1",
+    "Id": "8591421e-ca84-492f-aa49-2d6c57f2debe",
     "Name": "mp5_prefab",
-    "Scale": "1.5,1.5,1.5",
+    "Scale": "1.4,1.4,1.4",
     "Enabled": true,
     "Components": [
       {
@@ -17,7 +17,7 @@
         },
         "Muzzle": {
           "_type": "gameobject",
-          "go": "f71846a4-6689-4ca5-a1dd-7158cefdf146"
+          "go": "e2f38a7b-dd3c-4022-8b3e-1e229bdb50a6"
         },
         "MuzzleFlash": "particles/pistol_muzzleflash.vpcf",
         "MuzzleSmoke": "particles/pistol_muzzleflash.vpcf",
@@ -44,9 +44,9 @@
     ],
     "Children": [
       {
-        "Id": "f71846a4-6689-4ca5-a1dd-7158cefdf146",
+        "Id": "e2f38a7b-dd3c-4022-8b3e-1e229bdb50a6",
         "Name": "Muzzle",
-        "Position": "12.94044,0,8.133644",
+        "Position": "20.11201,0,11.7605",
         "Enabled": true,
         "Components": [
           {
@@ -56,6 +56,27 @@
             "Looped": false,
             "Particles": "particles/pistol_muzzleflash.vpcf",
             "PlaybackSpeed": 1
+          }
+        ],
+        "Children": [
+          {
+            "Id": "d173882e-6d7b-47dc-9b61-287235fc14d6",
+            "Name": "Crosshair_Decal",
+            "Position": "-5.578182,-0.00007646308,-11.64032",
+            "Rotation": "0.0000001909211,-0.0000001047738,0.0000003869645,1.000004",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "DecalRenderer",
+                "CutoffAngle": 72.72,
+                "CutoffAngleSoftness": 11,
+                "Material": "materials/decals/terry2.vmat",
+                "Mod2XBlending": false,
+                "Size": "6,6,800",
+                "TintColor": "1,1,1,1",
+                "TriPlanar": false
+              }
+            ]
           }
         ]
       }

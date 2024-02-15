@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Sandbox;
 
 namespace Kira;
@@ -6,22 +7,36 @@ namespace Kira;
 [Title("Weapon Manager")]
 public sealed class WeaponManager : Component
 {
-    [Property] public GameObject WeaponBone;
+    [Property] private GameObject WeaponBone { get; set; }
 
-    public WeaponComponent Weapon;
+    public Angles Recoil
+    {
+        get
+        {
+            if (Weapon.IsValid()) return Weapon.Recoil;
+            return Angles.Zero;
+        }
+    }
+
+    public WeaponComponent Weapon => SpawnedWeapons[ActiveWeapon];
     private TimeSince LastShootTime = 0;
-    private GameObject ActiveWeapon;
+    private int ActiveWeapon;
     private AnimationController Animator;
     private PlayerManager Player;
+    private PlayerController Controller;
+    public override int ComponentVersion => 1;
+
+    private WeaponComponent[] SpawnedWeapons = new WeaponComponent[4];
 
     protected override void OnAwake()
     {
         base.OnAwake();
         Player = Components.Get<PlayerManager>();
         Animator = Components.Get<AnimationController>();
+        Controller = Components.Get<PlayerController>();
     }
 
-    protected override void OnUpdate()
+    protected override void OnFixedUpdate()
     {
         if (!Player.Inventory.ActiveSlot.hasItem)
         {
@@ -35,48 +50,55 @@ public sealed class WeaponManager : Component
             Player.Animator.Target?.Set("b_attack", true);
             LastShootTime = 0;
             Weapon.Shoot();
+            Controller.ApplyRecoil(Recoil);
         }
     }
 
-    public void OnGiveWeapon(WeaponComponent weapon)
+    public void OnGiveWeapon(WeaponComponent weapon, int slotId)
     {
-        HideWeapon();
+        HideWeapon(slotId);
 
-        ActiveWeapon = weapon.GameObject;
-        ActiveWeapon.SetParent(WeaponBone);
-        ActiveWeapon.Transform.Position = WeaponBone.Transform.Position;
-        ActiveWeapon.Transform.Rotation = WeaponBone.Transform.Rotation;
-        ActiveWeapon.Enabled = true;
+        var weaponGo = weapon.GameObject;
+        weaponGo.SetParent(WeaponBone);
+        weaponGo.Transform.Position = WeaponBone.Transform.Position;
+        weaponGo.Transform.Rotation = WeaponBone.Transform.Rotation;
+        weaponGo.Enabled = true;
 
-        Weapon = weapon;
+        SpawnedWeapons[slotId] = weapon;
+        ActiveWeapon = slotId;
         Weapon.Shooter = this;
         weapon.DeployWeapon();
     }
 
-    public void DropWeapon()
+    public void DropWeapon(int slotId)
     {
-        if (ActiveWeapon.IsValid())
+        var weapon = SpawnedWeapons[slotId];
+        weapon.GameObject.Destroy();
+        Animator.HoldType = AnimationController.HoldTypes.None;
+    }
+
+    public void HideWeapon(int slotId)
+    {
+        var weapon = SpawnedWeapons[slotId];
+
+        if (weapon.IsValid())
         {
-            ActiveWeapon.Destroy();
+            weapon.HolsterWeapon();
         }
 
         Animator.HoldType = AnimationController.HoldTypes.None;
     }
 
-    public void HideWeapon()
+    public void ShowWeapon(int slotId)
     {
-        if (ActiveWeapon.IsValid())
+        var weapon = SpawnedWeapons[slotId];
+
+        if (!weapon.IsValid())
         {
-            ActiveWeapon.Enabled = false;
+            return;
         }
 
-        Animator.HoldType = AnimationController.HoldTypes.None;
-    }
-
-    public void ShowWeapon()
-    {
-        if (ActiveWeapon.IsValid()) ActiveWeapon.Enabled = true;
-        if (Weapon.IsValid())
-            Animator.HoldType = Weapon.WeaponData.WeaponHoldType;
+        weapon.DeployWeapon();
+        Animator.HoldType = Weapon.WeaponData.WeaponHoldType;
     }
 }

@@ -26,7 +26,7 @@
     "PerMapRanking": false,
     "LeaderboardType": "None",
     "CsProjName": "",
-    "StartupScene": "scenes/minimal.scene",
+    "StartupScene": "scenes/spawn_testroom.scene",
     "ProjectTemplate": null,
     "MapStartupScene": null,
     "LaunchMode": "Normal",

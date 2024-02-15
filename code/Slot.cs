@@ -9,18 +9,19 @@ public class Slot
     public int id;
 
     public bool hasItem;
-    public WeaponData weapon;
+    public WeaponData weaponData => Weapon.WeaponData;
+    public WeaponComponent Weapon;
 
-    public void SetItem(WeaponData weapon)
+    public void SetItem(WeaponComponent weapon)
     {
-        this.weapon = weapon;
-        this.icon = weapon.Icon;
-        this.title = weapon.Name;
+        this.Weapon = weapon;
+        this.icon = weaponData.Icon;
+        this.title = weaponData.Name;
         this.hasItem = true;
     }
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(hasItem, weapon, hasItem);
+        return HashCode.Combine(hasItem, Weapon, hasItem);
     }
 }
