@@ -3,7 +3,7 @@
   "Type": "game",
   "Org": "cloth",
   "Ident": "brood_mother",
-  "Tags": null,
+  "Tags": "shooter wave garlic dwarf roguelike",
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
