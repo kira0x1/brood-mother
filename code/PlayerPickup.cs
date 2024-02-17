@@ -22,7 +22,7 @@ public class BoostTime
     }
 }
 
-[Group("Kira")]
+[Group("Kira/Player")]
 [Title("Player Pickup")]
 public sealed class PlayerPickup : Component
 {

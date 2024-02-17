@@ -1,8 +1,8 @@
-using Sandbox;
+using System;
 
 namespace Kira;
 
-[Group("Kira")]
+[Group("Kira/Player")]
 [Title("Player Controller")]
 public sealed class PlayerController : Component
 {
@@ -15,24 +15,46 @@ public sealed class PlayerController : Component
 
     // if current speed exceeds this then set anim to running
     [Property, Group("Move")] public float MinRunSpeed { get; set; } = 150f;
+
     [Property, Group("Aim")] private bool VerticalAimEnabled { get; set; } = false;
     [Property, Group("Aim")] public float AimSpeed { get; set; } = 2f;
+    [Property, Group("Aim")] public GameObject Eye { get; set; }
+    [Property, Group("Aim")] public bool IsAiming { get; set; }
 
-    [Property] public GameObject Eye { get; set; }
+    // [Property, Group("Aim")] public float MinLookY { get; set; } = -22f;
+    // [Property, Group("Aim")] public float MaxLookY { get; set; } = 22f;
+
+
+    public static PlayerController Instance { get; set; }
+
+
     private Angles EyeAngles;
     private WeaponManager WeaponManager;
     private RealTimeSince LastUngroundedTime;
-    private CharacterController Controller;
+    public CharacterController Controller;
     private AnimationController Animator;
-    private Vector3 WishVelocity;
+    public Vector3 WishVelocity;
     private bool IsCrouching;
     private Angles Recoil { get; set; }
 
+    private enum MoveModes
+    {
+        PLAYER_DIRECTION,
+        WORLD_DIRECTION,
+    }
+
+    [Property, Group("Move")]
+    private MoveModes MoveMode { get; set; }
+
+    [Property, Group("Move")] public ViewModes ViewMode { get; set; }
+
+    public Action<ViewModes> OnViewModeChangedEvent;
 
     protected override void OnAwake()
     {
         base.OnAwake();
 
+        Instance = this;
         Animator = Components.GetInDescendantsOrSelf<AnimationController>();
         Controller = Components.GetInDescendantsOrSelf<CharacterController>();
         WeaponManager = Components.Get<WeaponManager>();
@@ -43,12 +65,13 @@ public sealed class PlayerController : Component
         }
 
         ResetViewAngles();
+        OnViewModeChanged();
     }
 
     protected override void OnPreRender()
     {
         base.OnPreRender();
-        if (Eye.IsValid())
+        if (Eye.IsValid() && ViewMode == ViewModes.FIRST_PERSON && Game.InGame)
         {
             var idealEyePos = Eye.Transform.Position;
             var headPosition = Transform.Position + Vector3.Up * Controller.Height;
@@ -154,7 +177,10 @@ public sealed class PlayerController : Component
     private void UpdateRotation()
     {
         // float turnAxis = Input.AnalogLook.yaw * TurnSpeed * Time.Delta;
-        // Transform.LocalRotation = Transform.LocalRotation.RotateAroundAxis(Vector3.Up, turnAxis);
+        // var rot = Transform.LocalRotation.RotateAroundAxis(Vector3.Up, turnAxis);
+        // float yaw = float.Clamp(rot.Yaw(), MinLookY, MaxLookY);
+        // Transform.Rotation = Rotation.From(rot.Pitch(), yaw, rot.Roll());
+
         Transform.Rotation = Rotation.FromYaw(EyeAngles.ToRotation().Yaw());
     }
 
@@ -162,6 +188,12 @@ public sealed class PlayerController : Component
     {
         UpdateRecoil();
         UpdateAnimator();
+
+        if (Input.Pressed("Voice"))
+        {
+            OnViewModeChanged();
+            OnViewModeChangedEvent?.Invoke(ViewMode);
+        }
     }
 
     private void UpdateAnimator()
@@ -199,9 +231,18 @@ public sealed class PlayerController : Component
 
     private void BuildWishVelocity()
     {
-        var rotation = EyeAngles.ToRotation();
+        var rotation = MoveMode == MoveModes.WORLD_DIRECTION ? Transform.LocalRotation : EyeAngles.ToRotation();
         // var rotation = Transform.LocalRotation;
-        WishVelocity = rotation * Input.AnalogMove;
+
+        if (MoveMode == MoveModes.WORLD_DIRECTION)
+        {
+            WishVelocity = (Input.AnalogMove.Normal * MoveSpeed).WithZ(0f);
+        }
+        else
+        {
+            WishVelocity = rotation * Input.AnalogMove;
+        }
+
         WishVelocity = WishVelocity.WithZ(0f);
 
         if (!WishVelocity.IsNearZeroLength)
@@ -213,14 +254,19 @@ public sealed class PlayerController : Component
             WishVelocity *= MoveSpeed;
     }
 
-    private void HandleEyes()
+    private void OnViewModeChanged()
     {
-        if (!VerticalAimEnabled) return;
-        var ee = EyeAngles;
-        ee += Input.AnalogLook * AimSpeed;
-        ee.roll = 0;
-        EyeAngles = ee;
+        ViewMode = ViewMode == ViewModes.TOP_DOWN ? ViewModes.FIRST_PERSON : ViewModes.TOP_DOWN;
 
-        Animator.WithLook(EyeAngles.Forward, 1, 1, 1.0f);
+        if (ViewMode == ViewModes.TOP_DOWN)
+        {
+            MoveMode = MoveModes.WORLD_DIRECTION;
+            Animator.Target.SetBodyGroup("head", 0);
+        }
+        else
+        {
+            MoveMode = MoveModes.PLAYER_DIRECTION;
+            Animator.Target.SetBodyGroup("head", 1);
+        }
     }
 }

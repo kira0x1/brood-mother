@@ -1,0 +1,8 @@
+{
+  "Name": "Mob",
+  "MinSpawnLevel": 1,
+  "MaxSpawnLevel": 10,
+  "SpawnRateByLevel": 1,
+  "HurtSound": "sounds/hitmarker.sound",
+  "__references": []
+}

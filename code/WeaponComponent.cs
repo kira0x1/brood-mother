@@ -16,6 +16,7 @@ public struct FromTo
     }
 }
 
+[Category("Kira/Weapon")]
 public sealed class WeaponComponent : Component
 {
     public string WeaponName { get; set; }
@@ -38,10 +39,13 @@ public sealed class WeaponComponent : Component
     public Angles Recoil { get; set; }
     private float Spread { get; set; }
     private float Damage { get; set; }
+    private float DamageForce { get; set; } = 10f;
+
     private DecalRenderer CrosshairDecal { get; set; }
     private SkinnedModelRenderer Model { get; set; }
     private ParticleSystem MuzzleParticleSystem { get; set; }
     private SoundEvent ShootSound { get; set; }
+    private ViewModel ViewModel;
 
     private readonly List<FromTo> arrows = new List<FromTo>();
     private readonly List<Vector3> hits = new List<Vector3>();
@@ -52,12 +56,19 @@ public sealed class WeaponComponent : Component
         Model = Components.GetInDescendantsOrSelf<SkinnedModelRenderer>(true);
         MuzzleParticleSystem = Muzzle.Components.GetInChildren<ParticleSystem>(true);
         CrosshairDecal = Components.GetInDescendants<DecalRenderer>(true);
+        ViewModel = Components.Get<ViewModel>();
 
         WeaponName = WeaponData.Name;
         Spread = WeaponData.Spread;
         FireRate = WeaponData.FireRate;
         ShootSound = WeaponData.ShootSound;
         Damage = WeaponData.Damage;
+        DamageForce = WeaponData.DamageForce;
+
+        var cam = Scene.Components.GetInDescendants<CameraComponent>();
+        ViewModel.SetCamera(cam);
+        ViewModel.SetWeaponComponent(this);
+
         base.OnAwake();
     }
 
@@ -73,7 +84,13 @@ public sealed class WeaponComponent : Component
     public void DeployWeapon()
     {
         Model.Enabled = true;
-        if (CrosshairDecal.IsValid())
+
+        if (PlayerController.Instance.ViewMode == ViewModes.FIRST_PERSON)
+        {
+            CrosshairDecal.Enabled = false;
+            Log.Info("crosshair decal should be off");
+        }
+        else if (CrosshairDecal.IsValid())
         {
             CrosshairDecal.Enabled = true;
         }
@@ -109,6 +126,13 @@ public sealed class WeaponComponent : Component
     {
         Vector3 startPos = Transform.Position;
         Vector3 direction = Muzzle.Transform.Rotation.Forward;
+
+        if (PlayerController.Instance.ViewMode == ViewModes.FIRST_PERSON)
+        {
+            startPos = Scene.Camera.Transform.Position;
+            direction = Scene.Camera.Transform.Rotation.Forward;
+        }
+
         direction += Vector3.Random * Spread;
 
         Vector3 endPos = startPos + direction * 5000f;
@@ -131,7 +155,48 @@ public sealed class WeaponComponent : Component
             Sound.Play(ShootSound, Muzzle.Transform.Position);
         }
 
-        if (trace.Hit)
+        Transform muzzleTransform = Model.SceneModel.GetAttachment("muzzle").GetValueOrDefault(new Transform(Muzzle.Transform.Position));
+
+        if (trace.Distance > 80f)
+        {
+            var p = new SceneParticles(Scene.SceneWorld, "particles/tracer/trail_smoke.vpcf");
+            p.SetControlPoint(0, muzzleTransform.Position);
+            p.SetControlPoint(1, trace.EndPosition);
+            p.SetControlPoint(2, trace.Distance);
+            p.PlayUntilFinished(Task);
+        }
+
+        if (MuzzleFlash is not null)
+        {
+            var p = new SceneParticles(Scene.SceneWorld, MuzzleFlash);
+            p.SetControlPoint(0, muzzleTransform);
+            p.PlayUntilFinished(Task);
+        }
+
+        IHealthComponent damageable = null;
+        if (trace.Component.IsValid())
+            damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
+
+        float damage = 1f;
+        if (damageable is not null)
+        {
+            var player = PlayerManager.Instance.WeaponManager;
+
+            if (trace.Hitbox is not null && trace.Hitbox.Tags.Has("head"))
+            {
+                Log.Info("on hit marker headshot");
+                player.DoHitMarker(true);
+                damage *= 3f;
+            }
+            else
+            {
+                Log.Info("on hit marker body");
+                player.DoHitMarker(false);
+            }
+
+            damageable.TakeDamage(damage, trace.EndPosition, trace.Direction * DamageForce, GameObject.Id);
+        }
+        else if (trace.Hit)
         {
             hits.Add(trace.HitPosition);
             HandleHit(trace);
@@ -156,5 +221,29 @@ public sealed class WeaponComponent : Component
         var decal = DecalEffect.Clone(spawnPos);
         ImpactEffect.Clone(spawnPos);
         decal.SetParent(trace.GameObject);
+    }
+
+    protected override void OnEnabled()
+    {
+        base.OnEnabled();
+        PlayerController.Instance.OnViewModeChangedEvent += OnViewModeChanged;
+    }
+
+    protected override void OnDisabled()
+    {
+        base.OnDisabled();
+        PlayerController.Instance.OnViewModeChangedEvent += OnViewModeChanged;
+    }
+
+    private void OnViewModeChanged(ViewModes viewMode)
+    {
+        if (viewMode == ViewModes.TOP_DOWN && Model.Enabled)
+        {
+            CrosshairDecal.Enabled = true;
+        }
+        else
+        {
+            CrosshairDecal.Enabled = false;
+        }
     }
 }

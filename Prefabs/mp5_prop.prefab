@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "Id": "8f162121-39db-44a0-ad28-2c569ea747bf",
+    "Id": "46eb9aae-904b-4441-9e71-91e9790537d3",
     "Name": "mp5_prop",
     "Scale": "2,2,2",
     "Tags": "weapon",
@@ -33,24 +33,24 @@
         "IsTrigger": false,
         "Model": "models/weapons/sbox_smg_mp5/w_mp5.vmdl",
         "Static": false,
-        "Surface": "surfaces/watermelon.surface"
-      },
-      {
-        "__type": "BoxCollider",
-        "Center": "0,0,5",
-        "IsTrigger": true,
-        "Scale": "70,70,70",
-        "Static": false,
-        "Surface": null
+        "Surface": "surfaces/metal.weapon.surface"
       },
       {
         "__type": "WeaponPickup",
         "hasPickedUp": false,
-        "Weapon": "data/mp5_data.weapon",
+        "Weapon": "data/weapons/mp5_data.weapon",
         "WeaponPrefab": {
           "_type": "gameobject",
           "prefab": "prefabs/mp5_prefab.prefab"
         }
+      },
+      {
+        "__type": "SphereCollider",
+        "Center": "0,0,0",
+        "IsTrigger": true,
+        "Radius": 70,
+        "Static": false,
+        "Surface": null
       }
     ],
     "Children": []

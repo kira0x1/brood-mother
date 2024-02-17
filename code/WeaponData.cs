@@ -15,6 +15,9 @@ public partial class WeaponData : GameResource
     public float Damage { get; set; } = 10f;
 
     [Property]
+    public float DamageForce { get; set; } = 5f;
+
+    [Property]
     public float FireRate { get; set; } = 0.1f;
 
     [Property]

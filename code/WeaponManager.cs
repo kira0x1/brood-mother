@@ -1,12 +1,10 @@
-using System.Collections.Generic;
-using Sandbox;
-
 namespace Kira;
 
-[Group("Kira")]
+[Group("Kira/Weapon")]
 [Title("Weapon Manager")]
 public sealed class WeaponManager : Component
 {
+    public RealTimeSince LastHitmarkerTime { get; private set; }
     [Property] private GameObject WeaponBone { get; set; }
 
     public Angles Recoil
@@ -24,8 +22,6 @@ public sealed class WeaponManager : Component
     private AnimationController Animator;
     private PlayerManager Player;
     private PlayerController Controller;
-    public override int ComponentVersion => 1;
-
     private WeaponComponent[] SpawnedWeapons = new WeaponComponent[4];
 
     protected override void OnAwake()
@@ -52,6 +48,12 @@ public sealed class WeaponManager : Component
             Weapon.Shoot();
             Controller.ApplyRecoil(Recoil);
         }
+    }
+
+    public void DoHitMarker(bool isHeadshot)
+    {
+        Sound.Play(isHeadshot ? "hitmarker.headshot" : "hitmarker.hit");
+        LastHitmarkerTime = 0f;
     }
 
     public void OnGiveWeapon(WeaponComponent weapon, int slotId)

@@ -2,7 +2,7 @@ using Sandbox;
 
 namespace Kira;
 
-[Category("Kira")]
+[Category("Kira/Weapon")]
 public sealed class WeaponPickup : Component, Component.ITriggerListener
 {
     [Property]

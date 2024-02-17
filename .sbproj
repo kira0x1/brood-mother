@@ -205,6 +205,58 @@
           "GroupName": "Other"
         }
       ]
+    },
+    "Collision": {
+      "Defaults": {
+        "solid": "Collide",
+        "trigger": "Trigger",
+        "ladder": "Ignore",
+        "water": "Trigger",
+        "weapon": "Collide",
+        "player": "Collide"
+      },
+      "Pairs": [
+        {
+          "a": "solid",
+          "b": "solid",
+          "r": "Collide"
+        },
+        {
+          "a": "trigger",
+          "b": "playerclip",
+          "r": "Ignore"
+        },
+        {
+          "a": "trigger",
+          "b": "solid",
+          "r": "Trigger"
+        },
+        {
+          "a": "solid",
+          "b": "trigger",
+          "r": "Collide"
+        },
+        {
+          "a": "playerclip",
+          "b": "solid",
+          "r": "Collide"
+        },
+        {
+          "a": "player",
+          "b": "player",
+          "r": "Trigger"
+        },
+        {
+          "a": "weapon",
+          "b": "weapon",
+          "r": "Collide"
+        },
+        {
+          "a": "weapon",
+          "b": "player",
+          "r": "Trigger"
+        }
+      ]
     }
   }
 }

@@ -1,0 +1,34 @@
+@using Kira
+@using Sandbox;
+@using Sandbox.UI;
+@inherits PanelComponent
+
+@if (PlayerController.Instance.ViewMode != ViewModes.FIRST_PERSON) return;
+<root>
+    <div class="center">
+        <div class="crosshair"></div>
+    </div>
+</root>
+
+@code
+{
+    private PlayerController PlayerController { get; set; }
+
+    protected override void OnStart()
+    {
+        base.OnStart();
+        PlayerController = PlayerController.Instance;
+    }
+
+    protected override void OnUpdate()
+    {
+        if (!PlayerController.IsValid()) return;
+        var weaponManager = PlayerController.Instance.Components.Get<WeaponManager>();
+        SetClass("hitmarker", weaponManager.IsValid() && weaponManager.LastHitmarkerTime < 0.1f);
+    }
+
+    /// <summary>
+    /// the hash determines if the system should be rebuilt. If it changes, it will be rebuilt
+    /// </summary>
+    protected override int BuildHash() => System.HashCode.Combine(RealTime.Now);
+}

@@ -1,5 +1,3 @@
-using Sandbox;
-
 namespace Kira;
 
 public enum CameraFollowMode
@@ -8,7 +6,7 @@ public enum CameraFollowMode
     FIXED_FOLLOW
 }
 
-[Group("Kira")]
+[Group("Kira/Player")]
 [Title("Camera Controller")]
 public sealed class CameraController : Component
 {
@@ -21,10 +19,12 @@ public sealed class CameraController : Component
 
     private Vector3 Offset;
     private GameTransform PlayerTransform;
+    private Rotation StartRotation { get; set; }
 
     protected override void OnStart()
     {
         base.OnStart();
+        StartRotation = Transform.Rotation;
         PlayerTransform = PlayerController.Transform;
         Offset = PlayerTransform.Position - Transform.Position;
 
@@ -33,9 +33,21 @@ public sealed class CameraController : Component
             case CameraFollowMode.FIXED_FOLLOW:
                 break;
             case CameraFollowMode.SMOOTH_FOLLOW:
-                // GameObject.SetParent(Scene);
+                GameObject.SetParent(Scene);
                 break;
         }
+    }
+
+    protected override void OnEnabled()
+    {
+        base.OnEnabled();
+        PlayerController.Instance.OnViewModeChangedEvent += OnViewModeChange;
+    }
+
+    protected override void OnDisabled()
+    {
+        base.OnDisabled();
+        PlayerController.Instance.OnViewModeChangedEvent += OnViewModeChange;
     }
 
     protected override void OnUpdate()
@@ -50,5 +62,13 @@ public sealed class CameraController : Component
         if (FollowMode != CameraFollowMode.FIXED_FOLLOW) return;
         Vector3 targetPos = PlayerTransform.Position - Offset;
         Transform.Position = targetPos;
+    }
+
+    public void OnViewModeChange(ViewModes vm)
+    {
+        if (vm == ViewModes.TOP_DOWN)
+        {
+            Transform.Rotation = StartRotation;
+        }
     }
 }

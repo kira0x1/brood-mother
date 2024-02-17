@@ -3,7 +3,7 @@ using Sandbox;
 
 namespace Kira;
 
-[Group("Kira")]
+[Group("Kira/Player")]
 public class Inventory : Component
 {
     public Slot[] Slots = Array.Empty<Slot>();
@@ -16,8 +16,6 @@ public class Inventory : Component
 
     [Property]
     private float PickupCooldown { get; set; } = 1.0f;
-
-    public override int ComponentVersion => 1;
 
     protected override void OnAwake()
     {
