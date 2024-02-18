@@ -7,15 +7,14 @@ namespace Kira;
 [Group("Kira/Mob")]
 public sealed class MobSpawner : Component
 {
-    [Property, ValueRange(1f, 10f)] private Vector2 RandomSpawnTime { get; set; } = new Vector2(1f, 8f);
+    [Property, ValueRange(1f, 120f)] private Vector2 RandomSpawnTime { get; set; } = new Vector2(1f, 8f);
+    [Property, ResourceType("prefab")] private List<GameObject> MobPrefabs { get; set; } = new List<GameObject>();
+
+    private List<SpawnPoint> Spawners { get; set; } = new List<SpawnPoint>();
+    private List<MobController> MobsSpawned { get; set; }
+
     private TimeSince NextSpawnTime { get; set; } = 0;
     private float SpawnCD;
-    private List<SpawnPoint> Spawners { get; set; } = new List<SpawnPoint>();
-
-    [Property, ResourceType("prefab")]
-    private List<GameObject> MobPrefabs { get; set; } = new List<GameObject>();
-
-    private List<MobController> MobsSpawned { get; set; }
 
     protected override void OnAwake()
     {

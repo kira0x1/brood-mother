@@ -192,7 +192,6 @@ public sealed class PlayerController : Component
         if (Input.Pressed("Voice"))
         {
             OnViewModeChanged();
-            OnViewModeChangedEvent?.Invoke(ViewMode);
         }
     }
 
@@ -268,5 +267,7 @@ public sealed class PlayerController : Component
             MoveMode = MoveModes.PLAYER_DIRECTION;
             Animator.Target.SetBodyGroup("head", 1);
         }
+
+        OnViewModeChangedEvent?.Invoke(ViewMode);
     }
 }

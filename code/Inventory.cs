@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Transactions;
 using Sandbox;
 
 namespace Kira;
@@ -8,6 +9,7 @@ public class Inventory : Component
 {
     public Slot[] Slots = Array.Empty<Slot>();
 
+    public bool HasItem { get; private set; }
     public int PreviousSlot { get; set; }
     public int CurrentSlot { get; set; }
     public PlayerManager Player { get; set; }
@@ -52,9 +54,10 @@ public class Inventory : Component
         if (Input.Pressed("Drop") && ActiveSlot.hasItem)
         {
             DropWeapon(Player.WeaponManager.Weapon);
-            Player.WeaponManager.DropWeapon(ActiveSlot.id);
+            Player.WeaponManager.OnDropWeapon(ActiveSlot.id);
 
             // Clear Inventory Slot
+            HasItem = false;
             ActiveSlot.hasItem = false;
             ActiveSlot.icon = "";
         }
@@ -70,6 +73,7 @@ public class Inventory : Component
 
         var pos = Transform.Position + Transform.LocalRotation.Forward * 50f;
         var prop = weapon.WeaponProp.Clone(pos);
+        HasItem = false;
 
         // doing this just so i can inspect the object in the scene, withought having to open the prefab in the editor
         // probably better to comment this out when done
@@ -132,6 +136,11 @@ public class Inventory : Component
         if (curSlot.hasItem)
         {
             Player.WeaponManager.ShowWeapon(curSlot.id);
+            HasItem = true;
+        }
+        else
+        {
+            HasItem = false;
         }
     }
 
@@ -171,6 +180,7 @@ public class Inventory : Component
     {
         Slots[slotId].SetItem(weapon);
         Player.WeaponManager.OnGiveWeapon(weapon, slotId);
+        HasItem = true;
     }
 
     public Slot ActiveSlot => Slots[CurrentSlot];

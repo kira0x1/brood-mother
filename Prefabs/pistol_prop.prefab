@@ -1,22 +1,39 @@
 {
   "RootObject": {
-    "Id": "3d0e7dd7-7f0d-487c-8968-5293a1b3e75c",
-    "Name": "mp5_prop",
-    "Scale": "2,2,2",
+    "Id": "d4dfd9ba-c4b7-464f-b0da-73abb4077ad0",
+    "Name": "pistol_prop",
+    "Scale": "1.5,1.5,1.5",
     "Tags": "weapon",
     "Enabled": true,
     "Components": [
       {
         "__type": "SkinnedModelRenderer",
         "AnimationGraph": null,
-        "BodyGroups": 3,
+        "BodyGroups": 9493,
         "BoneMergeTarget": null,
         "CreateBoneObjects": false,
         "MaterialGroup": null,
         "MaterialOverride": null,
-        "Model": "models/sterling/smodel_coin/smodel_coin.vmdl",
+        "Model": "models/ports/portalrtx/props/cubes/reactorcube.vmdl",
         "RenderType": "On",
         "Tint": "1,1,1,1"
+      },
+      {
+        "__type": "WeaponPickup",
+        "hasPickedUp": false,
+        "Weapon": "data/weapons/pistol_data.weapon",
+        "WeaponPrefab": {
+          "_type": "gameobject",
+          "prefab": "prefabs/pistol_prefab.prefab"
+        }
+      },
+      {
+        "__type": "SphereCollider",
+        "Center": "0,0,0",
+        "IsTrigger": true,
+        "Radius": 40,
+        "Static": false,
+        "Surface": null
       },
       {
         "__type": "Rigidbody",
@@ -29,28 +46,12 @@
         "StartAsleep": false
       },
       {
-        "__type": "WeaponPickup",
-        "hasPickedUp": false,
-        "Weapon": "data/weapons/mp5_data.weapon",
-        "WeaponPrefab": {
-          "_type": "gameobject",
-          "prefab": "prefabs/mp5_prefab.prefab"
-        }
-      },
-      {
-        "__type": "SphereCollider",
+        "__type": "BoxCollider",
         "Center": "0,0,0",
-        "IsTrigger": true,
-        "Radius": 70,
+        "IsTrigger": false,
+        "Scale": "40,40,40",
         "Static": false,
         "Surface": null
-      },
-      {
-        "__type": "ModelCollider",
-        "IsTrigger": false,
-        "Model": "models/sterling/smodel_coin/smodel_coin.vmdl",
-        "Static": false,
-        "Surface": "surfaces/metal.sheet.surface"
       }
     ],
     "Children": []
@@ -59,6 +60,6 @@
   "MenuPath": null,
   "MenuIcon": null,
   "__references": [
-    "smd.dontbeweird3"
+    "mdlresrc.rtx_reactorcube"
   ]
 }
