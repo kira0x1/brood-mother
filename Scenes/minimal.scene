@@ -291,15 +291,15 @@
           "CrouchHeight": 28,
           "Eye": null,
           "Gravity": "0,0,800",
+          "IsAiming": false,
           "JumpVelocity": 300,
-          "MaxLookY": 22,
-          "MinLookY": -22,
           "MinRunSpeed": 180,
           "MoveMode": "PLAYER_DIRECTION",
           "MoveSpeed": 280,
           "StandHeight": 64,
           "TurnSpeed": 540,
-          "VerticalAimEnabled": false
+          "VerticalAimEnabled": false,
+          "ViewMode": "FIRST_PERSON"
         },
         {
           "__type": "CharacterFootsteps",
@@ -1170,7 +1170,7 @@
         {
           "__type": "WeaponPickup",
           "hasPickedUp": false,
-          "Weapon": "data/mp5_data.weapon",
+          "Weapon": "data/weapons/pistol_data.weapon",
           "WeaponPrefab": {
             "_type": "gameobject",
             "prefab": "prefabs/mp5_prefab.prefab"
@@ -1426,22 +1426,10 @@
           "EyesWeight": 1,
           "HeadWeight": 1,
           "Height": 1,
-          "IkLeftFoot": {
-            "_type": "gameobject",
-            "go": "30ef2fa5-cc52-45f7-bc29-e6b2b1cfe974"
-          },
-          "IkLeftHand": {
-            "_type": "gameobject",
-            "go": "1c98af18-b762-498e-a5bf-b923f6edb0b8"
-          },
-          "IkRightFoot": {
-            "_type": "gameobject",
-            "go": "f719ae08-3d86-464a-910b-f9bb940d350c"
-          },
-          "IkRightHand": {
-            "_type": "gameobject",
-            "go": "41163877-c835-4e18-a2e5-81846b238fd2"
-          },
+          "IkLeftFoot": null,
+          "IkLeftHand": null,
+          "IkRightFoot": null,
+          "IkRightHand": null,
           "LookAt": null,
           "LookAtEnabled": false,
           "Target": {
@@ -1465,15 +1453,15 @@
           "CrouchHeight": 28,
           "Eye": null,
           "Gravity": "0,0,800",
+          "IsAiming": false,
           "JumpVelocity": 300,
-          "MaxLookY": 22,
-          "MinLookY": -22,
           "MinRunSpeed": 180,
           "MoveMode": "PLAYER_DIRECTION",
           "MoveSpeed": 280,
           "StandHeight": 64,
           "TurnSpeed": 100,
-          "VerticalAimEnabled": false
+          "VerticalAimEnabled": false,
+          "ViewMode": "FIRST_PERSON"
         },
         {
           "__type": "CharacterFootsteps",
@@ -3162,7 +3150,7 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-02-17T08:48:25.5166261\u002B00:00",
+  "LastSaved": "2024-02-18T15:30:49.282824\u002B00:00",
   "__references": [
     "facepunch.watermelon",
     "nolankicks.dead4left"

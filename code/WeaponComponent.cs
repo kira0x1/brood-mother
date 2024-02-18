@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Sandbox;
 
 namespace Kira;
 
@@ -46,6 +45,7 @@ public sealed class WeaponComponent : Component
     private ParticleSystem MuzzleParticleSystem { get; set; }
     private SoundEvent ShootSound { get; set; }
     private ViewModel ViewModel;
+    private Transform MuzzleTransform;
 
     private readonly List<FromTo> arrows = new List<FromTo>();
     private readonly List<Vector3> hits = new List<Vector3>();
@@ -56,7 +56,9 @@ public sealed class WeaponComponent : Component
         Model = Components.GetInDescendantsOrSelf<SkinnedModelRenderer>(true);
         MuzzleParticleSystem = Muzzle.Components.GetInChildren<ParticleSystem>(true);
         CrosshairDecal = Components.GetInDescendants<DecalRenderer>(true);
-        ViewModel = Components.Get<ViewModel>();
+        ViewModel = Components.GetInDescendantsOrSelf<ViewModel>();
+
+        MuzzleTransform = new Transform(Muzzle.Transform.LocalPosition);
 
         WeaponName = WeaponData.Name;
         Spread = WeaponData.Spread;
@@ -66,8 +68,16 @@ public sealed class WeaponComponent : Component
         DamageForce = WeaponData.DamageForce;
 
         var cam = Scene.Components.GetInDescendants<CameraComponent>();
-        ViewModel.SetCamera(cam);
-        ViewModel.SetWeaponComponent(this);
+        if (!cam.IsValid())
+        {
+            Log.Warning("camera not found");
+        }
+
+        // if (ViewModel.IsValid())
+        // {
+        //     ViewModel.SetCamera(cam);
+        //     ViewModel.SetWeaponComponent(this);
+        // }
 
         base.OnAwake();
     }
@@ -85,14 +95,16 @@ public sealed class WeaponComponent : Component
     {
         Model.Enabled = true;
 
-        if (PlayerController.Instance.ViewMode == ViewModes.FIRST_PERSON)
+        if (CrosshairDecal.IsValid())
         {
-            CrosshairDecal.Enabled = false;
-            Log.Info("crosshair decal should be off");
-        }
-        else if (CrosshairDecal.IsValid())
-        {
-            CrosshairDecal.Enabled = true;
+            if (PlayerController.Instance.ViewMode == ViewModes.FIRST_PERSON)
+            {
+                CrosshairDecal.Enabled = false;
+            }
+            else
+            {
+                CrosshairDecal.Enabled = true;
+            }
         }
     }
 
@@ -155,12 +167,12 @@ public sealed class WeaponComponent : Component
             Sound.Play(ShootSound, Muzzle.Transform.Position);
         }
 
-        Transform muzzleTransform = Model.SceneModel.GetAttachment("muzzle").GetValueOrDefault(new Transform(Muzzle.Transform.Position));
+        MuzzleTransform = new Transform(Muzzle.Transform.Position, Muzzle.Transform.Rotation);
 
         if (trace.Distance > 80f)
         {
             var p = new SceneParticles(Scene.SceneWorld, "particles/tracer/trail_smoke.vpcf");
-            p.SetControlPoint(0, muzzleTransform.Position);
+            p.SetControlPoint(0, MuzzleTransform.Position);
             p.SetControlPoint(1, trace.EndPosition);
             p.SetControlPoint(2, trace.Distance);
             p.PlayUntilFinished(Task);
@@ -169,7 +181,7 @@ public sealed class WeaponComponent : Component
         if (MuzzleFlash is not null)
         {
             var p = new SceneParticles(Scene.SceneWorld, MuzzleFlash);
-            p.SetControlPoint(0, muzzleTransform);
+            p.SetControlPoint(0, MuzzleTransform);
             p.PlayUntilFinished(Task);
         }
 
@@ -237,6 +249,7 @@ public sealed class WeaponComponent : Component
 
     private void OnViewModeChanged(ViewModes viewMode)
     {
+        if (!CrosshairDecal.IsValid()) return;
         if (viewMode == ViewModes.TOP_DOWN && Model.Enabled)
         {
             CrosshairDecal.Enabled = true;

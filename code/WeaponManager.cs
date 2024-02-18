@@ -34,7 +34,7 @@ public sealed class WeaponManager : Component
 
     protected override void OnFixedUpdate()
     {
-        if (!Player.Inventory.ActiveSlot.hasItem)
+        if (!Player.Inventory.HasItem)
         {
             return;
         }
@@ -58,6 +58,11 @@ public sealed class WeaponManager : Component
 
     public void OnGiveWeapon(WeaponComponent weapon, int slotId)
     {
+        if (ActiveWeapon != slotId && Weapon.IsValid())
+        {
+            HideWeapon(ActiveWeapon);
+        }
+
         HideWeapon(slotId);
 
         var weaponGo = weapon.GameObject;
@@ -72,7 +77,7 @@ public sealed class WeaponManager : Component
         weapon.DeployWeapon();
     }
 
-    public void DropWeapon(int slotId)
+    public void OnDropWeapon(int slotId)
     {
         var weapon = SpawnedWeapons[slotId];
         weapon.GameObject.Destroy();
@@ -100,6 +105,7 @@ public sealed class WeaponManager : Component
             return;
         }
 
+        ActiveWeapon = slotId;
         weapon.DeployWeapon();
         Animator.HoldType = Weapon.WeaponData.WeaponHoldType;
     }
