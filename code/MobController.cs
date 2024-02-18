@@ -14,11 +14,19 @@ public sealed class MobController : Component, IHealthComponent
     private AnimationController Animator;
     private SoundEvent HurtSound;
 
-    public LifeStates LifeState { get; set; } = LifeStates.ALIVE;
     public Action<MobController> OnDeathEvent;
 
     [Property]
     public float MinDistance { get; } = 180f;
+
+    private enum MobStates
+    {
+        IDLE,
+        CHASE,
+        DEAD
+    }
+
+    private MobStates CurState { get; set; }
 
 
     protected override void OnAwake()
@@ -36,16 +44,30 @@ public sealed class MobController : Component, IHealthComponent
         Player = PlayerController.Instance;
         Agent.MoveTo(Player.Transform.Position);
         Animator.LookAt = Player.GameObject;
+        CurState = MobStates.CHASE;
     }
 
     protected override void OnUpdate()
     {
-        Animator.LookAtEnabled = true;
-        Animator.WithLook(Player.Transform.Position);
+        switch (CurState)
+        {
+            case MobStates.CHASE:
+                ChaseState();
+                break;
+            case MobStates.IDLE:
+                break;
+            case MobStates.DEAD:
+                break;
+        }
+    }
+
+    private void ChaseState()
+    {
+        // Animator.LookAtEnabled = true;
+        // Animator.WithLook(Player.Transform.Position);
         Animator.WithVelocity(Agent.Velocity);
         Animator.WithWishVelocity(Agent.WishVelocity);
         // Transform.Rotation = Animator.EyeWorldTransform.Rotation;
-
 
         float distance = Vector3.DistanceBetween(Transform.Position, Player.Transform.Position);
 
@@ -69,7 +91,10 @@ public sealed class MobController : Component, IHealthComponent
             p.PlayUntilFinished(Task);
         }
 
-        if (LifeState == LifeStates.DEAD) return;
+        if (CurState == MobStates.DEAD)
+        {
+            return;
+        }
 
         if (HurtSound is not null)
         {
@@ -86,13 +111,12 @@ public sealed class MobController : Component, IHealthComponent
 
     private void OnDeath()
     {
-        LifeState = LifeStates.DEAD;
+        CurState = MobStates.DEAD;
+        Agent.Stop();
+        Animator.WithVelocity(Vector3.Zero);
+        Animator.Target.Enabled = false;
         OnDeathEvent?.Invoke(this);
-    }
-}
 
-public enum LifeStates
-{
-    ALIVE,
-    DEAD
+        GameObject.Destroy();
+    }
 }

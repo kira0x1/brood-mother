@@ -189,7 +189,7 @@ public sealed class WeaponComponent : Component
         if (trace.Component.IsValid())
             damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
 
-        float damage = 1f;
+        float damage = WeaponData.Damage;
         if (damageable is not null)
         {
             var player = PlayerManager.Instance.WeaponManager;

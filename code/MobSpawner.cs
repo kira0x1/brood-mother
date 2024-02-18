@@ -13,8 +13,16 @@ public sealed class MobSpawner : Component
     private List<SpawnPoint> Spawners { get; set; } = new List<SpawnPoint>();
     private List<MobController> MobsSpawned { get; set; }
 
+    [Group("Cooldowns"), Property, Description("How many to spawn before starting to wait")]
+    private int WaitAfterSpawningAmount { get; set; } = 2;
+
+    [Group("Cooldowns"), Property, Description("How long to wait after spawning amount specified")]
+    private float WaitAfterSpawningTime { get; set; } = 10f;
+
     private TimeSince NextSpawnTime { get; set; } = 0;
+    private TimeSince NextSpawnWaitTime { get; set; } = 0;
     private float SpawnCD;
+    private int CurSpawnedSinceLastWait { get; set; }
 
     protected override void OnAwake()
     {
@@ -24,6 +32,7 @@ public sealed class MobSpawner : Component
         Spawners = new List<SpawnPoint>();
         Spawners = Components.GetAll<SpawnPoint>(FindMode.InChildren).ToList();
         SpawnCD = GetRandomSpawnTime();
+        NextSpawnWaitTime = WaitAfterSpawningTime;
     }
 
     private float GetRandomSpawnTime()
@@ -33,7 +42,7 @@ public sealed class MobSpawner : Component
 
     protected override void OnUpdate()
     {
-        if (NextSpawnTime > SpawnCD)
+        if (NextSpawnTime > SpawnCD && NextSpawnWaitTime > WaitAfterSpawningTime)
         {
             SpawnMob();
         }
@@ -41,7 +50,7 @@ public sealed class MobSpawner : Component
 
     private void SpawnMob()
     {
-        Log.Info("spawning mob");
+        CurSpawnedSinceLastWait++;
         SpawnCD = GetRandomSpawnTime();
         NextSpawnTime = 0;
         var point = GetRandomSpawnPoint();
@@ -49,6 +58,12 @@ public sealed class MobSpawner : Component
         MobController mob = mobGo.Components.Get<MobController>();
         mob.OnDeathEvent += OnMobDeath;
         MobsSpawned.Add(mob);
+
+        if (CurSpawnedSinceLastWait >= WaitAfterSpawningAmount)
+        {
+            NextSpawnWaitTime = 0;
+            CurSpawnedSinceLastWait = 0;
+        }
     }
 
     private void OnMobDeath(MobController mob)

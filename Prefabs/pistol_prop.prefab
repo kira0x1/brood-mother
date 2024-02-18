@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "Id": "d4dfd9ba-c4b7-464f-b0da-73abb4077ad0",
+    "Id": "c586e274-b9bf-46ab-94a6-0e255116e679",
     "Name": "pistol_prop",
     "Scale": "1.5,1.5,1.5",
     "Tags": "weapon",
@@ -51,7 +51,7 @@
         "IsTrigger": false,
         "Scale": "40,40,40",
         "Static": false,
-        "Surface": null
+        "Surface": "surfaces/metal.sheet.surface"
       }
     ],
     "Children": []

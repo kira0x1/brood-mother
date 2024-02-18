@@ -1216,17 +1216,19 @@
     {
       "Id": "d4ae2719-74be-4672-91b7-d940ea700fea",
       "Name": "Spawns",
+      "Enabled": true,
       "Components": [
         {
           "__type": "MobSpawner",
-          "__enabled": false,
           "MobPrefabs": [
             {
               "_type": "gameobject",
               "prefab": "prefabs/mobtest.prefab"
             }
           ],
-          "RandomSpawnTime": "1,8"
+          "RandomSpawnTime": "0,1",
+          "WaitAfterSpawningAmount": 2,
+          "WaitAfterSpawningTime": 10
         }
       ],
       "Children": [
@@ -1305,7 +1307,7 @@
       "Id": "4294bccb-8afa-4309-9ad8-d0afbba6724a",
       "Name": "mobtest",
       "Position": "214.3966,-56.32486,6.047134",
-      "Tags": "solid,mob",
+      "Tags": "mob,solid",
       "__Prefab": "prefabs/mobtest.prefab"
     },
     {
@@ -1387,7 +1389,7 @@
   },
   "Title": "spawn_testroom",
   "Description": "",
-  "LastSaved": "2024-02-18T16:53:21.768755\u002B00:00",
+  "LastSaved": "2024-02-18T17:44:50.2183779\u002B00:00",
   "__references": [
     "facepunch.card_box_open",
     "facepunch.wooden_crate",
