@@ -1,8 +1,8 @@
 {
   "RootObject": {
-    "Id": "c586e274-b9bf-46ab-94a6-0e255116e679",
+    "Id": "cb54aee6-15c5-4ecd-9e2d-cba5d518c49d",
     "Name": "pistol_prop",
-    "Scale": "1.5,1.5,1.5",
+    "Scale": "0.8,0.8,0.8",
     "Tags": "weapon",
     "Enabled": true,
     "Components": [
@@ -14,7 +14,7 @@
         "CreateBoneObjects": false,
         "MaterialGroup": null,
         "MaterialOverride": null,
-        "Model": "models/ports/portalrtx/props/cubes/reactorcube.vmdl",
+        "Model": "models/citizen_props/crate01.vmdl",
         "RenderType": "On",
         "Tint": "1,1,1,1"
       },
@@ -29,9 +29,9 @@
       },
       {
         "__type": "SphereCollider",
-        "Center": "0,0,0",
+        "Center": "0,0,20",
         "IsTrigger": true,
-        "Radius": 40,
+        "Radius": 120,
         "Static": false,
         "Surface": null
       },
@@ -46,12 +46,11 @@
         "StartAsleep": false
       },
       {
-        "__type": "BoxCollider",
-        "Center": "0,0,0",
+        "__type": "ModelCollider",
         "IsTrigger": false,
-        "Scale": "40,40,40",
+        "Model": "models/citizen_props/crate01.vmdl",
         "Static": false,
-        "Surface": "surfaces/metal.sheet.surface"
+        "Surface": "surfaces/wood.surface"
       }
     ],
     "Children": []
@@ -59,7 +58,5 @@
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
-  "__references": [
-    "mdlresrc.rtx_reactorcube"
-  ]
+  "__references": []
 }

@@ -109,4 +109,9 @@ public sealed class WeaponManager : Component
         weapon.DeployWeapon();
         Animator.HoldType = Weapon.WeaponData.WeaponHoldType;
     }
+
+    public void OnAimChanged(bool isAiming)
+    {
+        Player.Animator.Target?.Set("aim", true);
+    }
 }

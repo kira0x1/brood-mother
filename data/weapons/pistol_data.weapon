@@ -3,10 +3,10 @@
   "Icon": "facepunch.w_usp/thumb.png",
   "Damage": 10,
   "DamageForce": 5,
-  "FireRate": 0.1,
+  "FireRate": 0.5,
   "Spread": 0.01,
   "ShootSound": "sounds/smg_shoot.sound",
-  "WeaponHoldType": "Shotgun",
+  "WeaponHoldType": "Pistol",
   "__references": [
     "facepunch.w_usp"
   ]

@@ -135,6 +135,7 @@
           "Id": "bbc17dad-2849-42f3-b878-77d05b6ffc09",
           "Name": "floor",
           "Scale": "12,12,1",
+          "Tags": "floor",
           "Enabled": true,
           "Components": [
             {
@@ -555,6 +556,13 @@
                                       "Position": "5.621478,-0.4155216,5.929071",
                                       "Rotation": "-0.7055932,0.1379533,-0.6935186,0.04625109",
                                       "Enabled": true
+                                    },
+                                    {
+                                      "Id": "d375eeae-ddd7-42e9-a0cc-cf6b19d01167",
+                                      "Name": "Aim",
+                                      "Position": "2.451518,-3.238407,-1.279189",
+                                      "Rotation": "0.4972807,0.4662443,0.5017505,0.5325172",
+                                      "Enabled": true
                                     }
                                   ]
                                 }
@@ -593,16 +601,7 @@
                                               "Name": "hold_L",
                                               "Position": "5.361056,0.6217204,3.394403",
                                               "Rotation": "-0.6958921,-0.170415,-0.392899,0.5764749",
-                                              "Enabled": true,
-                                              "Children": [
-                                                {
-                                                  "Id": "1f78c343-b44f-47f1-a453-15638a54f0e4",
-                                                  "Name": "WeaponBone",
-                                                  "Position": "-7.256943,-21.02151,5.86584",
-                                                  "Rotation": "0.1052516,0.01727276,0.6281579,0.7707663",
-                                                  "Enabled": true
-                                                }
-                                              ]
+                                              "Enabled": true
                                             },
                                             {
                                               "Id": "86cdf0f1-5287-41bc-b116-cb912a2b3fa1",
@@ -810,7 +809,16 @@
                                               "Name": "hold_R",
                                               "Position": "5.361083,0.6219016,-3.394506",
                                               "Rotation": "-0.576474,0.3928988,0.1704146,0.695893",
-                                              "Enabled": true
+                                              "Enabled": true,
+                                              "Children": [
+                                                {
+                                                  "Id": "1f78c343-b44f-47f1-a453-15638a54f0e4",
+                                                  "Name": "WeaponBone",
+                                                  "Position": "-16.46605,9.432989,7.598867",
+                                                  "Rotation": "-0.01858063,0.02265386,-0.05967719,0.9978138",
+                                                  "Enabled": true
+                                                }
+                                              ]
                                             },
                                             {
                                               "Id": "bbb0fb6a-8ab6-41d7-9758-381e92a19e3c",
@@ -1204,18 +1212,12 @@
               ]
             }
           ]
-        },
-        {
-          "Id": "d375eeae-ddd7-42e9-a0cc-cf6b19d01167",
-          "Name": "Aim",
-          "Position": "5.998237,0.0001050164,56.54369",
-          "Enabled": true
         }
       ]
     },
     {
       "Id": "d4ae2719-74be-4672-91b7-d940ea700fea",
-      "Name": "Spawns",
+      "Name": "Spawner",
       "Enabled": true,
       "Components": [
         {
@@ -1226,9 +1228,9 @@
               "prefab": "prefabs/mobtest.prefab"
             }
           ],
-          "RandomSpawnTime": "0,1",
-          "WaitAfterSpawningAmount": 2,
-          "WaitAfterSpawningTime": 10
+          "RandomSpawnTime": "1.5,2.5",
+          "WaitAfterSpawningAmount": 3,
+          "WaitAfterSpawningTime": 5
         }
       ],
       "Children": [
@@ -1244,62 +1246,32 @@
               "Color": "0.8902,0.31765,0.05098,1"
             }
           ]
-        }
-      ]
-    },
-    {
-      "Id": "b1fe7cef-6565-4155-8082-7fed2c6b4482",
-      "Name": "mp5_prop",
-      "Position": "262.4049,-122.4229,54.5",
-      "Rotation": "0,0,0.5,0.8660254",
-      "Scale": "2,2,2",
-      "Tags": "weapon",
-      "Components": [
-        {
-          "__type": "SkinnedModelRenderer",
-          "AnimationGraph": null,
-          "BodyGroups": 3,
-          "BoneMergeTarget": null,
-          "CreateBoneObjects": false,
-          "MaterialGroup": null,
-          "MaterialOverride": null,
-          "Model": "models/sbox_props/cardboard_box/cardboard_box_open.vmdl",
-          "RenderType": "On",
-          "Tint": "1,1,1,1"
         },
         {
-          "__type": "Rigidbody",
-          "AngularDamping": 0,
-          "Gravity": true,
-          "LinearDamping": 0,
-          "Locking": {},
-          "MassOverride": 0,
-          "RigidbodyFlags": 0,
-          "StartAsleep": false
+          "Id": "5e1e0277-5981-4b84-adce-76caaabca96f",
+          "Name": "Spawn Point",
+          "Position": "-33.16168,-289.417,0",
+          "Rotation": "0,0,0.5143812,0.8575616",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "SpawnPoint",
+              "Color": "0.8902,0.31765,0.05098,1"
+            }
+          ]
         },
         {
-          "__type": "ModelCollider",
-          "IsTrigger": false,
-          "Model": "models/sbox_props/cardboard_box/cardboard_box_open.vmdl",
-          "Static": false,
-          "Surface": "surfaces/metal.weapon.surface"
-        },
-        {
-          "__type": "WeaponPickup",
-          "hasPickedUp": false,
-          "Weapon": "data/weapons/mp5_data.weapon",
-          "WeaponPrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/mp5_prefab.prefab"
-          }
-        },
-        {
-          "__type": "SphereCollider",
-          "Center": "0,0,0",
-          "IsTrigger": true,
-          "Radius": 70,
-          "Static": false,
-          "Surface": null
+          "Id": "b11509b7-3379-4602-84ab-89782e870acd",
+          "Name": "Spawn Point",
+          "Position": "-390.3029,-98.819,0",
+          "Rotation": "0,0,0.01897395,0.9998199",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "SpawnPoint",
+              "Color": "0.8902,0.31765,0.05098,1"
+            }
+          ]
         }
       ]
     },
@@ -1307,46 +1279,8 @@
       "Id": "4294bccb-8afa-4309-9ad8-d0afbba6724a",
       "Name": "mobtest",
       "Position": "214.3966,-56.32486,6.047134",
-      "Tags": "mob,solid",
+      "Tags": "solid,mob",
       "__Prefab": "prefabs/mobtest.prefab"
-    },
-    {
-      "Id": "81265264-bdd5-4bfe-8fb5-15b3be2a685c",
-      "Name": "pistol_prop",
-      "Position": "195.9218,-296.9221,60.5",
-      "Rotation": "0,0,0.4287857,0.9034062",
-      "Scale": "1.5,1.5,1.5",
-      "Tags": "weapon",
-      "Enabled": true,
-      "__Prefab": "prefabs/pistol_prop.prefab"
-    },
-    {
-      "Id": "3d0e7dd7-7f0d-487c-8968-5293a1b3e75c",
-      "Name": "mp5_prop (1)",
-      "Position": "180.3776,-6.149925,29.31091",
-      "Rotation": "0,0,-0.6087614,0.7933534",
-      "Scale": "2,2,2",
-      "Tags": "weapon",
-      "Enabled": true,
-      "__Prefab": "prefabs/mp5_prop.prefab"
-    },
-    {
-      "Id": "27d78134-7957-405a-97a9-ca6326350244",
-      "Name": "male_07_reference",
-      "Position": "-135.2364,-420,0.513749",
-      "Rotation": "0,0,0.4292727,0.9031749",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Prop",
-          "Health": 0,
-          "IsStatic": false,
-          "Model": "models/humans/group01/male_07/male_07_reference.vmdl",
-          "OnPropBreak": null,
-          "OnPropTakeDamage": null,
-          "ShowCreatedComponents": false
-        }
-      ]
     },
     {
       "Id": "6a3dab2b-e68a-449a-89cd-00c0f19ccb82",
@@ -1364,6 +1298,24 @@
           "ShowCreatedComponents": false
         }
       ]
+    },
+    {
+      "Id": "d2ed242f-a9b0-4f38-af65-3e9c7f069d38",
+      "Name": "pistol_prop",
+      "Position": "108.687,153.1053,0.5",
+      "Scale": "0.8,0.8,0.8",
+      "Tags": "weapon",
+      "Enabled": true,
+      "__Prefab": "prefabs/pistol_prop.prefab"
+    },
+    {
+      "Id": "cb54aee6-15c5-4ecd-9e2d-cba5d518c49d",
+      "Name": "pistol_prop (1)",
+      "Position": "153.769,71.83145,0.5",
+      "Scale": "0.8,0.8,0.8",
+      "Tags": "weapon",
+      "Enabled": true,
+      "__Prefab": "prefabs/pistol_prop.prefab"
     }
   ],
   "SceneProperties": {
@@ -1389,10 +1341,8 @@
   },
   "Title": "spawn_testroom",
   "Description": "",
-  "LastSaved": "2024-02-18T17:44:50.2183779\u002B00:00",
+  "LastSaved": "2024-02-19T10:39:54.5003277\u002B00:00",
   "__references": [
-    "facepunch.card_box_open",
-    "facepunch.wooden_crate",
-    "yfi.male_07_model"
+    "facepunch.wooden_crate"
   ]
 }

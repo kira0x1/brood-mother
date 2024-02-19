@@ -21,6 +21,14 @@ public sealed class CameraController : Component
     private GameTransform PlayerTransform;
     private Rotation StartRotation { get; set; }
 
+    public static CameraController Instance;
+
+    protected override void OnAwake()
+    {
+        base.OnAwake();
+        Instance = this;
+    }
+
     protected override void OnStart()
     {
         base.OnStart();

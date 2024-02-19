@@ -50,6 +50,8 @@ public sealed class WeaponComponent : Component
     private readonly List<FromTo> arrows = new List<FromTo>();
     private readonly List<Vector3> hits = new List<Vector3>();
 
+    private GunAnimator Animator { get; set; }
+
 
     protected override void OnAwake()
     {
@@ -57,6 +59,10 @@ public sealed class WeaponComponent : Component
         MuzzleParticleSystem = Muzzle.Components.GetInChildren<ParticleSystem>(true);
         CrosshairDecal = Components.GetInDescendants<DecalRenderer>(true);
         ViewModel = Components.GetInDescendantsOrSelf<ViewModel>();
+        Animator = Components.Get<GunAnimator>();
+
+        if (Animator.IsValid())
+            Log.Info("found animator");
 
         MuzzleTransform = new Transform(Muzzle.Transform.LocalPosition);
 
@@ -66,12 +72,6 @@ public sealed class WeaponComponent : Component
         ShootSound = WeaponData.ShootSound;
         Damage = WeaponData.Damage;
         DamageForce = WeaponData.DamageForce;
-
-        var cam = Scene.Components.GetInDescendants<CameraComponent>();
-        if (!cam.IsValid())
-        {
-            Log.Warning("camera not found");
-        }
 
         // if (ViewModel.IsValid())
         // {
@@ -196,13 +196,11 @@ public sealed class WeaponComponent : Component
 
             if (trace.Hitbox is not null && trace.Hitbox.Tags.Has("head"))
             {
-                Log.Info("on hit marker headshot");
                 player.DoHitMarker(true);
                 damage *= 3f;
             }
             else
             {
-                Log.Info("on hit marker body");
                 player.DoHitMarker(false);
             }
 
@@ -258,5 +256,17 @@ public sealed class WeaponComponent : Component
         {
             CrosshairDecal.Enabled = false;
         }
+    }
+
+    public void OnAimChanged(bool isAiming)
+    {
+        if (!Animator.IsValid())
+        {
+            return;
+        }
+
+        Animator.OnAimChanged(isAiming);
+        // Animator.OnDeploy();
+        Log.Info("On Aim Changed");
     }
 }

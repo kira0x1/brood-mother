@@ -13,11 +13,12 @@ public sealed class MobController : Component, IHealthComponent
     private PlayerController Player;
     private AnimationController Animator;
     private SoundEvent HurtSound;
+    private GameTransform Model;
 
     public Action<MobController> OnDeathEvent;
 
     [Property]
-    public float MinDistance { get; } = 180f;
+    public float MinDistance { get; private set; } = 60f;
 
     private enum MobStates
     {
@@ -36,6 +37,8 @@ public sealed class MobController : Component, IHealthComponent
         Animator = Components.Get<AnimationController>();
         if (MobData is not null)
             HurtSound = MobData.HurtSound;
+
+        Model = Components.GetInChildren<ModelRenderer>().Transform;
     }
 
     protected override void OnStart()
@@ -43,7 +46,6 @@ public sealed class MobController : Component, IHealthComponent
         base.OnStart();
         Player = PlayerController.Instance;
         Agent.MoveTo(Player.Transform.Position);
-        Animator.LookAt = Player.GameObject;
         CurState = MobStates.CHASE;
     }
 
@@ -63,7 +65,7 @@ public sealed class MobController : Component, IHealthComponent
 
     private void ChaseState()
     {
-        // Animator.LookAtEnabled = true;
+        // Animator.LookAtEnabled = false;
         // Animator.WithLook(Player.Transform.Position);
         Animator.WithVelocity(Agent.Velocity);
         Animator.WithWishVelocity(Agent.WishVelocity);
@@ -79,9 +81,12 @@ public sealed class MobController : Component, IHealthComponent
         {
             Agent.MoveTo(Transform.Position);
         }
+
+        Model.Rotation = Rotation.FromYaw(Agent.Velocity.EulerAngles.ToRotation().Yaw());
     }
 
-    public void TakeDamage(float damage, Vector3 position, Vector3 force, Guid attackerId, DamageType damageType = DamageType.BULLET)
+    public void TakeDamage(float damage, Vector3 position, Vector3 force, Guid attackerId,
+                           DamageType damageType = DamageType.BULLET)
     {
         if (damageType == DamageType.BULLET || damageType == DamageType.BLUNT)
         {
@@ -116,7 +121,6 @@ public sealed class MobController : Component, IHealthComponent
         Animator.WithVelocity(Vector3.Zero);
         Animator.Target.Enabled = false;
         OnDeathEvent?.Invoke(this);
-
         GameObject.Destroy();
     }
 }

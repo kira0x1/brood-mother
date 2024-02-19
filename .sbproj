@@ -213,7 +213,8 @@
         "ladder": "Ignore",
         "water": "Trigger",
         "weapon": "Collide",
-        "player": "Collide"
+        "player": "Collide",
+        "mob": "Collide"
       },
       "Pairs": [
         {
@@ -255,6 +256,11 @@
           "a": "weapon",
           "b": "player",
           "r": "Trigger"
+        },
+        {
+          "a": "mob",
+          "b": "mob",
+          "r": "Ignore"
         }
       ]
     }

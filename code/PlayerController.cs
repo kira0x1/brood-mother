@@ -28,7 +28,7 @@ public sealed class PlayerController : Component
     public static PlayerController Instance { get; set; }
 
 
-    private Angles EyeAngles;
+    public Angles EyeAngles { get; private set; }
     private WeaponManager WeaponManager;
     private RealTimeSince LastUngroundedTime;
     public CharacterController Controller;
@@ -36,6 +36,7 @@ public sealed class PlayerController : Component
     public Vector3 WishVelocity;
     private bool IsCrouching;
     private Angles Recoil { get; set; }
+    private Inventory inventory { get; set; }
 
     private enum MoveModes
     {
@@ -58,6 +59,7 @@ public sealed class PlayerController : Component
         Animator = Components.GetInDescendantsOrSelf<AnimationController>();
         Controller = Components.GetInDescendantsOrSelf<CharacterController>();
         WeaponManager = Components.Get<WeaponManager>();
+        inventory = Components.Get<Inventory>();
 
         if (Controller.IsValid())
         {
@@ -86,6 +88,7 @@ public sealed class PlayerController : Component
                 .UsePhysicsWorld()
                 .IgnoreGameObjectHierarchy(GameObject)
                 .WithAnyTags("solid")
+                .WithoutTags("weapon", "floor")
                 .Radius(2f)
                 .Run();
 
@@ -102,13 +105,6 @@ public sealed class PlayerController : Component
     private void HandleMove()
     {
         BuildWishVelocity();
-
-        // var inputVal = Input.AnalogMove.Normal.WithZ(0f);
-        // var fwd = Transform.LocalRotation;
-        // var finalVal = (inputVal * fwd * MoveSpeed).WithZ(0f);
-        // WishVelocity = (Input.AnalogMove.Normal * MoveSpeed).WithZ(0f);
-        // WishVelocity = finalVal;
-
         // HandleCrouching();
 
         if (Controller.IsOnGround && Input.Down("Jump"))
@@ -176,11 +172,6 @@ public sealed class PlayerController : Component
 
     private void UpdateRotation()
     {
-        // float turnAxis = Input.AnalogLook.yaw * TurnSpeed * Time.Delta;
-        // var rot = Transform.LocalRotation.RotateAroundAxis(Vector3.Up, turnAxis);
-        // float yaw = float.Clamp(rot.Yaw(), MinLookY, MaxLookY);
-        // Transform.Rotation = Rotation.From(rot.Pitch(), yaw, rot.Roll());
-
         Transform.Rotation = Rotation.FromYaw(EyeAngles.ToRotation().Yaw());
     }
 
@@ -188,6 +179,7 @@ public sealed class PlayerController : Component
     {
         UpdateRecoil();
         UpdateAnimator();
+        HandleAiming();
 
         if (Input.Pressed("Voice"))
         {
@@ -261,6 +253,7 @@ public sealed class PlayerController : Component
         {
             MoveMode = MoveModes.WORLD_DIRECTION;
             Animator.Target.SetBodyGroup("head", 0);
+            ResetViewAngles();
         }
         else
         {
@@ -269,5 +262,28 @@ public sealed class PlayerController : Component
         }
 
         OnViewModeChangedEvent?.Invoke(ViewMode);
+    }
+
+    private void HandleAiming()
+    {
+        if (IsAiming)
+        {
+            Animator.Target?.Set("aim_yaw", EyeAngles.pitch);
+        }
+
+        if (Input.Released("Attack2"))
+        {
+            IsAiming = !IsAiming;
+            OnAimChanged();
+        }
+    }
+
+    private void OnAimChanged()
+    {
+        if (!inventory.HasItem) return;
+
+        var weapon = inventory.ActiveWeapon;
+        if (!weapon.IsValid()) return;
+        weapon.OnAimChanged(IsAiming);
     }
 }

@@ -21,6 +21,7 @@ public sealed class MobSpawner : Component
 
     private TimeSince NextSpawnTime { get; set; } = 0;
     private TimeSince NextSpawnWaitTime { get; set; } = 0;
+
     private float SpawnCD;
     private int CurSpawnedSinceLastWait { get; set; }
 
@@ -68,7 +69,7 @@ public sealed class MobSpawner : Component
 
     private void OnMobDeath(MobController mob)
     {
-        Log.Info("mob died");
+        // Log.Info("mob died");
     }
 
     public SpawnPoint GetRandomSpawnPoint()
