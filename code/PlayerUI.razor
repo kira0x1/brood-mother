@@ -34,25 +34,12 @@
     private int CurrentSlotId => Player.Inventory.CurrentSlot;
 
 
-    private CharacterVitals Vitals
-    {
-        get
-        {
-            if (Player.IsValid())
-            {
-                return Player.Vitals;
-            }
-
-            return null;
-        }
-    }
-
     public string HealthText
     {
         get
         {
             if (Player.IsValid())
-                return $"{Vitals.Health:F0} / {Vitals.MaxHealth:F0}";
+                return $"{Player.Health:F0} / {Player.MaxHealth:F0}";
             return "null / null";
         }
     }

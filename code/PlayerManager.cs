@@ -1,3 +1,4 @@
+using System;
 using Sandbox;
 
 namespace Kira;
@@ -5,10 +6,13 @@ namespace Kira;
 [Group("Kira/Player")]
 [Title("Player Manager")]
 [Icon("person")]
-public sealed class PlayerManager : Component
+public sealed class PlayerManager : Component, IHealthComponent
 {
     [Property]
-    public CharacterVitals Vitals { get; set; }
+    public float MaxHealth { get; private set; } = 100;
+
+    [Property]
+    public float Health { get; private set; } = 100;
 
     public AnimationController Animator { get; set; }
     public WeaponManager WeaponManager;
@@ -30,5 +34,14 @@ public sealed class PlayerManager : Component
         var weapon = go.Components.Get<WeaponComponent>(true);
         var gaveItem = Inventory.TryGiveItem(weapon);
         return gaveItem;
+    }
+
+    public void TakeDamage(float damage, Vector3 position, Vector3 force, Guid attackerId, DamageType damageType = DamageType.BULLET)
+    {
+        Health -= damage;
+        if (Health <= 0)
+        {
+            Health = 0;
+        }
     }
 }

@@ -408,7 +408,8 @@
         },
         {
           "__type": "PlayerManager",
-          "Vitals": {}
+          "Health": 100,
+          "MaxHealth": 100
         },
         {
           "__type": "WeaponManager",
@@ -1341,7 +1342,7 @@
   },
   "Title": "spawn_testroom",
   "Description": "",
-  "LastSaved": "2024-02-19T10:39:54.5003277\u002B00:00",
+  "LastSaved": "2024-02-19T10:52:16.2006008\u002B00:00",
   "__references": [
     "facepunch.wooden_crate"
   ]

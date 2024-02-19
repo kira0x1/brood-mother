@@ -7,6 +7,11 @@ public sealed class MobController : Component, IHealthComponent
 {
     [Property] public float MaxHealth { get; private set; } = 100f;
     [Property] public float Health { get; private set; } = 100f;
+    [Property] public float AttackSpeed { get; set; } = 0.4f;
+    [Property] public float AttackRange { get; set; } = 10f; // is added to min distance
+    [Property] public float AttackDamage { get; set; } = 5f; // is added to min distance
+    [Property] public float MinDistance { get; private set; } = 60f;
+
     [Property] private MobDataResource MobData { get; set; }
 
     private NavMeshAgent Agent;
@@ -14,11 +19,10 @@ public sealed class MobController : Component, IHealthComponent
     private AnimationController Animator;
     private SoundEvent HurtSound;
     private GameTransform Model;
-
     public Action<MobController> OnDeathEvent;
+    private TimeSince NextAttackTime = 0;
+    private float DistanceToPlayer;
 
-    [Property]
-    public float MinDistance { get; private set; } = 60f;
 
     private enum MobStates
     {
@@ -65,15 +69,11 @@ public sealed class MobController : Component, IHealthComponent
 
     private void ChaseState()
     {
-        // Animator.LookAtEnabled = false;
-        // Animator.WithLook(Player.Transform.Position);
-        Animator.WithVelocity(Agent.Velocity);
-        Animator.WithWishVelocity(Agent.WishVelocity);
-        // Transform.Rotation = Animator.EyeWorldTransform.Rotation;
+        UpdateAnimator();
 
-        float distance = Vector3.DistanceBetween(Transform.Position, Player.Transform.Position);
+        DistanceToPlayer = Vector3.DistanceBetween(Transform.Position, Player.Transform.Position);
 
-        if (distance > MinDistance)
+        if (DistanceToPlayer > MinDistance)
         {
             Agent.MoveTo(Player.Transform.Position);
         }
@@ -82,7 +82,27 @@ public sealed class MobController : Component, IHealthComponent
             Agent.MoveTo(Transform.Position);
         }
 
+        HandleCombat();
         Model.Rotation = Rotation.FromYaw(Agent.Velocity.EulerAngles.ToRotation().Yaw());
+    }
+
+    private void HandleCombat()
+    {
+        // if close enough to hit player
+        if (NextAttackTime > AttackSpeed && DistanceToPlayer <= MinDistance + AttackRange)
+        {
+            PlayerManager.Instance.TakeDamage(AttackDamage, Transform.Position, Transform.Local.Forward, GameObject.Id, DamageType.BLUNT);
+            NextAttackTime = 0;
+        }
+    }
+
+    private void UpdateAnimator()
+    {
+        // Animator.LookAtEnabled = false;
+        // Animator.WithLook(Player.Transform.Position);
+        Animator.WithVelocity(Agent.Velocity);
+        Animator.WithWishVelocity(Agent.WishVelocity);
+        // Transform.Rotation = Animator.EyeWorldTransform.Rotation;
     }
 
     public void TakeDamage(float damage, Vector3 position, Vector3 force, Guid attackerId,
