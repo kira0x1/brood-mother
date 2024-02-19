@@ -34,7 +34,7 @@ public sealed class WeaponManager : Component
 
     protected override void OnFixedUpdate()
     {
-        if (!Player.Inventory.HasItem)
+        if (!Player.Inventory.HasItem || Player.PlayerState == PlayerManager.PlayerStates.DEAD)
         {
             return;
         }

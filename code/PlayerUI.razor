@@ -16,8 +16,14 @@
         </div>
 
         <div class="mobs">
-            <mobs-text>Mobs Alive: </mobs-text>
-            <mobs-value>@MobValue</mobs-value>
+            <div class="mob-li">
+                <mobs-text>Mobs Alive: </mobs-text>
+                <mobs-value>@MobValue</mobs-value>
+            </div>
+            <div class="mob-li">
+                <mobs-text>Mobs Killed: </mobs-text>
+                <mobs-value>@TotalKilled</mobs-value>
+            </div>
         </div>
     </div>
 
@@ -77,6 +83,15 @@
         {
             if (Spawner.IsValid()) return Spawner.CurMobsAlive.ToString();
             return "Error";
+        }
+    }
+
+    public string TotalKilled
+    {
+        get
+        {
+            if (!Player.IsValid()) return "Error";
+            return Player.TotalKills.ToString();
         }
     }
 

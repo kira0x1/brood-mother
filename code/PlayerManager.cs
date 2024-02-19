@@ -9,13 +9,23 @@ public sealed class PlayerManager : Component, IHealthComponent
 {
     [Property] public float MaxHealth { get; private set; } = 100;
     [Property] public float Health { get; private set; } = 100;
-    [Property] public int Score { get; set; } = 0;
+
     [Property] public int HeadshotScoreIncrease = 10;
+    public int Score { get; set; } = 0;
+    public int TotalKills { get; set; } = 0;
 
     public AnimationController Animator { get; set; }
     public WeaponManager WeaponManager;
     public Inventory Inventory { get; set; }
     public static PlayerManager Instance { get; set; }
+
+    public enum PlayerStates
+    {
+        ALIVE,
+        DEAD
+    }
+
+    public PlayerStates PlayerState { get; set; } = PlayerStates.ALIVE;
 
     protected override void OnAwake()
     {
@@ -40,6 +50,8 @@ public sealed class PlayerManager : Component, IHealthComponent
         if (Health <= 0)
         {
             Health = 0;
+            PlayerState = PlayerStates.DEAD;
+            PlayerController.Instance.UpdateAnimatorOnDeath();
         }
     }
 
@@ -50,6 +62,7 @@ public sealed class PlayerManager : Component, IHealthComponent
     /// <param name="mobScore">The score the mob rewards</param>
     public void OnKill(bool isHeadshot, int mobScore = 10)
     {
+        TotalKills++;
         int finalScore = mobScore;
         if (isHeadshot) finalScore += HeadshotScoreIncrease;
         Score += finalScore;

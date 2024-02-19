@@ -3,7 +3,7 @@
 @using Sandbox.UI;
 @inherits PanelComponent
 
-@if (PlayerController.Instance.ViewMode != ViewModes.FIRST_PERSON) return;
+@if (PlayerController.Instance.ViewMode != ViewModes.FIRST_PERSON || IsDead) return;
 <root>
     <div class="center">
         <div class="crosshair"></div>
@@ -13,10 +13,12 @@
 @code
 {
     private PlayerController PlayerController { get; set; }
+    public PlayerManager Player { get; set; }
 
     protected override void OnStart()
     {
         base.OnStart();
+        Player = PlayerManager.Instance;
         PlayerController = PlayerController.Instance;
     }
 
@@ -26,6 +28,17 @@
         var weaponManager = PlayerController.Instance.Components.Get<WeaponManager>();
         SetClass("hitmarker", weaponManager.IsValid() && weaponManager.LastHitmarkerTime < 0.1f);
     }
+
+
+    private bool IsDead
+    {
+        get
+        {
+            if (!Player.IsValid()) return false;
+            return Player.PlayerState == PlayerManager.PlayerStates.DEAD;
+        }
+    }
+
 
     /// <summary>
     /// the hash determines if the system should be rebuilt. If it changes, it will be rebuilt

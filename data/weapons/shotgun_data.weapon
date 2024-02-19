@@ -1,0 +1,15 @@
+{
+  "Name": "Shotgun",
+  "Icon": "facepunch.w_spaghellim4/thumb.png",
+  "Damage": 20,
+  "DamageForce": 25,
+  "FireRate": 0.25,
+  "Spread": 0.5,
+  "ShootSound": "sounds/shotgun_shoot.sound",
+  "WeaponHoldType": "Shotgun",
+  "ShootType": "SHOTGUN",
+  "BulletsPerShot": 8,
+  "__references": [
+    "facepunch.w_spaghellim4"
+  ]
+}

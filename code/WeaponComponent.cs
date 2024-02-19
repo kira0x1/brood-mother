@@ -15,6 +15,13 @@ public struct FromTo
     }
 }
 
+public enum ShootTypes
+{
+    SINGLE,
+    SHOTGUN,
+    LASER
+}
+
 [Category("Kira/Weapon")]
 public sealed class WeaponComponent : Component
 {
@@ -32,8 +39,7 @@ public sealed class WeaponComponent : Component
     [Group("Effects"), Property] private GameObject DecalEffect { get; set; }
 
     [Group("Gizmos"), Property] private bool ShowArrowGizmos { get; set; } = false;
-    [Group("Gizmos"), Property] private bool ShowHitGizmos { get; set; } = true;
-
+    [Group("Gizmos"), Property] private bool ShowHitGizmos { get; set; } = false;
 
     public Angles Recoil { get; set; }
     private float Spread { get; set; }
@@ -49,7 +55,11 @@ public sealed class WeaponComponent : Component
     private readonly List<FromTo> arrows = new List<FromTo>();
     private readonly List<Vector3> hits = new List<Vector3>();
 
-    private GunAnimator Animator { get; set; }
+    private ShootTypes ShootType { get; set; } = ShootTypes.SINGLE;
+    private int BulletsPerShot { get; set; } = 1;
+
+
+    private WeaponAnimator Animator { get; set; }
 
 
     protected override void OnAwake()
@@ -57,7 +67,7 @@ public sealed class WeaponComponent : Component
         Model = Components.GetInDescendantsOrSelf<SkinnedModelRenderer>(true);
         MuzzleParticleSystem = Muzzle.Components.GetInChildren<ParticleSystem>(true);
         CrosshairDecal = Components.GetInDescendants<DecalRenderer>(true);
-        Animator = Components.Get<GunAnimator>();
+        Animator = Components.Get<WeaponAnimator>();
         MuzzleTransform = new Transform(Muzzle.Transform.LocalPosition);
 
         WeaponName = WeaponData.Name;
@@ -66,6 +76,8 @@ public sealed class WeaponComponent : Component
         ShootSound = WeaponData.ShootSound;
         Damage = WeaponData.Damage;
         DamageForce = WeaponData.DamageForce;
+        ShootType = WeaponData.ShootType;
+        BulletsPerShot = WeaponData.BulletsPerShot;
 
         // if (ViewModel.IsValid())
         // {
@@ -128,7 +140,7 @@ public sealed class WeaponComponent : Component
         }
     }
 
-    private SceneTraceResult GunTrace()
+    private SceneTraceResult GunTrace(float recoilModifier = 1f)
     {
         Vector3 startPos = Transform.Position;
         Vector3 direction = Muzzle.Transform.Rotation.Forward;
@@ -139,46 +151,21 @@ public sealed class WeaponComponent : Component
             direction = Scene.Camera.Transform.Rotation.Forward;
         }
 
-        direction += Vector3.Random * Spread;
+        direction += Vector3.Random * (Spread * recoilModifier);
 
         Vector3 endPos = startPos + direction * 5000f;
         var trace = Scene.Trace.Ray(startPos, endPos)
             .IgnoreGameObjectHierarchy(GameObject.Root)
             .UsePhysicsWorld()
             .UseHitboxes()
-            .Radius(5f)
+            .Radius(3f)
             .Run();
 
         return trace;
     }
 
-    public void Shoot()
+    private void BulletTrace(SceneTraceResult trace)
     {
-        var trace = GunTrace();
-
-        if (ShootSound is not null)
-        {
-            Sound.Play(ShootSound, Muzzle.Transform.Position);
-        }
-
-        MuzzleTransform = new Transform(Muzzle.Transform.Position, Muzzle.Transform.Rotation);
-
-        if (trace.Distance > 80f)
-        {
-            var p = new SceneParticles(Scene.SceneWorld, "particles/tracer/trail_smoke.vpcf");
-            p.SetControlPoint(0, MuzzleTransform.Position);
-            p.SetControlPoint(1, trace.EndPosition);
-            p.SetControlPoint(2, trace.Distance);
-            p.PlayUntilFinished(Task);
-        }
-
-        if (MuzzleFlash is not null)
-        {
-            var p = new SceneParticles(Scene.SceneWorld, MuzzleFlash);
-            p.SetControlPoint(0, MuzzleTransform);
-            p.PlayUntilFinished(Task);
-        }
-
         IHealthComponent damageable = null;
         if (trace.Component.IsValid()) damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
 
@@ -187,8 +174,10 @@ public sealed class WeaponComponent : Component
         {
             var player = PlayerManager.Instance.WeaponManager;
 
+            bool isHeadshot = false;
             if (trace.Hitbox is not null && trace.Hitbox.Tags.Has("head"))
             {
+                isHeadshot = true;
                 player.DoHitMarker(true);
                 damage *= 3f;
             }
@@ -197,7 +186,7 @@ public sealed class WeaponComponent : Component
                 player.DoHitMarker(false);
             }
 
-            damageable.TakeDamage(damage, trace.EndPosition, trace.Direction * DamageForce, GameObject.Id);
+            damageable.TakeDamage(damage, trace.EndPosition, trace.Direction * DamageForce, GameObject.Id, DamageType.BULLET, isHeadshot);
         }
         else if (trace.Hit)
         {
@@ -208,6 +197,62 @@ public sealed class WeaponComponent : Component
         {
             FromTo ft = new FromTo(trace.StartPosition, trace.EndPosition);
             arrows.Add(ft);
+        }
+    }
+
+    public void Shoot()
+    {
+        MuzzleTransform = new Transform(Muzzle.Transform.Position, Muzzle.Transform.Rotation);
+
+        if (MuzzleFlash is not null)
+        {
+            var p = new SceneParticles(Scene.SceneWorld, MuzzleFlash);
+            p.SetControlPoint(0, MuzzleTransform);
+            p.PlayUntilFinished(Task);
+        }
+
+        if (ShootType == ShootTypes.SINGLE)
+        {
+            var trace = GunTrace();
+
+            HandleSound();
+            HandleSmokeTrail(trace);
+            BulletTrace(trace);
+        }
+        else if (ShootType == ShootTypes.SHOTGUN)
+        {
+            var firstTrace = GunTrace(0.25f);
+            HandleSound();
+            HandleSmokeTrail(firstTrace);
+            BulletTrace(firstTrace);
+
+            for (int i = 1; i < BulletsPerShot; i++)
+            {
+                //todo: maybe pass in 'i' and use as a modifier to spray around the bullets in a shotgun pattern
+                var trace = GunTrace();
+                HandleSmokeTrail(trace);
+                BulletTrace(trace);
+            }
+        }
+    }
+
+    private void HandleSound()
+    {
+        if (ShootSound is not null)
+        {
+            Sound.Play(ShootSound, Muzzle.Transform.Position);
+        }
+    }
+
+    private void HandleSmokeTrail(SceneTraceResult trace)
+    {
+        if (trace.Distance > 80f)
+        {
+            var p = new SceneParticles(Scene.SceneWorld, "particles/tracer/trail_smoke.vpcf");
+            p.SetControlPoint(0, MuzzleTransform.Position);
+            p.SetControlPoint(1, trace.EndPosition);
+            p.SetControlPoint(2, trace.Distance);
+            p.PlayUntilFinished(Task);
         }
     }
 

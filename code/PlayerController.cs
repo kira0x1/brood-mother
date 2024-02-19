@@ -29,6 +29,7 @@ public sealed class PlayerController : Component
 
 
     public Angles EyeAngles { get; private set; }
+    private PlayerManager playerManager;
     private WeaponManager WeaponManager;
     private RealTimeSince LastUngroundedTime;
     public CharacterController Controller;
@@ -56,6 +57,7 @@ public sealed class PlayerController : Component
         base.OnAwake();
 
         Instance = this;
+        playerManager = Components.Get<PlayerManager>();
         Animator = Components.GetInDescendantsOrSelf<AnimationController>();
         Controller = Components.GetInDescendantsOrSelf<CharacterController>();
         WeaponManager = Components.Get<WeaponManager>();
@@ -99,7 +101,8 @@ public sealed class PlayerController : Component
 
     protected override void OnFixedUpdate()
     {
-        HandleMove();
+        if (playerManager.PlayerState == PlayerManager.PlayerStates.ALIVE)
+            HandleMove();
     }
 
     private void HandleMove()
@@ -177,6 +180,8 @@ public sealed class PlayerController : Component
 
     protected override void OnUpdate()
     {
+        if (playerManager.PlayerState == PlayerManager.PlayerStates.DEAD) return;
+
         UpdateRecoil();
         UpdateAnimator();
         HandleAiming();
@@ -198,6 +203,14 @@ public sealed class PlayerController : Component
         Animator.WithWishVelocity(WishVelocity);
         Animator.WithLook(EyeAngles.Forward);
         Animator.UpdateIk();
+    }
+
+    public void UpdateAnimatorOnDeath()
+    {
+        Animator.IsGrounded = true;
+        Animator.FootShuffle = 0;
+        Animator.WithVelocity(Vector3.Zero);
+        Animator.WithWishVelocity(Vector3.Zero);
     }
 
     private void UpdateRecoil()

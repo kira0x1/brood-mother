@@ -76,9 +76,13 @@ PlayerUI {
     color: white;
     font-family: Poppins;
     font-size: 25px;
+    flex-direction: column;
   }
 
   mobs-text {
     margin-right: 20px;
+  }
+
+  .mob-li {
   }
 }

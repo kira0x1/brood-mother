@@ -1,6 +1,4 @@
-﻿using Sandbox;
-
-namespace Kira;
+﻿namespace Kira;
 
 [GameResource("Weapon Data", "weapon", "Weapon Data", Icon = "🏹")]
 public partial class WeaponData : GameResource
@@ -28,4 +26,10 @@ public partial class WeaponData : GameResource
 
     [Property]
     public AnimationController.HoldTypes WeaponHoldType { get; set; } = AnimationController.HoldTypes.None;
+
+    [Property]
+    public ShootTypes ShootType { get; set; } = ShootTypes.SINGLE;
+
+    [Property, ShowIf(nameof(ShootType), ShootTypes.SHOTGUN), Range(0, 20, 1)]
+    public int BulletsPerShot { get; set; } = 1;
 }

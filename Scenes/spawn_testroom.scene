@@ -262,6 +262,7 @@
     {
       "Id": "52bb7c33-3b3a-418d-813c-2304bc5cd310",
       "Name": "UI",
+      "Scale": "1,0.9914392,1",
       "Enabled": true,
       "Components": [
         {
@@ -281,6 +282,14 @@
         },
         {
           "__type": "HitMarkerUI"
+        },
+        {
+          "__type": "DeathUI",
+          "Player": {
+            "_type": "component",
+            "go": "3b2495f6-4608-4790-886c-6d5a0cec5814",
+            "component_type": "PlayerManager"
+          }
         }
       ]
     },
@@ -410,8 +419,7 @@
           "__type": "PlayerManager",
           "HeadshotScoreIncrease": 10,
           "Health": 100,
-          "MaxHealth": 100,
-          "Score": 0
+          "MaxHealth": 100
         },
         {
           "__type": "WeaponManager",
@@ -1232,9 +1240,10 @@
               "prefab": "prefabs/mobtest.prefab"
             }
           ],
-          "RandomSpawnTime": "0.5,1.5",
-          "RandomWaitSpawnAmount": "2,4",
-          "RandomWaitSpawnCooldown": "0.5,2"
+          "RandomSpawnTime": "2,5",
+          "RandomWaitSpawnAmount": "0.5,1",
+          "RandomWaitSpawnCooldown": "0.5,4",
+          "SpawningOn": true
         }
       ],
       "Children": [
@@ -1357,6 +1366,16 @@
           "Surface": null
         }
       ]
+    },
+    {
+      "Id": "e9f883d1-c13d-4542-a4a4-7178577ee357",
+      "Name": "Shotgun_Pickup",
+      "Position": "75.29143,-68.05826,7.61632",
+      "Rotation": "0,0,0.6209578,0.7838439",
+      "Scale": "1.366668,1.366668,1.366668",
+      "Tags": "solid",
+      "Enabled": true,
+      "__Prefab": "prefabs/shotgun_pickup.prefab"
     }
   ],
   "SceneProperties": {
@@ -1382,7 +1401,7 @@
   },
   "Title": "spawn_testroom",
   "Description": "",
-  "LastSaved": "2024-02-19T14:04:04.2610753\u002B00:00",
+  "LastSaved": "2024-02-19T18:50:53.1781117\u002B00:00",
   "__references": [
     "facepunch.v_crowbar",
     "facepunch.wooden_crate"

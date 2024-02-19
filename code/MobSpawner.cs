@@ -7,26 +7,30 @@ namespace Kira;
 [Group("Kira/Mob")]
 public sealed class MobSpawner : Component
 {
-    [Property, ValueRange(1f, 120f)] private Vector2 RandomSpawnTime { get; set; } = new Vector2(1f, 8f);
-    [Property, ResourceType("prefab")] private List<GameObject> MobPrefabs { get; set; } = new List<GameObject>();
+    [Property]
+    private bool SpawningOn { get; set; } = true;
 
-    [Property, Description("Does not spawn more mobs if there are this many mobs currently active in the scene")] private int MobLimit = 10;
+    [Property, Group("Mobs"), Description("Does not spawn more mobs if there are this many mobs currently active in the scene")]
+    private int MobLimit { get; set; } = 10;
 
-    private int WaitAfterSpawningAmount { get; set; } = 2;
-    private float WaitAfterSpawningTime { get; set; } = 10f;
+    [Property, Group("Mobs"), ResourceType("prefab")]
+    private List<GameObject> MobPrefabs { get; set; } = new List<GameObject>();
 
+    [Property, Group("Cooldowns"), ValueRange(1f, 120f)] private Vector2 RandomSpawnTime { get; set; } = new Vector2(1f, 8f);
     [Property, Group("Cooldowns"), ValueRange(1, 120)] private Vector2 RandomWaitSpawnAmount { get; set; } = new Vector2(1f, 8f);
     [Property, Group("Cooldowns"), ValueRange(1f, 120f)] private Vector2 RandomWaitSpawnCooldown { get; set; } = new Vector2(1f, 8f);
 
-
+    private int WaitAfterSpawningAmount { get; set; } = 2;
+    private float WaitAfterSpawningTime { get; set; } = 10f;
     private TimeSince NextSpawnTime { get; set; } = 0;
     private TimeSince NextSpawnWaitTime { get; set; } = 0;
 
     private float SpawnCD;
     private int CurSpawnedSinceLastWait { get; set; }
+    public int CurMobsAlive { get; private set; }
     private List<SpawnPoint> Spawners { get; set; } = new List<SpawnPoint>();
     private List<MobController> MobsSpawned { get; set; }
-    public int CurMobsAlive { get; set; } = 0;
+    private PlayerManager Player { get; set; }
 
     protected override void OnAwake()
     {
@@ -37,6 +41,12 @@ public sealed class MobSpawner : Component
         Spawners = Components.GetAll<SpawnPoint>(FindMode.InChildren).ToList();
         SpawnCD = GetRandomSpawnTime();
         NextSpawnWaitTime = WaitAfterSpawningTime;
+    }
+
+    protected override void OnStart()
+    {
+        base.OnStart();
+        Player = PlayerManager.Instance;
     }
 
     private float GetRandomSpawnTime()
@@ -56,6 +66,8 @@ public sealed class MobSpawner : Component
 
     protected override void OnUpdate()
     {
+        if (!SpawningOn || Player.PlayerState == PlayerManager.PlayerStates.DEAD) return;
+
         if (NextSpawnTime > SpawnCD && NextSpawnWaitTime > WaitAfterSpawningTime)
         {
             if (CurMobsAlive < MobLimit)

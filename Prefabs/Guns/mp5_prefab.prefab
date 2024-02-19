@@ -6,6 +6,18 @@
     "Enabled": true,
     "Components": [
       {
+        "__type": "SkinnedModelRenderer",
+        "AnimationGraph": "models/weapons/sbox_smg_mp5/v_mp5.vanmgrph",
+        "BodyGroups": 11,
+        "BoneMergeTarget": null,
+        "CreateBoneObjects": true,
+        "MaterialGroup": null,
+        "MaterialOverride": null,
+        "Model": "models/weapons/sbox_smg_mp5/v_mp5.vmdl",
+        "RenderType": "On",
+        "Tint": "1,1,1,1"
+      },
+      {
         "__type": "WeaponComponent",
         "DecalEffect": {
           "_type": "gameobject",
@@ -30,19 +42,7 @@
         }
       },
       {
-        "__type": "SkinnedModelRenderer",
-        "AnimationGraph": "models/weapons/sbox_smg_mp5/v_mp5.vanmgrph",
-        "BodyGroups": 11,
-        "BoneMergeTarget": null,
-        "CreateBoneObjects": true,
-        "MaterialGroup": null,
-        "MaterialOverride": null,
-        "Model": "models/weapons/sbox_smg_mp5/v_mp5.vmdl",
-        "RenderType": "On",
-        "Tint": "1,1,1,1"
-      },
-      {
-        "__type": "GunAnimator",
+        "__type": "WeaponAnimator",
         "ModelRenderer": {
           "_type": "component",
           "go": "15c16824-20a2-4293-bc76-ad8f430adf86",

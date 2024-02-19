@@ -1,0 +1,53 @@
+{
+  "RootObject": {
+    "Id": "e9f883d1-c13d-4542-a4a4-7178577ee357",
+    "Name": "Shotgun_Pickup",
+    "Position": "75.29143,-68.05826,7.61632",
+    "Rotation": "0,0,0.6209578,0.7838439",
+    "Scale": "1.366668,1.366668,1.366668",
+    "Tags": "solid",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "ModelRenderer",
+        "BodyGroups": 18446744073709551615,
+        "MaterialGroup": null,
+        "MaterialOverride": null,
+        "Model": "models/items/ammo.vmdl",
+        "RenderType": "On",
+        "Tint": "1,1,1,1"
+      },
+      {
+        "__type": "SphereCollider",
+        "Center": "0,0,10",
+        "IsTrigger": true,
+        "Radius": 50,
+        "Static": false,
+        "Surface": null
+      },
+      {
+        "__type": "BoxCollider",
+        "Center": "0,0,10",
+        "IsTrigger": false,
+        "Scale": "34,14,20",
+        "Static": false,
+        "Surface": "surfaces/metal.surface"
+      },
+      {
+        "__type": "WeaponPickup",
+        "hasPickedUp": false,
+        "Weapon": "data/weapons/shotgun_data.weapon",
+        "WeaponPrefab": {
+          "_type": "gameobject",
+          "prefab": "prefabs/shotgun_prefab.prefab"
+        }
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "__references": [
+    "nolankicks.dead4left"
+  ]
+}

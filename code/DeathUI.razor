@@ -1,0 +1,31 @@
+@using Sandbox;
+@using Sandbox.UI;
+@inherits PanelComponent
+
+@namespace Kira.UI
+
+<root>
+    @if (!IsDead) return;
+    <div class="title">
+        Terry got to you!
+    </div>
+</root>
+
+@code
+{
+    [Property] public PlayerManager Player { get; set; }
+
+    private bool IsDead
+    {
+        get
+        {
+            if (!Player.IsValid()) return false;
+            return Player.PlayerState == PlayerManager.PlayerStates.DEAD;
+        }
+    }
+
+    /// <summary>
+    /// the hash determines if the system should be rebuilt. If it changes, it will be rebuilt
+    /// </summary>
+    protected override int BuildHash() => System.HashCode.Combine(IsDead);
+}

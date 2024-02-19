@@ -1,7 +1,7 @@
 ﻿namespace Kira;
 
 [Category("Kira/Weapon")]
-public sealed class GunAnimator : Component
+public sealed class WeaponAnimator : Component
 {
     [Property] public SkinnedModelRenderer ModelRenderer { get; set; }
     private CharacterController Controller;

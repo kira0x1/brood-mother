@@ -140,8 +140,10 @@ public sealed class MobController : Component, IHealthComponent
         Agent.Stop();
         Animator.WithVelocity(Vector3.Zero);
         // Animator.Target.Enabled = false;
+
         PlayerManager.Instance.OnKill(headshot, MobData.ScoreReward);
         OnDeathEvent?.Invoke(this);
+
         // GameObject.Destroy();
 
         Animator.Sitting = AnimationController.SittingStyle.Floor;
