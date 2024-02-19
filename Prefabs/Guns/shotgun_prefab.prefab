@@ -38,7 +38,7 @@
         "WeaponData": "data/weapons/shotgun_data.weapon",
         "WeaponProp": {
           "_type": "gameobject",
-          "prefab": "prefabs/shotgun_pickup.prefab"
+          "prefab": "prefabs/gun loot/shotgun_pickup.prefab"
         }
       },
       {
@@ -625,6 +625,6 @@
   "MenuPath": null,
   "MenuIcon": null,
   "__references": [
-    "facepunch.v_spaghellim4"
+    "nolankicks.dead4left"
   ]
 }

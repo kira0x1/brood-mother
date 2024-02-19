@@ -34,7 +34,7 @@
         "Weapon": "data/weapons/mp5_data.weapon",
         "WeaponPrefab": {
           "_type": "gameobject",
-          "prefab": "prefabs/mp5_prefab.prefab"
+          "prefab": "prefabs/guns/mp5_prefab.prefab"
         }
       },
       {

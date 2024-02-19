@@ -39,7 +39,7 @@
         "WeaponData": "data/weapons/pistol_data.weapon",
         "WeaponProp": {
           "_type": "gameobject",
-          "prefab": "prefabs/pistol_prop.prefab"
+          "prefab": "prefabs/gun loot/pistol_prop.prefab"
         }
       },
       {

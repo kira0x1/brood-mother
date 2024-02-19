@@ -1,9 +1,7 @@
 {
   "RootObject": {
-    "Id": "e9f883d1-c13d-4542-a4a4-7178577ee357",
-    "Name": "Shotgun_Pickup",
-    "Position": "75.29143,-68.05826,7.61632",
-    "Rotation": "0,0,0.6209578,0.7838439",
+    "Id": "f3791fd7-8307-4c95-8591-1afe740e599c",
+    "Name": "shotgun_pickup",
     "Scale": "1.366668,1.366668,1.366668",
     "Tags": "solid",
     "Enabled": true,
@@ -39,10 +37,11 @@
         "Weapon": "data/weapons/shotgun_data.weapon",
         "WeaponPrefab": {
           "_type": "gameobject",
-          "prefab": "prefabs/shotgun_prefab.prefab"
+          "prefab": "prefabs/guns/shotgun_prefab.prefab"
         }
       }
-    ]
+    ],
+    "Children": []
   },
   "ShowInMenu": false,
   "MenuPath": null,

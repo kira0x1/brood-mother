@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "Id": "cb54aee6-15c5-4ecd-9e2d-cba5d518c49d",
+    "Id": "0f277cd3-e728-4696-84ce-d401985a7814",
     "Name": "pistol_prop",
     "Scale": "0.8,0.8,0.8",
     "Tags": "weapon",
@@ -24,7 +24,7 @@
         "Weapon": "data/weapons/pistol_data.weapon",
         "WeaponPrefab": {
           "_type": "gameobject",
-          "prefab": "prefabs/pistol_prefab.prefab"
+          "prefab": "prefabs/guns/pistol_prefab.prefab"
         }
       },
       {
