@@ -53,4 +53,32 @@ PlayerUI {
     margin: 0 5px;
     background-color: rgba(0.0, 0.0, 0.0, 0.7);
   }
+
+  .stats-hud {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: white;
+    font-family: Poppins;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .score {
+    font-size: 45px;
+  }
+
+  score-text {
+    margin-right: 20px;
+  }
+
+  .mobs {
+    color: white;
+    font-family: Poppins;
+    font-size: 25px;
+  }
+
+  mobs-text {
+    margin-right: 20px;
+  }
 }

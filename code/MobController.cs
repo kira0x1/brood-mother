@@ -106,9 +106,9 @@ public sealed class MobController : Component, IHealthComponent
     }
 
     public void TakeDamage(float damage, Vector3 position, Vector3 force, Guid attackerId,
-                           DamageType damageType = DamageType.BULLET)
+                           DamageType damageType = DamageType.BULLET, bool isHeadshot = false)
     {
-        if (damageType == DamageType.BULLET || damageType == DamageType.BLUNT)
+        if (damageType is DamageType.BULLET or DamageType.BLUNT)
         {
             var p = new SceneParticles(Scene.SceneWorld, "particles/impact.flesh.bloodpuff.vpcf");
             p.SetControlPoint(0, position);
@@ -130,17 +130,21 @@ public sealed class MobController : Component, IHealthComponent
         if (Health <= 0f)
         {
             Health = 0f;
-            OnDeath();
+            OnDeath(isHeadshot);
         }
     }
 
-    private void OnDeath()
+    private void OnDeath(bool headshot)
     {
         CurState = MobStates.DEAD;
         Agent.Stop();
         Animator.WithVelocity(Vector3.Zero);
-        Animator.Target.Enabled = false;
+        // Animator.Target.Enabled = false;
+        PlayerManager.Instance.OnKill(headshot, MobData.ScoreReward);
         OnDeathEvent?.Invoke(this);
-        GameObject.Destroy();
+        // GameObject.Destroy();
+
+        Animator.Sitting = AnimationController.SittingStyle.Floor;
+        Animator.IsSitting = true;
     }
 }

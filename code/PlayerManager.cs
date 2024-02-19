@@ -1,5 +1,4 @@
 using System;
-using Sandbox;
 
 namespace Kira;
 
@@ -8,11 +7,10 @@ namespace Kira;
 [Icon("person")]
 public sealed class PlayerManager : Component, IHealthComponent
 {
-    [Property]
-    public float MaxHealth { get; private set; } = 100;
-
-    [Property]
-    public float Health { get; private set; } = 100;
+    [Property] public float MaxHealth { get; private set; } = 100;
+    [Property] public float Health { get; private set; } = 100;
+    [Property] public int Score { get; set; } = 0;
+    [Property] public int HeadshotScoreIncrease = 10;
 
     public AnimationController Animator { get; set; }
     public WeaponManager WeaponManager;
@@ -36,12 +34,24 @@ public sealed class PlayerManager : Component, IHealthComponent
         return gaveItem;
     }
 
-    public void TakeDamage(float damage, Vector3 position, Vector3 force, Guid attackerId, DamageType damageType = DamageType.BULLET)
+    public void TakeDamage(float damage, Vector3 position, Vector3 force, Guid attackerId, DamageType damageType = DamageType.BULLET, bool isHeadshot = false)
     {
         Health -= damage;
         if (Health <= 0)
         {
             Health = 0;
         }
+    }
+
+    /// <summary>
+    /// Used to calculate score on kill
+    /// </summary>
+    /// <param name="isHeadshot">a headshot is an extra 10 points</param>
+    /// <param name="mobScore">The score the mob rewards</param>
+    public void OnKill(bool isHeadshot, int mobScore = 10)
+    {
+        int finalScore = mobScore;
+        if (isHeadshot) finalScore += HeadshotScoreIncrease;
+        Score += finalScore;
     }
 }

@@ -9,6 +9,18 @@
         @HealthText
     </div>
 
+    <div class="stats-hud">
+        <div class="score">
+            <score-text>Score:</score-text>
+            <score-value>@ScoreValue</score-value>
+        </div>
+
+        <div class="mobs">
+            <mobs-text>Mobs Alive: </mobs-text>
+            <mobs-value>@MobValue</mobs-value>
+        </div>
+    </div>
+
     <div class="hotbar">
         @foreach (var slot in Slots)
         {
@@ -32,7 +44,13 @@
 
     private Slot[] Slots => Player.Inventory.Slots;
     private int CurrentSlotId => Player.Inventory.CurrentSlot;
+    private MobSpawner Spawner { get; set; }
 
+    protected override void OnStart()
+    {
+        base.OnStart();
+        Spawner = Scene.Components.GetInDescendants<MobSpawner>(true);
+    }
 
     public string HealthText
     {
@@ -44,8 +62,26 @@
         }
     }
 
+    public string ScoreValue
+    {
+        get
+        {
+            if (!Player.IsValid()) return "Error";
+            return Player.Score.ToString();
+        }
+    }
+
+    public string MobValue
+    {
+        get
+        {
+            if (Spawner.IsValid()) return Spawner.CurMobsAlive.ToString();
+            return "Error";
+        }
+    }
+
     /// <summary>
     /// the hash determines if the system should be rebuilt. If it changes, it will be rebuilt
     /// </summary>
-    protected override int BuildHash() => HashCode.Combine(HealthText, CurrentSlotId, Player.Inventory.GetHashCode);
+    protected override int BuildHash() => HashCode.Combine(HealthText, CurrentSlotId, Player.Inventory.GetHashCode, Player.Score, Spawner.CurMobsAlive);
 }

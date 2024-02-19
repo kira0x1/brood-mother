@@ -44,7 +44,6 @@ public sealed class WeaponComponent : Component
     private SkinnedModelRenderer Model { get; set; }
     private ParticleSystem MuzzleParticleSystem { get; set; }
     private SoundEvent ShootSound { get; set; }
-    private ViewModel ViewModel;
     private Transform MuzzleTransform;
 
     private readonly List<FromTo> arrows = new List<FromTo>();
@@ -58,12 +57,7 @@ public sealed class WeaponComponent : Component
         Model = Components.GetInDescendantsOrSelf<SkinnedModelRenderer>(true);
         MuzzleParticleSystem = Muzzle.Components.GetInChildren<ParticleSystem>(true);
         CrosshairDecal = Components.GetInDescendants<DecalRenderer>(true);
-        ViewModel = Components.GetInDescendantsOrSelf<ViewModel>();
         Animator = Components.Get<GunAnimator>();
-
-        if (Animator.IsValid())
-            Log.Info("found animator");
-
         MuzzleTransform = new Transform(Muzzle.Transform.LocalPosition);
 
         WeaponName = WeaponData.Name;
@@ -186,8 +180,7 @@ public sealed class WeaponComponent : Component
         }
 
         IHealthComponent damageable = null;
-        if (trace.Component.IsValid())
-            damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
+        if (trace.Component.IsValid()) damageable = trace.Component.Components.GetInAncestorsOrSelf<IHealthComponent>();
 
         float damage = WeaponData.Damage;
         if (damageable is not null)
@@ -267,6 +260,5 @@ public sealed class WeaponComponent : Component
 
         Animator.OnAimChanged(isAiming);
         // Animator.OnDeploy();
-        Log.Info("On Aim Changed");
     }
 }

@@ -396,7 +396,7 @@
         },
         {
           "__type": "CharacterFootsteps",
-          "MinStepTime": 0,
+          "MinStepTime": 0.1,
           "ModelRenderer": {
             "_type": "component",
             "go": "68bedac2-84d4-4b40-aacb-3c2ccf8ade0a",
@@ -408,8 +408,10 @@
         },
         {
           "__type": "PlayerManager",
+          "HeadshotScoreIncrease": 10,
           "Health": 100,
-          "MaxHealth": 100
+          "MaxHealth": 100,
+          "Score": 0
         },
         {
           "__type": "WeaponManager",
@@ -1223,15 +1225,16 @@
       "Components": [
         {
           "__type": "MobSpawner",
+          "MobLimit": 10,
           "MobPrefabs": [
             {
               "_type": "gameobject",
               "prefab": "prefabs/mobtest.prefab"
             }
           ],
-          "RandomSpawnTime": "1.5,2.5",
-          "WaitAfterSpawningAmount": 3,
-          "WaitAfterSpawningTime": 5
+          "RandomSpawnTime": "0.5,1.5",
+          "RandomWaitSpawnAmount": "2,4",
+          "RandomWaitSpawnCooldown": "0.5,2"
         }
       ],
       "Children": [
@@ -1317,6 +1320,43 @@
       "Tags": "weapon",
       "Enabled": true,
       "__Prefab": "prefabs/pistol_prop.prefab"
+    },
+    {
+      "Id": "c377002b-b674-40cb-bb77-4eb318410947",
+      "Name": "Crowbar_Pickup",
+      "Position": "139.0696,-24.58542,24.25095",
+      "Scale": "2,2,2",
+      "Tags": "solid",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "ModelRenderer",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": null,
+          "MaterialOverride": null,
+          "Model": "models/weapons/sbox_melee_crowbar/v_crowbar.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Rigidbody",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        },
+        {
+          "__type": "BoxCollider",
+          "Center": "-1,0,14",
+          "IsTrigger": false,
+          "Scale": "10,3,28",
+          "Static": false,
+          "Surface": null
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -1342,8 +1382,9 @@
   },
   "Title": "spawn_testroom",
   "Description": "",
-  "LastSaved": "2024-02-19T10:52:16.2006008\u002B00:00",
+  "LastSaved": "2024-02-19T14:04:04.2610753\u002B00:00",
   "__references": [
+    "facepunch.v_crowbar",
     "facepunch.wooden_crate"
   ]
 }
