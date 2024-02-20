@@ -10,11 +10,14 @@ public sealed class MobController : Component, IHealthComponent
     [Property] public float AttackSpeed { get; set; } = 0.4f;
     [Property] public float AttackRange { get; set; } = 10f; // is added to min distance
     [Property] public float AttackDamage { get; set; } = 5f; // is added to min distance
-    [Property] public float MinDistance { get; private set; } = 60f;
+    [Property] public float KeepDistanceToPlayer { get; private set; } = 60f;
+    [Property] private GameObject BulletDecal { get; set; }
+
 
     [Property] private MobDataResource MobData { get; set; }
 
     private NavMeshAgent Agent;
+    private Rigidbody rigidbody { get; set; }
     private PlayerController Player;
     private AnimationController Animator;
     private SoundEvent HurtSound;
@@ -22,7 +25,7 @@ public sealed class MobController : Component, IHealthComponent
     public Action<MobController> OnDeathEvent;
     private TimeSince NextAttackTime = 0;
     private float DistanceToPlayer;
-
+    private ModelPhysics ModelPhys { get; set; }
 
     private enum MobStates
     {
@@ -30,6 +33,15 @@ public sealed class MobController : Component, IHealthComponent
         CHASE,
         DEAD
     }
+
+    private enum DeathModes
+    {
+        DISSAPEAR,
+        SIT,
+        RAGDOLL
+    }
+
+    private DeathModes DeathMode { get; set; } = DeathModes.RAGDOLL;
 
     private MobStates CurState { get; set; }
 
@@ -43,6 +55,8 @@ public sealed class MobController : Component, IHealthComponent
             HurtSound = MobData.HurtSound;
 
         Model = Components.GetInChildren<ModelRenderer>().Transform;
+        ModelPhys = Model.GameObject.Components.Get<ModelPhysics>(true);
+        rigidbody = Model.GameObject.Components.Get<Rigidbody>(true);
     }
 
     protected override void OnStart()
@@ -55,6 +69,8 @@ public sealed class MobController : Component, IHealthComponent
 
     protected override void OnUpdate()
     {
+        UpdateAnimator();
+
         switch (CurState)
         {
             case MobStates.CHASE:
@@ -69,13 +85,12 @@ public sealed class MobController : Component, IHealthComponent
 
     private void ChaseState()
     {
-        UpdateAnimator();
-
         DistanceToPlayer = Vector3.DistanceBetween(Transform.Position, Player.Transform.Position);
 
-        if (DistanceToPlayer > MinDistance)
+        if (DistanceToPlayer > KeepDistanceToPlayer)
         {
             Agent.MoveTo(Player.Transform.Position);
+            Model.Rotation = Rotation.FromYaw(Agent.Velocity.EulerAngles.ToRotation().Yaw());
         }
         else
         {
@@ -83,15 +98,14 @@ public sealed class MobController : Component, IHealthComponent
         }
 
         HandleCombat();
-        Model.Rotation = Rotation.FromYaw(Agent.Velocity.EulerAngles.ToRotation().Yaw());
     }
 
     private void HandleCombat()
     {
         // if close enough to hit player
-        if (NextAttackTime > AttackSpeed && DistanceToPlayer <= MinDistance + AttackRange)
+        if (NextAttackTime > AttackSpeed && DistanceToPlayer <= AttackRange)
         {
-            PlayerManager.Instance.TakeDamage(AttackDamage, Transform.Position, Transform.Local.Forward, GameObject.Id, DamageType.BLUNT);
+            PlayerManager.Instance.TakeDamage(AttackDamage, Transform.Position, Transform.Local.Forward, Vector3.Zero, GameObject.Id, DamageType.BLUNT);
             NextAttackTime = 0;
         }
     }
@@ -100,20 +114,44 @@ public sealed class MobController : Component, IHealthComponent
     {
         // Animator.LookAtEnabled = false;
         // Animator.WithLook(Player.Transform.Position);
-        Animator.WithVelocity(Agent.Velocity);
-        Animator.WithWishVelocity(Agent.WishVelocity);
+        switch (CurState)
+        {
+            case MobStates.CHASE:
+                Animator.WithVelocity(Agent.Velocity);
+                Animator.WithWishVelocity(Agent.WishVelocity);
+                break;
+            case MobStates.DEAD:
+                Animator.WithVelocity(rigidbody.Velocity);
+                Animator.WithWishVelocity(rigidbody.AngularVelocity);
+                break;
+        }
         // Transform.Rotation = Animator.EyeWorldTransform.Rotation;
     }
 
-    public void TakeDamage(float damage, Vector3 position, Vector3 force, Guid attackerId,
+    public void TakeDamage(float damage, Vector3 position, Vector3 normal, Vector3 force, Guid attackerId,
                            DamageType damageType = DamageType.BULLET, bool isHeadshot = false)
+
     {
+        var spawnPos = new Transform(position + normal * 2.0f, Rotation.LookAt(-normal, Vector3.Random), Random.Shared.Float(0.8f, 1.2f));
+        var forceToLocal = -spawnPos.PointToLocal(Transform.Position);
+
         if (damageType is DamageType.BULLET or DamageType.BLUNT)
         {
             var p = new SceneParticles(Scene.SceneWorld, "particles/impact.flesh.bloodpuff.vpcf");
             p.SetControlPoint(0, position);
             p.SetControlPoint(0, Rotation.LookAt(force.Normal * -1f));
             p.PlayUntilFinished(Task);
+
+
+            if (BulletDecal.IsValid())
+            {
+                var decal = BulletDecal.Clone(spawnPos);
+                decal.SetParent(GameObject);
+            }
+
+            // var weapon = Scene.Directory.FindByGuid(attackerId);
+            // var attacker = weapon.Parent;
+            Animator.ProceduralHitReaction(new DamageInfo(), 1000f, forceToLocal);
         }
 
         if (CurState == MobStates.DEAD)
@@ -130,23 +168,35 @@ public sealed class MobController : Component, IHealthComponent
         if (Health <= 0f)
         {
             Health = 0f;
-            OnDeath(isHeadshot);
+            OnDeath(isHeadshot, forceToLocal);
         }
     }
 
-    private void OnDeath(bool headshot)
+    private void OnDeath(bool headshot, Vector3 force = new Vector3())
     {
         CurState = MobStates.DEAD;
         Agent.Stop();
         Animator.WithVelocity(Vector3.Zero);
-        // Animator.Target.Enabled = false;
 
         PlayerManager.Instance.OnKill(headshot, MobData.ScoreReward);
         OnDeathEvent?.Invoke(this);
+        Agent.Enabled = false;
 
-        // GameObject.Destroy();
-
-        Animator.Sitting = AnimationController.SittingStyle.Floor;
-        Animator.IsSitting = true;
+        switch (DeathMode)
+        {
+            case DeathModes.SIT:
+                Animator.Sitting = AnimationController.SittingStyle.Floor;
+                Animator.IsSitting = true;
+                break;
+            case DeathModes.DISSAPEAR:
+                // Animator.Target.Enabled = false;
+                GameObject.Destroy();
+                break;
+            case DeathModes.RAGDOLL:
+                ModelPhys.Enabled = true;
+                // rigidbody.Enabled = true;
+                Animator.ProceduralHitReaction(new DamageInfo(), 100f, force * 100000f);
+                break;
+        }
     }
 }

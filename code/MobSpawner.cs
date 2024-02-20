@@ -85,6 +85,7 @@ public sealed class MobSpawner : Component
         NextSpawnTime = 0;
         var point = GetRandomSpawnPoint();
         GameObject mobGo = GetRandomMob().Clone(point.Transform.Position);
+        mobGo.BreakFromPrefab();
         MobController mob = mobGo.Components.Get<MobController>();
         mob.OnDeathEvent += OnMobDeath;
         MobsSpawned.Add(mob);

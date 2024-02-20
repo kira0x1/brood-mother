@@ -21,6 +21,9 @@ public partial class WeaponData : GameResource
     [Property]
     public float Spread { get; set; } = 0.01f;
 
+    [Property, Range(0.01f, 1f, 0.01f)]
+    public Angles Recoil { get; set; } = new Angles(0f, 1f, 0f);
+
     [Property]
     public SoundEvent ShootSound { get; set; }
 
@@ -32,4 +35,7 @@ public partial class WeaponData : GameResource
 
     [Property, ShowIf(nameof(ShootType), ShootTypes.SHOTGUN), Range(0, 20, 1)]
     public int BulletsPerShot { get; set; } = 1;
+
+    [Property, ShowIf(nameof(ShootType), ShootTypes.SHOTGUN), Range(0.01f, 1f, 0.01f)]
+    public float ShotgunSpread { get; set; } = 0.1f;
 }

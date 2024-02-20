@@ -44,7 +44,7 @@ public sealed class PlayerManager : Component, IHealthComponent
         return gaveItem;
     }
 
-    public void TakeDamage(float damage, Vector3 position, Vector3 force, Guid attackerId, DamageType damageType = DamageType.BULLET, bool isHeadshot = false)
+    public void TakeDamage(float damage, Vector3 position, Vector3 force, Vector3 normal, Guid attackerId, DamageType damageType = DamageType.BULLET, bool isHeadshot = false)
     {
         Health -= damage;
         if (Health <= 0)

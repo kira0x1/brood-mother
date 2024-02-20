@@ -2,8 +2,13 @@
   "UI": false,
   "Volume": "1.00,1.00,0",
   "Pitch": "1.00,1.00,0",
-  "Decibels": 70,
+  "Decibels": 155,
   "SelectionMode": "Random",
-  "Sounds": null,
-  "__references": []
+  "Sounds": [
+    "sounds/guns/r870/shotgun1_shoot1.vsnd",
+    "sounds/guns/r870/shotgun1_shoot2.vsnd"
+  ],
+  "__references": [
+    "facepunch.arena"
+  ]
 }

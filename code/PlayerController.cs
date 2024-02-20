@@ -39,6 +39,13 @@ public sealed class PlayerController : Component
     private Angles Recoil { get; set; }
     private Inventory inventory { get; set; }
 
+    private TimeSince RecoilTimeSince { get; set; }
+    private const float RecoilDuration = 0.25f;
+
+    // how long after shooting do we continue affecting the next shot from a previous recoil
+    private TimeSince RecoilResetTime { get; set; }
+    private const float RecoilResetCooldown = 0.5f;
+
     private enum MoveModes
     {
         PLAYER_DIRECTION,
@@ -89,9 +96,9 @@ public sealed class PlayerController : Component
             var trace = Scene.Trace.Ray(headPosition, idealEyePos)
                 .UsePhysicsWorld()
                 .IgnoreGameObjectHierarchy(GameObject)
-                .WithAnyTags("solid")
-                .WithoutTags("weapon", "floor")
-                .Radius(2f)
+                .WithAnyTags("solid_static")
+                // .WithoutTags()
+                .Radius(0.5f)
                 .Run();
 
             Scene.Camera.Transform.Position = trace.Hit ? trace.EndPosition : idealEyePos;
@@ -182,7 +189,7 @@ public sealed class PlayerController : Component
     {
         if (playerManager.PlayerState == PlayerManager.PlayerStates.DEAD) return;
 
-        UpdateRecoil();
+        UpdateLook();
         UpdateAnimator();
         HandleAiming();
 
@@ -213,18 +220,31 @@ public sealed class PlayerController : Component
         Animator.WithWishVelocity(Vector3.Zero);
     }
 
-    private void UpdateRecoil()
+    private void UpdateLook()
     {
         var angles = EyeAngles.Normal;
         angles += Input.AnalogLook * 0.5f;
-        angles += Recoil * Time.Delta;
+
+        if (RecoilTimeSince < RecoilDuration)
+        {
+            angles += Recoil * Time.Delta;
+        }
+
         angles.pitch = angles.pitch.Clamp(-60f, 80f);
         EyeAngles = angles.WithRoll(0f);
     }
 
     public void ApplyRecoil(Angles recoil)
     {
+        if (RecoilResetTime > RecoilResetCooldown)
+        {
+            Recoil = new Angles(0f);
+        }
+
         Recoil += recoil;
+
+        RecoilTimeSince = 0;
+        RecoilResetTime = 0;
     }
 
     public void ResetViewAngles()

@@ -214,7 +214,8 @@
         "water": "Trigger",
         "weapon": "Collide",
         "player": "Collide",
-        "mob": "Collide"
+        "mob": "Collide",
+        "ragdoll": "Trigger"
       },
       "Pairs": [
         {
@@ -260,6 +261,16 @@
         {
           "a": "mob",
           "b": "mob",
+          "r": "Ignore"
+        },
+        {
+          "a": "solid",
+          "b": "ragdoll",
+          "r": "Collide"
+        },
+        {
+          "a": "player",
+          "b": "ragdoll",
           "r": "Ignore"
         }
       ]

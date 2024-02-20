@@ -5,8 +5,10 @@
 @inherits PanelComponent
 
 <root>
+
     <div class="vitals">
-        @HealthText
+        <div class="vitals-fill" style="width:@(HealthFill * 100)%"></div>
+        <div class="vitals-text">@HealthText</div
     </div>
 
     <div class="stats-hud">
@@ -65,6 +67,19 @@
             if (Player.IsValid())
                 return $"{Player.Health:F0} / {Player.MaxHealth:F0}";
             return "null / null";
+        }
+    }
+
+    public float HealthFill
+    {
+        get
+        {
+            if (Player.IsValid())
+            {
+                return Player.Health / Player.MaxHealth;
+            }
+
+            return 0f;
         }
     }
 

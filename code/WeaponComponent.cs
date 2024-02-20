@@ -56,9 +56,8 @@ public sealed class WeaponComponent : Component
     private readonly List<Vector3> hits = new List<Vector3>();
 
     private ShootTypes ShootType { get; set; } = ShootTypes.SINGLE;
+    private float ShotgunSpread { get; set; }
     private int BulletsPerShot { get; set; } = 1;
-
-
     private WeaponAnimator Animator { get; set; }
 
 
@@ -78,6 +77,8 @@ public sealed class WeaponComponent : Component
         DamageForce = WeaponData.DamageForce;
         ShootType = WeaponData.ShootType;
         BulletsPerShot = WeaponData.BulletsPerShot;
+        ShotgunSpread = WeaponData.ShotgunSpread;
+        Recoil = WeaponData.Recoil;
 
         // if (ViewModel.IsValid())
         // {
@@ -140,8 +141,10 @@ public sealed class WeaponComponent : Component
         }
     }
 
-    private SceneTraceResult GunTrace(float recoilModifier = 1f)
+    private SceneTraceResult GunTrace(float recoilModifier = 1f, float? spread = null)
     {
+        spread ??= Spread;
+
         Vector3 startPos = Transform.Position;
         Vector3 direction = Muzzle.Transform.Rotation.Forward;
 
@@ -151,7 +154,7 @@ public sealed class WeaponComponent : Component
             direction = Scene.Camera.Transform.Rotation.Forward;
         }
 
-        direction += Vector3.Random * (Spread * recoilModifier);
+        direction += Vector3.Random * (spread.Value * recoilModifier);
 
         Vector3 endPos = startPos + direction * 5000f;
         var trace = Scene.Trace.Ray(startPos, endPos)
@@ -186,7 +189,8 @@ public sealed class WeaponComponent : Component
                 player.DoHitMarker(false);
             }
 
-            damageable.TakeDamage(damage, trace.EndPosition, trace.Direction * DamageForce, GameObject.Id, DamageType.BULLET, isHeadshot);
+            damageable.TakeDamage(damage, trace.EndPosition, trace.Direction * DamageForce, trace.Normal, GameObject.Id, DamageType.BULLET, isHeadshot);
+            // PlaceDecal(trace);
         }
         else if (trace.Hit)
         {
@@ -198,6 +202,15 @@ public sealed class WeaponComponent : Component
             FromTo ft = new FromTo(trace.StartPosition, trace.EndPosition);
             arrows.Add(ft);
         }
+    }
+
+    private void PlaceDecal(SceneTraceResult trace)
+    {
+        var spawnPos = new Transform(trace.HitPosition + trace.Normal * 2.0f, Rotation.LookAt(-trace.Normal, Vector3.Random), Random.Shared.Float(0.8f, 1.2f));
+        var decal = DecalEffect.Clone(spawnPos);
+        decal.BreakFromPrefab();
+        Log.Info(trace.Scene.Name + " / " + trace.GameObject.Scene.Name);
+        ImpactEffect.Clone(spawnPos);
     }
 
     public void Shoot()
@@ -229,7 +242,7 @@ public sealed class WeaponComponent : Component
             for (int i = 1; i < BulletsPerShot; i++)
             {
                 //todo: maybe pass in 'i' and use as a modifier to spray around the bullets in a shotgun pattern
-                var trace = GunTrace();
+                var trace = GunTrace(spread: ShotgunSpread);
                 HandleSmokeTrail(trace);
                 BulletTrace(trace);
             }
@@ -266,9 +279,9 @@ public sealed class WeaponComponent : Component
         }
 
         var spawnPos = new Transform(trace.HitPosition + trace.Normal * 2.0f, Rotation.LookAt(-trace.Normal, Vector3.Random), Random.Shared.Float(0.8f, 1.2f));
-        var decal = DecalEffect.Clone(spawnPos);
+        // var decal = DecalEffect.Clone(spawnPos);
         ImpactEffect.Clone(spawnPos);
-        decal.SetParent(trace.GameObject);
+        // decal.SetParent(trace.GameObject);
     }
 
     protected override void OnEnabled()
