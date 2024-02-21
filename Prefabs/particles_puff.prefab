@@ -1,7 +1,8 @@
 {
   "RootObject": {
-    "Id": "311d4a36-7f94-40b3-985b-f11b2a6e421d",
+    "Id": "f8f81178-5e6d-4b24-823a-cce163c908fb",
     "Name": "particles_puff",
+    "Tags": "particles",
     "Enabled": true,
     "Components": [
       {
@@ -25,7 +26,7 @@
         },
         "ApplyColor": true,
         "ApplyRotation": false,
-        "ApplyShape": false,
+        "ApplyShape": true,
         "Bounce": {
           "Constants": "1,0,0,0"
         },
@@ -47,6 +48,7 @@
           "Constants": "1,0,0,0"
         },
         "Gradient": {
+          "Evaluation": "Particle",
           "GradientA": {
             "color": [
               {
@@ -74,7 +76,7 @@
         "Lifetime": {
           "Type": "Range",
           "Evaluation": "Particle",
-          "Constants": "0.5,1.5,0,0"
+          "Constants": "1,2,0,0"
         },
         "MaxParticles": 2000,
         "PerParticleTimeScale": {
@@ -141,8 +143,7 @@
         "Space": "World",
         "StartVelocity": {
           "Type": "Range",
-          "Evaluation": "Particle",
-          "Constants": "1,5,0,0"
+          "Evaluation": "Particle"
         },
         "Stretch": {},
         "TimeScale": 1,
@@ -161,22 +162,22 @@
         "MotionBlur": false,
         "Opaque": false,
         "RotationOffset": 138.71,
-        "Scale": 2,
+        "Scale": 1,
         "Shadows": false,
         "SortMode": "Unsorted",
         "Texture": "materials/particle/muzzleflashcloud.vtex"
       },
       {
         "__type": "ParticleSphereEmitter",
-        "Burst": 30.47,
+        "Burst": 10,
         "Delay": 0,
         "DestroyOnEnd": true,
-        "Duration": 1,
+        "Duration": 0.5,
         "Loop": false,
         "OnEdge": false,
-        "Radius": 4.24,
+        "Radius": 1.5,
         "Rate": 0,
-        "Velocity": 5
+        "Velocity": 0.1
       }
     ],
     "Children": []

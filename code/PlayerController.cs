@@ -96,9 +96,9 @@ public sealed class PlayerController : Component
             var trace = Scene.Trace.Ray(headPosition, idealEyePos)
                 .UsePhysicsWorld()
                 .IgnoreGameObjectHierarchy(GameObject)
-                .WithAnyTags("solid_static")
-                // .WithoutTags()
-                .Radius(0.5f)
+                .WithAnyTags("solid_static", "solid")
+                .WithoutTags("weapon")
+                .Radius(2.5f)
                 .Run();
 
             Scene.Camera.Transform.Position = trace.Hit ? trace.EndPosition : idealEyePos;
@@ -227,24 +227,29 @@ public sealed class PlayerController : Component
 
         if (RecoilTimeSince < RecoilDuration)
         {
-            angles += Recoil * Time.Delta;
         }
 
+        angles += Recoil * Time.Delta;
         angles.pitch = angles.pitch.Clamp(-60f, 80f);
         EyeAngles = angles.WithRoll(0f);
     }
 
+    // public void ApplyRecoil(Angles recoil)
+    // {
+    //     if (RecoilResetTime > RecoilResetCooldown)
+    //     {
+    //         // Recoil = new Angles(0f);
+    //     }
+    //
+    //     // Recoil += recoil;
+    //
+    //     RecoilTimeSince = 0;
+    //     RecoilResetTime = 0;
+    // }
+
     public void ApplyRecoil(Angles recoil)
     {
-        if (RecoilResetTime > RecoilResetCooldown)
-        {
-            Recoil = new Angles(0f);
-        }
-
         Recoil += recoil;
-
-        RecoilTimeSince = 0;
-        RecoilResetTime = 0;
     }
 
     public void ResetViewAngles()

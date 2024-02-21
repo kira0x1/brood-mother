@@ -46,7 +46,7 @@ public sealed class WeaponManager : Component
             Player.Animator.Target?.Set("b_attack", true);
             LastShootTime = 0;
             Weapon.Shoot();
-            Controller.ApplyRecoil(Recoil);
+            // Controller.ApplyRecoil(Recoil);
         }
     }
 
@@ -70,6 +70,7 @@ public sealed class WeaponManager : Component
         weaponGo.Transform.Position = WeaponBone.Transform.Position;
         weaponGo.Transform.Rotation = WeaponBone.Transform.Rotation;
         weaponGo.Enabled = true;
+        weaponGo.BreakFromPrefab();
 
         SpawnedWeapons[slotId] = weapon;
         ActiveWeapon = slotId;

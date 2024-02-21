@@ -161,8 +161,9 @@ public sealed class WeaponComponent : Component
             .IgnoreGameObjectHierarchy(GameObject.Root)
             .UsePhysicsWorld()
             .UseHitboxes()
-            .Radius(3f)
+            .Radius(5f)
             .Run();
+
 
         return trace;
     }
@@ -204,14 +205,15 @@ public sealed class WeaponComponent : Component
         }
     }
 
-    private void PlaceDecal(SceneTraceResult trace)
-    {
-        var spawnPos = new Transform(trace.HitPosition + trace.Normal * 2.0f, Rotation.LookAt(-trace.Normal, Vector3.Random), Random.Shared.Float(0.8f, 1.2f));
-        var decal = DecalEffect.Clone(spawnPos);
-        decal.BreakFromPrefab();
-        Log.Info(trace.Scene.Name + " / " + trace.GameObject.Scene.Name);
-        ImpactEffect.Clone(spawnPos);
-    }
+    // private void PlaceDecal(SceneTraceResult trace)
+    // {
+    // var spawnPos = new Transform(trace.HitPosition + trace.Normal * 2.0f, Rotation.LookAt(-trace.Normal, Vector3.Random), Random.Shared.Float(0.8f, 1.2f));
+    // var decal = DecalEffect.Clone();
+    // decal.BreakFromPrefab();
+    // decal.SetParent(trace.GameObject);
+    // Log.Info(trace.Scene.Name + " / " + trace.GameObject.Scene.Name);
+    // ImpactEffect.Clone(spawnPos);
+    // }
 
     public void Shoot()
     {
@@ -221,20 +223,19 @@ public sealed class WeaponComponent : Component
         {
             var p = new SceneParticles(Scene.SceneWorld, MuzzleFlash);
             p.SetControlPoint(0, MuzzleTransform);
-            p.PlayUntilFinished(Task);
+            // p.PlayUntilFinished(Task);
         }
 
         if (ShootType == ShootTypes.SINGLE)
         {
             var trace = GunTrace();
-
             HandleSound();
             HandleSmokeTrail(trace);
             BulletTrace(trace);
         }
         else if (ShootType == ShootTypes.SHOTGUN)
         {
-            var firstTrace = GunTrace(0.25f);
+            var firstTrace = GunTrace(0.1f);
             HandleSound();
             HandleSmokeTrail(firstTrace);
             BulletTrace(firstTrace);
@@ -278,10 +279,17 @@ public sealed class WeaponComponent : Component
             damageable.OnDamage(damageInfo);
         }
 
-        var spawnPos = new Transform(trace.HitPosition + trace.Normal * 2.0f, Rotation.LookAt(-trace.Normal, Vector3.Random), Random.Shared.Float(0.8f, 1.2f));
-        // var decal = DecalEffect.Clone(spawnPos);
-        ImpactEffect.Clone(spawnPos);
-        // decal.SetParent(trace.GameObject);
+        var spawnPos = new Transform(trace.HitPosition + trace.Normal * 4f, Rotation.LookAt(-trace.Normal, Vector3.Random), Random.Shared.Float(0.8f, 1.2f));
+
+        var p = new SceneParticles(Scene.SceneWorld, ParticleSystem.Load("particles/impact_default.vpcf"));
+        p.SetControlPoint(0, trace.EndPosition);
+        p.SetControlPoint(1, trace.EndPosition);
+        p.SetControlPoint(2, trace.Distance);
+        p.PlayUntilFinished(Task);
+
+        var decal = DecalEffect.Clone(spawnPos);
+        decal.BreakFromPrefab();
+        decal.SetParent(trace.GameObject);
     }
 
     protected override void OnEnabled()

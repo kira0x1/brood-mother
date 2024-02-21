@@ -1,7 +1,7 @@
 {
   "RootObject": {
-    "Id": "1c2a0a87-0a7a-40d7-9b40-e29c763c9580",
-    "Name": "bullethole_decal",
+    "Id": "963013b2-8de4-4fa0-a3ad-8bcba6b171e7",
+    "Name": "decal_bullet_default",
     "Enabled": true,
     "Components": [
       {
@@ -10,7 +10,7 @@
         "CutoffAngleSoftness": 5,
         "Material": "materials/decals/bullethole.vmat",
         "Mod2XBlending": false,
-        "Size": "4,4,4",
+        "Size": "5,5,5",
         "TintColor": "1,1,1,1",
         "TriPlanar": false
       }

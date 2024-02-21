@@ -5,10 +5,12 @@
   "DamageForce": 25,
   "FireRate": 0.25,
   "Spread": 0.5,
+  "Recoil": "0,1,0",
   "ShootSound": "sounds/shotgun_shoot.sound",
   "WeaponHoldType": "Shotgun",
   "ShootType": "SHOTGUN",
-  "BulletsPerShot": 8,
+  "BulletsPerShot": 4,
+  "ShotgunSpread": 0.21,
   "__references": [
     "facepunch.w_spaghellim4"
   ]

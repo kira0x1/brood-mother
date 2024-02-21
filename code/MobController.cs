@@ -103,7 +103,7 @@ public sealed class MobController : Component, IHealthComponent
     private void HandleCombat()
     {
         // if close enough to hit player
-        if (NextAttackTime > AttackSpeed && DistanceToPlayer <= AttackRange)
+        if (NextAttackTime > AttackSpeed && DistanceToPlayer <= AttackRange + KeepDistanceToPlayer)
         {
             PlayerManager.Instance.TakeDamage(AttackDamage, Transform.Position, Transform.Local.Forward, Vector3.Zero, GameObject.Id, DamageType.BLUNT);
             NextAttackTime = 0;
@@ -151,7 +151,7 @@ public sealed class MobController : Component, IHealthComponent
 
             // var weapon = Scene.Directory.FindByGuid(attackerId);
             // var attacker = weapon.Parent;
-            Animator.ProceduralHitReaction(new DamageInfo(), 1000f, forceToLocal);
+            Animator.ProceduralHitReaction(new DamageInfo(), damage * 10, forceToLocal);
         }
 
         if (CurState == MobStates.DEAD)
