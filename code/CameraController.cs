@@ -11,11 +11,8 @@ public enum CameraFollowMode
 public sealed class CameraController : Component
 {
     [Property] public PlayerController PlayerController { get; set; }
-    [Property] public float LerpSpeed { get; set; } = 5f;
-
-    [Group("Follow Mode"), Property] private Vector3 SmoothFollowOffset { get; set; }
-    [Group("Follow Mode"), Property] private Vector3 FixedFollowOffset { get; set; }
-    [Group("Follow Mode"), Property] public CameraFollowMode FollowMode { get; set; } = CameraFollowMode.FIXED_FOLLOW;
+    [Property] private float LerpSpeed { get; set; } = 5f;
+    [Group("Follow Mode"), Property] public CameraFollowMode FollowMode { get; set; } = CameraFollowMode.SMOOTH_FOLLOW;
 
     private Vector3 Offset;
     private GameTransform PlayerTransform;

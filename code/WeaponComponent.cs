@@ -60,6 +60,8 @@ public sealed class WeaponComponent : Component
     private int BulletsPerShot { get; set; } = 1;
     private WeaponAnimator Animator { get; set; }
 
+    [Property] private Light MuzzleLight { get; set; }
+
 
     protected override void OnAwake()
     {
@@ -226,6 +228,8 @@ public sealed class WeaponComponent : Component
             // p.PlayUntilFinished(Task);
         }
 
+        PlayMuzzleLight();
+
         if (ShootType == ShootTypes.SINGLE)
         {
             var trace = GunTrace();
@@ -248,6 +252,15 @@ public sealed class WeaponComponent : Component
                 BulletTrace(trace);
             }
         }
+    }
+
+    private async void PlayMuzzleLight()
+    {
+        if (MuzzleLight is null) return;
+
+        MuzzleLight.Enabled = true;
+        await Task.DelaySeconds(0.08f);
+        MuzzleLight.Enabled = false;
     }
 
     private void HandleSound()

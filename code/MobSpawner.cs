@@ -16,21 +16,20 @@ public sealed class MobSpawner : Component
     [Property, Group("Mobs"), ResourceType("prefab")]
     private List<GameObject> MobPrefabs { get; set; } = new List<GameObject>();
 
-    [Property, Group("Cooldowns"), ValueRange(1f, 120f)] private Vector2 RandomSpawnTime { get; set; } = new Vector2(1f, 8f);
-    [Property, Group("Cooldowns"), ValueRange(1, 120)] private Vector2 RandomWaitSpawnAmount { get; set; } = new Vector2(1f, 8f);
-    [Property, Group("Cooldowns"), ValueRange(1f, 120f)] private Vector2 RandomWaitSpawnCooldown { get; set; } = new Vector2(1f, 8f);
+    [Description("The time inbetween spawning each indivisual mob")]
+    [Property, Group("Cooldowns"), ValueRange(1f, 120f)] private Vector2 MobSpawnDelay { get; set; } = new Vector2(1f, 8f);
 
-    private int WaitAfterSpawningAmount { get; set; } = 2;
-    private float WaitAfterSpawningTime { get; set; } = 10f;
-    private TimeSince NextSpawnTime { get; set; } = 0;
-    private TimeSince NextSpawnWaitTime { get; set; } = 0;
+    [Description("How many mobs to spawn for each group")]
+    [Property, Group("Cooldowns"), ValueRange(1, 120)] private Vector2 MobsInGroupAmount { get; set; } = new Vector2(1f, 8f);
 
-    private float SpawnCD;
-    private int CurSpawnedSinceLastWait { get; set; }
+    [Description("After spawning `MobsToSpawnAmount` of mobs wait for n seconds")]
+    [Property, Group("Cooldowns"), ValueRange(1f, 120f)] private Vector2 MobGroupSpawnDelay { get; set; } = new Vector2(1f, 8f);
+
     public int CurMobsAlive { get; private set; }
     private List<SpawnPoint> Spawners { get; set; } = new List<SpawnPoint>();
     private List<MobController> MobsSpawned { get; set; }
     private PlayerManager Player { get; set; }
+    private bool doneSpawningGroup = true;
 
     protected override void OnAwake()
     {
@@ -39,8 +38,6 @@ public sealed class MobSpawner : Component
         MobsSpawned = new List<MobController>();
         Spawners = new List<SpawnPoint>();
         Spawners = Components.GetAll<SpawnPoint>(FindMode.InChildren).ToList();
-        SpawnCD = GetRandomSpawnTime();
-        NextSpawnWaitTime = WaitAfterSpawningTime;
     }
 
     protected override void OnStart()
@@ -49,62 +46,63 @@ public sealed class MobSpawner : Component
         Player = PlayerManager.Instance;
     }
 
-    private float GetRandomSpawnTime()
-    {
-        return Random.Shared.Float(RandomSpawnTime.x, RandomSpawnTime.y);
-    }
-
-    private int GetRandomWaitAmount()
-    {
-        return Random.Shared.Int((int)RandomWaitSpawnAmount.x, (int)RandomWaitSpawnAmount.y);
-    }
-
-    private float GetRandomWaitCooldown()
-    {
-        return Random.Shared.Float(RandomWaitSpawnCooldown.x, RandomWaitSpawnCooldown.y);
-    }
 
     protected override void OnUpdate()
     {
         if (!SpawningOn || Player.PlayerState == PlayerManager.PlayerStates.DEAD) return;
 
-        if (NextSpawnTime > SpawnCD && NextSpawnWaitTime > WaitAfterSpawningTime)
+        if (doneSpawningGroup && MobsSpawned.Count < MobLimit)
         {
-            if (CurMobsAlive < MobLimit)
-                SpawnMob();
+            var mobsAmount = GetRandMobAmount();
+            SpawnMobGroup(mobsAmount, GetRandGroupSpawnDelay());
         }
     }
 
-    private void SpawnMob()
+    private async void SpawnMobGroup(int spawnAmount, float waitDelaySeconds)
     {
-        CurSpawnedSinceLastWait++;
-        SpawnCD = GetRandomSpawnTime();
-        WaitAfterSpawningAmount = GetRandomWaitAmount();
-        WaitAfterSpawningTime = GetRandomWaitCooldown();
+        doneSpawningGroup = false;
 
-        NextSpawnTime = 0;
-        var point = GetRandomSpawnPoint();
-        GameObject mobGo = GetRandomMob().Clone(point.Transform.Position);
+        var mobToSpawn = GetRandomMob();
+        for (int i = 0; i < spawnAmount; i++)
+        {
+            float delay = GetRandSpawnDelay();
+            await Task.DelaySeconds(delay);
+            SpawnMob(mobToSpawn);
+        }
+
+        await Task.DelaySeconds(waitDelaySeconds);
+        doneSpawningGroup = true;
+    }
+
+
+    private void SpawnMob(GameObject mobPrefab)
+    {
+        GameObject mobGo = mobPrefab.Clone(GetRandomSpawnPoint().Transform.Position);
+        OnMobSpawned(mobGo);
+    }
+
+    private void OnMobSpawned(GameObject mobGo)
+    {
         mobGo.BreakFromPrefab();
         MobController mob = mobGo.Components.Get<MobController>();
+
+        if (!mob.IsValid())
+        {
+            Log.Warning($"Failed to find MobController in {mobGo.Name}");
+            return;
+        }
+
         mob.OnDeathEvent += OnMobDeath;
         MobsSpawned.Add(mob);
         CurMobsAlive++;
-
-        if (CurSpawnedSinceLastWait >= WaitAfterSpawningAmount)
-        {
-            NextSpawnWaitTime = 0;
-            CurSpawnedSinceLastWait = 0;
-        }
     }
 
     private void OnMobDeath(MobController mob)
     {
         CurMobsAlive--;
-        // Log.Info("mob died");
     }
 
-    public SpawnPoint GetRandomSpawnPoint()
+    private SpawnPoint GetRandomSpawnPoint()
     {
         return Random.Shared.FromList(Spawners);
     }
@@ -112,5 +110,20 @@ public sealed class MobSpawner : Component
     private GameObject GetRandomMob()
     {
         return Random.Shared.FromList(MobPrefabs);
+    }
+
+    private float GetRandSpawnDelay()
+    {
+        return Random.Shared.Float(MobSpawnDelay.x, MobSpawnDelay.y);
+    }
+
+    private int GetRandMobAmount()
+    {
+        return Random.Shared.Int((int)MobsInGroupAmount.x, (int)MobsInGroupAmount.y);
+    }
+
+    private float GetRandGroupSpawnDelay()
+    {
+        return Random.Shared.Float(MobGroupSpawnDelay.x, MobGroupSpawnDelay.y);
     }
 }

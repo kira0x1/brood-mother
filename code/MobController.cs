@@ -1,5 +1,7 @@
 using System;
 
+// ReSharper disable SwitchStatementMissingSomeEnumCasesNoDefault
+
 namespace Kira;
 
 [Group("Kira/Mob"), Icon("man_3")]

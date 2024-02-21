@@ -46,6 +46,8 @@ public sealed class PlayerController : Component
     private TimeSince RecoilResetTime { get; set; }
     private const float RecoilResetCooldown = 0.5f;
 
+    public Action<bool> OnAimChanged;
+
     private enum MoveModes
     {
         PLAYER_DIRECTION,
@@ -58,6 +60,7 @@ public sealed class PlayerController : Component
     [Property, Group("Move")] public ViewModes ViewMode { get; set; }
 
     public Action<ViewModes> OnViewModeChangedEvent;
+    private bool hasStarted;
 
     protected override void OnAwake()
     {
@@ -79,11 +82,23 @@ public sealed class PlayerController : Component
         OnViewModeChanged();
     }
 
+    protected override void OnStart()
+    {
+        base.OnStart();
+        hasStarted = true;
+    }
+
     protected override void OnPreRender()
     {
         base.OnPreRender();
-        if (Eye.IsValid() && ViewMode == ViewModes.FIRST_PERSON && Game.InGame)
+
+        if (Eye.IsValid() && ViewMode == ViewModes.FIRST_PERSON && Game.InGame && hasStarted)
         {
+            if (!Controller.IsValid())
+            {
+                Controller = Components.Get<CharacterController>();
+            }
+
             var idealEyePos = Eye.Transform.Position;
             var headPosition = Transform.Position + Vector3.Up * Controller.Height;
             var headTrace = Scene.Trace.Ray(Transform.Position, headPosition)
@@ -311,16 +326,16 @@ public sealed class PlayerController : Component
         if (Input.Released("Attack2"))
         {
             IsAiming = !IsAiming;
-            OnAimChanged();
+            OnAimChanged?.Invoke(IsAiming);
         }
     }
 
-    private void OnAimChanged()
-    {
-        if (!inventory.HasItem) return;
-
-        var weapon = inventory.ActiveWeapon;
-        if (!weapon.IsValid()) return;
-        weapon.OnAimChanged(IsAiming);
-    }
+    // private void OnAimChanged()
+    // {
+    //     if (!inventory.HasItem) return;
+    //
+    //     var weapon = inventory.ActiveWeapon;
+    //     if (!weapon.IsValid()) return;
+    //     weapon.OnAimChanged(IsAiming);
+    // }
 }

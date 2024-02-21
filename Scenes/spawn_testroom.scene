@@ -62,7 +62,6 @@
           "Name": "Point Light",
           "Position": "-13.6954,-202.5803,156.0632",
           "Tags": "light_point,light",
-          "Enabled": true,
           "Components": [
             {
               "__type": "PointLight",
@@ -90,6 +89,28 @@
               "FogStrength": 1,
               "LightColor": "0.50838,0.41763,0.66512,1",
               "Radius": 415.60065,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "Id": "41bba9e7-2a55-48c0-be83-302d8a82d4e5",
+          "Name": "Spot Light",
+          "Position": "-128.3394,252.6147,149.0277",
+          "Rotation": "-0.0597304,-0.02017366,-0.4439306,0.8938407",
+          "Tags": "light_spot,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "SpotLight",
+              "Attenuation": 0.05,
+              "ConeInner": 1,
+              "ConeOuter": 27.72,
+              "Cookie": "materials/effects/lightcookies/grid_soft.vtex",
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.4093,0.10851,0.30403,1",
+              "Radius": 1400,
               "Shadows": true
             }
           ]
@@ -293,8 +314,8 @@
     {
       "Id": "516a6be0-d00e-49cf-8bb7-23bfed5b4407",
       "Name": "Camera",
-      "Position": "-241.6617,0,352",
-      "Rotation": "0,0.4397455,0,0.8981225",
+      "Position": "-211.0308,0.0000006425838,203.0093",
+      "Rotation": "-0.00000000379893,0.2106284,-0.0000000008185255,0.9775662",
       "Tags": "maincamera",
       "Enabled": true,
       "Components": [
@@ -316,15 +337,55 @@
         },
         {
           "__type": "CameraController",
-          "FixedFollowOffset": "0,0,0",
           "FollowMode": "SMOOTH_FOLLOW",
           "LerpSpeed": 5,
           "PlayerController": {
             "_type": "component",
             "go": "3b2495f6-4608-4790-886c-6d5a0cec5814",
             "component_type": "PlayerController"
+          }
+        },
+        {
+          "__type": "Bloom",
+          "BloomColor": {
+            "color": [
+              {
+                "c": "1,1,1,1"
+              },
+              {
+                "t": 1,
+                "c": "1,1,1,1"
+              }
+            ],
+            "alpha": []
           },
-          "SmoothFollowOffset": "0,0,0"
+          "BloomCurve": [
+            {
+              "y": 0.5
+            },
+            {
+              "x": 1,
+              "y": 1
+            }
+          ],
+          "Mode": "Additive",
+          "Strength": 3,
+          "Threshold": 0.025,
+          "ThresholdWidth": 0.05
+        },
+        {
+          "__type": "Tonemapping",
+          "ExposureCompensation": 0,
+          "MaximumExposure": 0.77,
+          "MinimumExposure": 0.2,
+          "Rate": 1
+        },
+        {
+          "__type": "DepthOfField",
+          "BackBlur": true,
+          "BlurSize": 48.4,
+          "FocalDistance": 356,
+          "FrontBlur": true
         }
       ]
     },
@@ -416,6 +477,7 @@
           "__type": "PlayerManager",
           "HeadshotScoreIncrease": 10,
           "Health": 100,
+          "IsInvincible": true,
           "MaxHealth": 100
         },
         {
@@ -1231,51 +1293,38 @@
       "Components": [
         {
           "__type": "MobSpawner",
-          "MobLimit": 10,
+          "MobGroupSpawnDelay": "500,500",
+          "MobLimit": 500,
           "MobPrefabs": [
             {
               "_type": "gameobject",
               "prefab": "prefabs/mobtest.prefab"
             }
           ],
-          "RandomSpawnTime": "0.1,3",
-          "RandomWaitSpawnAmount": "0.5,1",
-          "RandomWaitSpawnCooldown": "0.5,4",
+          "MobsInGroupAmount": "3,3",
+          "MobSpawnDelay": "0.1,0.5",
           "SpawningOn": true
         }
       ],
       "Children": [
         {
-          "Id": "de35dacc-c596-41d5-a112-49e947e4372d",
-          "Name": "Spawn Point",
-          "Position": "242.31,-176.3397,124.2186",
-          "Rotation": "0,0,0.8660254,0.5000001",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "SpawnPoint",
-              "Color": "0.8902,0.31765,0.05098,1"
-            }
-          ]
-        },
-        {
-          "Id": "5e1e0277-5981-4b84-adce-76caaabca96f",
-          "Name": "Spawn Point",
-          "Position": "-33.16168,-289.417,0",
-          "Rotation": "0,0,0.5143812,0.8575616",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "SpawnPoint",
-              "Color": "0.8902,0.31765,0.05098,1"
-            }
-          ]
-        },
-        {
           "Id": "b11509b7-3379-4602-84ab-89782e870acd",
           "Name": "Spawn Point",
-          "Position": "206.2538,276.4799,253.4959",
-          "Rotation": "0,0,0.9608412,-0.2770997",
+          "Position": "324.8704,570.4312,253.4959",
+          "Rotation": "0,0,0.8289168,-0.5593718",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "SpawnPoint",
+              "Color": "0.8902,0.31765,0.05098,1"
+            }
+          ]
+        },
+        {
+          "Id": "fd5802b9-176d-4c6d-986e-30b6fe406e96",
+          "Name": "Spawn Point",
+          "Position": "308.4673,431.7494,253.4959",
+          "Rotation": "0,0,0.9870263,-0.1605589",
           "Enabled": true,
           "Components": [
             {
@@ -1311,43 +1360,6 @@
       ]
     },
     {
-      "Id": "c377002b-b674-40cb-bb77-4eb318410947",
-      "Name": "Crowbar_Pickup",
-      "Position": "139.0696,-24.58542,24.25095",
-      "Scale": "2,2,2",
-      "Tags": "solid",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "ModelRenderer",
-          "BodyGroups": 18446744073709551615,
-          "MaterialGroup": null,
-          "MaterialOverride": null,
-          "Model": "models/weapons/sbox_melee_crowbar/v_crowbar.vmdl",
-          "RenderType": "On",
-          "Tint": "1,1,1,1"
-        },
-        {
-          "__type": "Rigidbody",
-          "AngularDamping": 0,
-          "Gravity": true,
-          "LinearDamping": 0,
-          "Locking": {},
-          "MassOverride": 0,
-          "RigidbodyFlags": 0,
-          "StartAsleep": false
-        },
-        {
-          "__type": "BoxCollider",
-          "Center": "-1,0,14",
-          "IsTrigger": false,
-          "Scale": "10,3,28",
-          "Static": false,
-          "Surface": null
-        }
-      ]
-    },
-    {
       "Id": "df386015-b5ec-4820-85fe-145cdda1ec91",
       "Name": "shotgun_pickup",
       "Position": "115.2619,44.50995,1.500004",
@@ -1366,22 +1378,6 @@
       "__Prefab": "prefabs/gun loot/pistol_prop.prefab"
     },
     {
-      "Id": "2fd9403d-ff50-4cf1-a9b5-f06faee80266",
-      "Name": "Map",
-      "Tags": "map",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "MapInstance",
-          "MapName": "stairs",
-          "OnMapLoaded": null,
-          "OnMapUnloaded": null,
-          "UseMapFromLaunch": false
-        }
-      ],
-      "Children": []
-    },
-    {
       "Id": "945174bf-d943-4c94-b534-25b97b053fcc",
       "Name": "2D Skybox",
       "Position": "-263.0555,58.46694,193.4207",
@@ -1391,13 +1387,14 @@
         {
           "__type": "SkyBox2D",
           "SkyMaterial": "materials/skybox/light_test_sky_night_basic.vmat",
-          "Tint": "0.18605,0.18605,0.18605,1"
+          "Tint": "0.43721,0.43721,0.43721,1"
         }
       ]
     },
     {
       "Id": "f8919630-a3e0-431d-81bb-87549b71b3a8",
       "Name": "Effects",
+      "Position": "1.167805,-146.7746,81.35195",
       "Enabled": true,
       "Components": [
         {
@@ -1410,6 +1407,59 @@
           "Strength": 1
         }
       ]
+    },
+    {
+      "Id": "3280c5d8-90fe-4a96-858c-170308ff4792",
+      "Name": "stairs_wood001a",
+      "Position": "71.93533,-106.2749,59.15894",
+      "Rotation": "0,0,0.9238795,0.3826834",
+      "Scale": "0.9699331,0.9699331,0.9699331",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Prop",
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props_farm/stairs_wood001a.vmdl",
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "ShowCreatedComponents": true
+        }
+      ]
+    },
+    {
+      "Id": "57e01123-5397-4a79-8584-d0cee48e4308",
+      "Name": "stairs_wood001a (1)",
+      "Position": "111.5189,-147.5189,100.4412",
+      "Rotation": "-0.2703492,0.1119823,0.8834392,0.3659325",
+      "Scale": "0.9699331,0.9699331,0.9699331",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Prop",
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props_farm/stairs_wood001a.vmdl",
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "ShowCreatedComponents": false
+        }
+      ]
+    },
+    {
+      "Id": "abc57116-a12c-46a9-9571-dff74ab00691",
+      "Name": "Map",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "MapInstance",
+          "MapName": "stairs",
+          "OnMapLoaded": null,
+          "OnMapUnloaded": null,
+          "UseMapFromLaunch": false
+        }
+      ],
+      "Children": []
     }
   ],
   "SceneProperties": {
@@ -1435,8 +1485,9 @@
   },
   "Title": "spawn_testroom",
   "Description": "",
-  "LastSaved": "2024-02-21T03:39:21.9991839\u002B00:00",
+  "LastSaved": "2024-02-21T20:06:03.821778\u002B00:00",
   "__references": [
-    "facepunch.wooden_crate"
+    "facepunch.wooden_crate",
+    "tfassets.stairs_wood001a"
   ]
 }

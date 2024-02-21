@@ -7,6 +7,8 @@ namespace Kira;
 [Icon("person")]
 public sealed class PlayerManager : Component, IHealthComponent
 {
+    [Property] public bool IsInvincible { get; private set; } = false;
+
     [Property] public float MaxHealth { get; private set; } = 100;
     [Property] public float Health { get; private set; } = 100;
 
@@ -46,6 +48,7 @@ public sealed class PlayerManager : Component, IHealthComponent
 
     public void TakeDamage(float damage, Vector3 position, Vector3 force, Vector3 normal, Guid attackerId, DamageType damageType = DamageType.BULLET, bool isHeadshot = false)
     {
+        if (IsInvincible) return;
         Health -= damage;
         if (Health <= 0)
         {
