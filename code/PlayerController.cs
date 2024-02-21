@@ -96,8 +96,7 @@ public sealed class PlayerController : Component
             var trace = Scene.Trace.Ray(headPosition, idealEyePos)
                 .UsePhysicsWorld()
                 .IgnoreGameObjectHierarchy(GameObject)
-                .WithAnyTags("solid_static", "solid")
-                .WithoutTags("weapon")
+                .WithAnyTags("map")
                 .Radius(2.5f)
                 .Run();
 

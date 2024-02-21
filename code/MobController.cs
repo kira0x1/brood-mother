@@ -103,7 +103,7 @@ public sealed class MobController : Component, IHealthComponent
     private void HandleCombat()
     {
         // if close enough to hit player
-        if (NextAttackTime > AttackSpeed && DistanceToPlayer <= AttackRange + KeepDistanceToPlayer)
+        if (NextAttackTime > AttackSpeed && DistanceToPlayer <= AttackRange)
         {
             PlayerManager.Instance.TakeDamage(AttackDamage, Transform.Position, Transform.Local.Forward, Vector3.Zero, GameObject.Id, DamageType.BLUNT);
             NextAttackTime = 0;

@@ -1,0 +1,32 @@
+{
+  "publish": {
+    "Allowed": true,
+    "Enabled": false,
+    "ProjectConfig": {
+      "Title": "stairs",
+      "Type": "map",
+      "Org": "local",
+      "Ident": "stairs",
+      "Tags": null,
+      "Schema": 0,
+      "HasAssets": false,
+      "AssetsPath": null,
+      "Resources": null,
+      "MenuResources": "*",
+      "HasCode": false,
+      "CodePath": null,
+      "PackageReferences": [],
+      "EditorReferences": [
+        "facepunch.old_bench#33586",
+        "randkassets.r_k_monitor#26746",
+        "saandy.wall_socket#19945",
+        "randkassets.ep4_shelves#21189",
+        "smartmario.old_tv#34404",
+        "caro.arcade#28534"
+      ],
+      "Metadata": {
+        "SingleAssetSource": "maps/stairs.vmap"
+      }
+    }
+  }
+}

@@ -9,16 +9,15 @@
         {
           "Id": "a79a6cc7-b5c5-4d46-9747-cb832fab2c38",
           "Name": "Point Light",
-          "Position": "265.2681,256,173.2691",
+          "Position": "265.2681,447.5572,458.2803",
           "Tags": "light_point,light",
-          "Enabled": true,
           "Components": [
             {
               "__type": "PointLight",
               "Attenuation": 0.5,
               "FogMode": "Enabled",
               "FogStrength": 1,
-              "LightColor": "0.92093,0.86996,0.77529,1",
+              "LightColor": "0.55323,0.18561,0.66512,1",
               "Radius": 800,
               "Shadows": true
             }
@@ -29,14 +28,13 @@
           "Name": "Point Light",
           "Position": "265.2681,-288,173.2691",
           "Tags": "light_point,light",
-          "Enabled": true,
           "Components": [
             {
               "__type": "PointLight",
               "Attenuation": 0.5,
               "FogMode": "Enabled",
               "FogStrength": 1,
-              "LightColor": "0.92093,0.86996,0.77529,1",
+              "LightColor": "0.3907,0.19081,0.30408,1",
               "Radius": 800,
               "Shadows": true
             }
@@ -45,17 +43,16 @@
         {
           "Id": "acdb7bd4-e4b5-4fa3-b718-075030d610cb",
           "Name": "Point Light",
-          "Position": "-310.7319,256,173.2691",
+          "Position": "-310.7319,203.0572,142.394",
           "Tags": "light_point,light",
-          "Enabled": true,
           "Components": [
             {
               "__type": "PointLight",
-              "Attenuation": 0.5,
+              "Attenuation": 3.48,
               "FogMode": "Enabled",
               "FogStrength": 1,
-              "LightColor": "0.92093,0.86996,0.77529,1",
-              "Radius": 800,
+              "LightColor": "0.91628,0.33242,0.62435,1",
+              "Radius": 300.10013,
               "Shadows": true
             }
           ]
@@ -63,17 +60,17 @@
         {
           "Id": "1e62354d-c331-4082-819c-d91c7a8cb4cd",
           "Name": "Point Light",
-          "Position": "-310.7319,-320,173.2691",
+          "Position": "-13.6954,-202.5803,156.0632",
           "Tags": "light_point,light",
           "Enabled": true,
           "Components": [
             {
               "__type": "PointLight",
-              "Attenuation": 0.5,
+              "Attenuation": 3.4,
               "FogMode": "Enabled",
               "FogStrength": 1,
               "LightColor": "0.92093,0.86996,0.77529,1",
-              "Radius": 800,
+              "Radius": 300,
               "Shadows": true
             }
           ]
@@ -81,17 +78,18 @@
         {
           "Id": "6e327deb-0347-4da1-b4e0-61478e8b2b8d",
           "Name": "Point Light",
-          "Position": "-22.73193,0,173.2691",
+          "Position": "-44.13826,91.83054,134.4734",
+          "Rotation": "0,0,-0.06766197,0.9977083",
           "Tags": "light_point,light",
           "Enabled": true,
           "Components": [
             {
               "__type": "PointLight",
-              "Attenuation": 0.5,
+              "Attenuation": 2.68,
               "FogMode": "Enabled",
               "FogStrength": 1,
-              "LightColor": "0.92093,0.86996,0.77529,1",
-              "Radius": 800,
+              "LightColor": "0.50838,0.41763,0.66512,1",
+              "Radius": 415.60065,
               "Shadows": true
             }
           ]
@@ -102,7 +100,6 @@
       "Id": "b1769725-2d49-4416-97d3-abe4cff39102",
       "Name": "Room",
       "Tags": "solid",
-      "Enabled": true,
       "Children": [
         {
           "Id": "a1a920e7-b3e7-45ad-8c2a-d1ac90bc7c55",
@@ -1251,7 +1248,7 @@
         {
           "Id": "de35dacc-c596-41d5-a112-49e947e4372d",
           "Name": "Spawn Point",
-          "Position": "259.582,-120.4014,0",
+          "Position": "242.31,-176.3397,124.2186",
           "Rotation": "0,0,0.8660254,0.5000001",
           "Enabled": true,
           "Components": [
@@ -1277,8 +1274,8 @@
         {
           "Id": "b11509b7-3379-4602-84ab-89782e870acd",
           "Name": "Spawn Point",
-          "Position": "-390.3029,-98.819,0",
-          "Rotation": "0,0,0.01897395,0.9998199",
+          "Position": "206.2538,276.4799,253.4959",
+          "Rotation": "0,0,0.9608412,-0.2770997",
           "Enabled": true,
           "Components": [
             {
@@ -1293,7 +1290,7 @@
       "Id": "4294bccb-8afa-4309-9ad8-d0afbba6724a",
       "Name": "mobtest",
       "Position": "214.3966,-56.32486,6.047134",
-      "Tags": "mob,solid",
+      "Tags": "solid,mob",
       "__Prefab": "prefabs/mobtest.prefab"
     },
     {
@@ -1367,6 +1364,52 @@
       "Tags": "weapon",
       "Enabled": true,
       "__Prefab": "prefabs/gun loot/pistol_prop.prefab"
+    },
+    {
+      "Id": "2fd9403d-ff50-4cf1-a9b5-f06faee80266",
+      "Name": "Map",
+      "Tags": "map",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "MapInstance",
+          "MapName": "stairs",
+          "OnMapLoaded": null,
+          "OnMapUnloaded": null,
+          "UseMapFromLaunch": false
+        }
+      ],
+      "Children": []
+    },
+    {
+      "Id": "945174bf-d943-4c94-b534-25b97b053fcc",
+      "Name": "2D Skybox",
+      "Position": "-263.0555,58.46694,193.4207",
+      "Tags": "skybox",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "SkyBox2D",
+          "SkyMaterial": "materials/skybox/light_test_sky_night_basic.vmat",
+          "Tint": "0.18605,0.18605,0.18605,1"
+        }
+      ]
+    },
+    {
+      "Id": "f8919630-a3e0-431d-81bb-87549b71b3a8",
+      "Name": "Effects",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "VolumetricFogVolume",
+          "Bounds": {
+            "Mins": "-800,-600,-1",
+            "Maxs": "300,400,500"
+          },
+          "FalloffExponent": 7.1999984,
+          "Strength": 1
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -1392,7 +1435,7 @@
   },
   "Title": "spawn_testroom",
   "Description": "",
-  "LastSaved": "2024-02-21T02:27:38.8782222\u002B00:00",
+  "LastSaved": "2024-02-21T03:39:21.9991839\u002B00:00",
   "__references": [
     "facepunch.wooden_crate"
   ]
