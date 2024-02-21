@@ -1,5 +1,5 @@
 # The Terry Factory
-*Explore the wonders and mysteries of the long forgotten terry factory"
+*Find the truth about Terry as Terry for all Terry's everywhere*
 
 
 ### Project: https://open.codecks.io/broodmother 
