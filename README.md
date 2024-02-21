@@ -1,5 +1,5 @@
-# Brood Mother
-*A rogue/garlic like shooter.<br>*
+# The Terry Factory
+*Explore the wonders and mysteries of the long forgotten terry factory"
 
 
 ### Project: https://open.codecks.io/broodmother 
