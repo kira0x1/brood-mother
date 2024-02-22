@@ -1,0 +1,166 @@
+{
+  "RootObject": {
+    "Id": "b1769725-2d49-4416-97d3-abe4cff39102",
+    "Name": "Room",
+    "Tags": "solid",
+    "Children": [
+      {
+        "Id": "a1a920e7-b3e7-45ad-8c2a-d1ac90bc7c55",
+        "Name": "floor (1)",
+        "Position": "-600,0,600",
+        "Rotation": "0,0.7071068,0,0.7071068",
+        "Scale": "12,12,1",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "ModelRenderer",
+            "BodyGroups": 18446744073709551615,
+            "MaterialGroup": null,
+            "MaterialOverride": "materials/floor_mat.vmat",
+            "Model": "models/floor.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          },
+          {
+            "__type": "BoxCollider",
+            "Center": "0,0,0",
+            "IsTrigger": false,
+            "Scale": "100,100,1",
+            "Static": true,
+            "Surface": "surfaces/grass.surface"
+          }
+        ]
+      },
+      {
+        "Id": "439faa45-f10e-4366-83a6-0e3cca6c208f",
+        "Name": "floor (2)",
+        "Position": "600,0,600",
+        "Rotation": "-0.7071068,0.0000001376788,0.7071068,0.0000001376788",
+        "Scale": "12,12,1",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "ModelRenderer",
+            "BodyGroups": 18446744073709551615,
+            "MaterialGroup": null,
+            "MaterialOverride": "materials/floor_mat.vmat",
+            "Model": "models/floor.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          },
+          {
+            "__type": "BoxCollider",
+            "Center": "0,0,0",
+            "IsTrigger": false,
+            "Scale": "100,100,1",
+            "Static": true,
+            "Surface": "surfaces/grass.surface"
+          }
+        ]
+      },
+      {
+        "Id": "bbc17dad-2849-42f3-b878-77d05b6ffc09",
+        "Name": "floor",
+        "Scale": "12,12,1",
+        "Tags": "floor",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "ModelRenderer",
+            "BodyGroups": 18446744073709551615,
+            "MaterialGroup": null,
+            "MaterialOverride": "materials/floor_mat.vmat",
+            "Model": "models/floor.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          },
+          {
+            "__type": "BoxCollider",
+            "Center": "0,0,0",
+            "IsTrigger": false,
+            "Scale": "100,100,1",
+            "Static": true,
+            "Surface": "surfaces/grass.surface"
+          }
+        ]
+      },
+      {
+        "Id": "80f68e9b-df47-4104-98e1-f52179be7464",
+        "Name": "floor (5)",
+        "Position": "-0.000007704053,0,1120",
+        "Rotation": "0,-1,0,0.0000001947072",
+        "Scale": "12,12,1",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "ModelRenderer",
+            "BodyGroups": 18446744073709551615,
+            "MaterialGroup": null,
+            "MaterialOverride": "materials/floor_mat.vmat",
+            "Model": "models/floor.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "Id": "c0dfa1de-d783-4997-a5b0-2f29bfa43517",
+        "Name": "floor (3)",
+        "Position": "-0,-600,600",
+        "Rotation": "-0.4999999,0.4999999,0.4999999,0.5",
+        "Scale": "12,12,1",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "ModelRenderer",
+            "BodyGroups": 18446744073709551615,
+            "MaterialGroup": null,
+            "MaterialOverride": "materials/floor_mat.vmat",
+            "Model": "models/floor.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          },
+          {
+            "__type": "BoxCollider",
+            "Center": "0,0,0",
+            "IsTrigger": false,
+            "Scale": "100,100,2",
+            "Static": true,
+            "Surface": "surfaces/grass.surface"
+          }
+        ]
+      },
+      {
+        "Id": "006ead57-bb20-4ea4-a37b-742d7a38bb77",
+        "Name": "floor (4)",
+        "Position": "-0,600,600",
+        "Rotation": "0.5,0.5,-0.5,0.5",
+        "Scale": "12,12,1",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "ModelRenderer",
+            "BodyGroups": 18446744073709551615,
+            "MaterialGroup": null,
+            "MaterialOverride": "materials/floor_mat.vmat",
+            "Model": "models/floor.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          },
+          {
+            "__type": "BoxCollider",
+            "Center": "0,0,0",
+            "IsTrigger": false,
+            "Scale": "100,100,1",
+            "Static": true,
+            "Surface": "surfaces/grass.surface"
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "__references": []
+}

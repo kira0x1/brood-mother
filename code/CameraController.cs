@@ -1,3 +1,5 @@
+using System.Numerics;
+
 namespace Kira;
 
 public enum CameraFollowMode
@@ -57,9 +59,9 @@ public sealed class CameraController : Component
 
     protected override void OnUpdate()
     {
-        if (FollowMode != CameraFollowMode.SMOOTH_FOLLOW) return;
-        var targetPos = PlayerTransform.Position - Offset;
-        Transform.Position = Vector3.Lerp(Transform.Position, targetPos, LerpSpeed * Time.Delta);
+        // if (FollowMode != CameraFollowMode.SMOOTH_FOLLOW) return;
+        // var targetPos = PlayerTransform.Position - Offset;
+        // Transform.Position = Vector3.Lerp(Transform.Position, targetPos, LerpSpeed * Time.Delta);
     }
 
     protected override void OnFixedUpdate()
@@ -67,6 +69,12 @@ public sealed class CameraController : Component
         if (FollowMode != CameraFollowMode.FIXED_FOLLOW) return;
         Vector3 targetPos = PlayerTransform.Position - Offset;
         Transform.Position = targetPos;
+    }
+
+    public void SetAngles(Vector3 pos, Rotation rot)
+    {
+        Transform.Position = Vector3.Lerp(Transform.Position, pos, LerpSpeed * Time.Delta);
+        Transform.Rotation = Quaternion.Slerp(Transform.Rotation, rot, LerpSpeed * Time.Delta);
     }
 
     public void OnViewModeChange(ViewModes vm)

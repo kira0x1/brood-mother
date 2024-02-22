@@ -1,7 +1,7 @@
 {
   "RootObject": {
     "Id": "3b2495f6-4608-4790-886c-6d5a0cec5814",
-    "Name": "Player",
+    "Name": "player_prefab",
     "Tags": "player",
     "Enabled": true,
     "Components": [
@@ -61,15 +61,20 @@
       {
         "__type": "PlayerController",
         "AimSpeed": 0.1,
+        "AnimatorObject": null,
         "CrouchHeight": 28,
         "Eye": null,
         "Gravity": "0,0,800",
+        "IsAiming": false,
         "JumpVelocity": 300,
         "MinRunSpeed": 180,
+        "MoveMode": "PLAYER_DIRECTION",
         "MoveSpeed": 280,
+        "ShadowAnimatorObject": null,
         "StandHeight": 64,
         "TurnSpeed": 100,
-        "VerticalAimEnabled": false
+        "VerticalAimEnabled": false,
+        "ViewMode": "FIRST_PERSON"
       },
       {
         "__type": "CharacterFootsteps",
@@ -85,7 +90,10 @@
       },
       {
         "__type": "PlayerManager",
-        "Vitals": {}
+        "HeadshotScoreIncrease": 10,
+        "Health": 100,
+        "IsInvincible": false,
+        "MaxHealth": 100
       },
       {
         "__type": "WeaponManager",

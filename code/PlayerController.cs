@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace Kira;
 
@@ -16,10 +17,10 @@ public sealed class PlayerController : Component
     // if current speed exceeds this then set anim to running
     [Property, Group("Move")] public float MinRunSpeed { get; set; } = 150f;
 
-    [Property, Group("Aim")] private bool VerticalAimEnabled { get; set; } = false;
-    [Property, Group("Aim")] public float AimSpeed { get; set; } = 2f;
-    [Property, Group("Aim")] public GameObject Eye { get; set; }
-    [Property, Group("Aim")] public bool IsAiming { get; set; }
+    [Property, Group("Look")] private bool VerticalAimEnabled { get; set; } = false;
+    [Property, Group("Look")] public float AimSpeed { get; set; } = 2f;
+    [Property, Group("Look")] public GameObject Eye { get; set; }
+    [Property, Group("Look")] public bool IsAiming { get; set; }
 
     // [Property, Group("Aim")] public float MinLookY { get; set; } = -22f;
     // [Property, Group("Aim")] public float MaxLookY { get; set; } = 22f;
@@ -27,26 +28,32 @@ public sealed class PlayerController : Component
 
     public static PlayerController Instance { get; set; }
 
-
     public Angles EyeAngles { get; private set; }
     private PlayerManager playerManager;
-    private WeaponManager WeaponManager;
     private RealTimeSince LastUngroundedTime;
     public CharacterController Controller;
+    [Property, Group("Animations")] private GameObject AnimatorObject { get; set; }
+    [Property, Group("Animations")] private GameObject ShadowAnimatorObject { get; set; }
+
     private AnimationController Animator;
+    private AnimationController[] Animators;
+
+
     public Vector3 WishVelocity;
     private bool IsCrouching;
     private Angles Recoil { get; set; }
     private Inventory inventory { get; set; }
+    private CameraComponent cam;
+    private CameraController camController;
 
-    private TimeSince RecoilTimeSince { get; set; }
-    private const float RecoilDuration = 0.25f;
+    // private WeaponManager WeaponManager;
+    // private TimeSince RecoilTimeSince { get; set; }
+    // private const float RecoilDuration = 0.25f;
 
     // how long after shooting do we continue affecting the next shot from a previous recoil
-    private TimeSince RecoilResetTime { get; set; }
-    private const float RecoilResetCooldown = 0.5f;
-
-    public Action<bool> OnAimChanged;
+    // private TimeSince RecoilResetTime { get; set; }
+    // private const float RecoilResetCooldown = 0.5f;
+    // public Action<bool> OnAimChanged;
 
     private enum MoveModes
     {
@@ -57,7 +64,8 @@ public sealed class PlayerController : Component
     [Property, Group("Move")]
     private MoveModes MoveMode { get; set; }
 
-    [Property, Group("Move")] public ViewModes ViewMode { get; set; }
+    [Property, Group("Move")]
+    public ViewModes ViewMode { get; set; }
 
     public Action<ViewModes> OnViewModeChangedEvent;
     private bool hasStarted;
@@ -68,15 +76,32 @@ public sealed class PlayerController : Component
 
         Instance = this;
         playerManager = Components.Get<PlayerManager>();
-        Animator = Components.GetInDescendantsOrSelf<AnimationController>();
+        if (AnimatorObject.IsValid())
+        {
+            Animator = Components.GetInDescendantsOrSelf<AnimationController>();
+        }
+        else
+        {
+            Animator = AnimatorObject.Components.Get<AnimationController>();
+        }
+
+        var shadows = ShadowAnimatorObject.Components.Get<AnimationController>();
+
+        Animators = new AnimationController[2];
+        Animators[0] = Animator;
+        Animators[1] = shadows;
+
         Controller = Components.GetInDescendantsOrSelf<CharacterController>();
-        WeaponManager = Components.Get<WeaponManager>();
+        // WeaponManager = Components.Get<WeaponManager>();
         inventory = Components.Get<Inventory>();
 
         if (Controller.IsValid())
         {
             Controller.Height = StandHeight;
         }
+
+        cam = Scene.GetAllComponents<CameraComponent>().FirstOrDefault();
+        camController = Scene.GetAllComponents<CameraController>().FirstOrDefault();
 
         ResetViewAngles();
         OnViewModeChanged();
@@ -111,12 +136,20 @@ public sealed class PlayerController : Component
             var trace = Scene.Trace.Ray(headPosition, idealEyePos)
                 .UsePhysicsWorld()
                 .IgnoreGameObjectHierarchy(GameObject)
-                .WithAnyTags("map")
-                .Radius(2.5f)
+                .WithAnyTags("map", "solid", "player")
+                .Radius(20f)
                 .Run();
 
-            Scene.Camera.Transform.Position = trace.Hit ? trace.EndPosition : idealEyePos;
-            Scene.Camera.Transform.Rotation = EyeAngles.ToRotation() * Rotation.FromPitch(-10f);
+            if (cam.IsValid())
+            {
+                var eyePos = trace.Hit ? trace.EndPosition : idealEyePos;
+                var eyeRot = EyeAngles.ToRotation() * Rotation.FromPitch(-10f);
+
+                // Scene.Camera.Transform.Position = trace.Hit ? trace.EndPosition : idealEyePos;
+                // Scene.Camera.Transform.Rotation = EyeAngles.ToRotation() * Rotation.FromPitch(-10f);
+
+                camController.SetAngles(eyePos, eyeRot);
+            }
         }
     }
 
@@ -134,7 +167,11 @@ public sealed class PlayerController : Component
         if (Controller.IsOnGround && Input.Down("Jump"))
         {
             Controller.Punch(Vector3.Up * JumpVelocity);
-            Animator.TriggerJump();
+
+            foreach (AnimationController anim in Animators)
+            {
+                anim.TriggerJump();
+            }
         }
 
         if (Controller.IsOnGround)
@@ -205,46 +242,71 @@ public sealed class PlayerController : Component
 
         UpdateLook();
         UpdateAnimator();
-        HandleAiming();
+        // HandleAiming();
 
         if (Input.Pressed("Voice"))
         {
-            OnViewModeChanged();
+            // OnViewModeChanged();
         }
     }
 
     private void UpdateAnimator()
     {
-        Animator.IsGrounded = Controller.IsOnGround;
-        Animator.MoveStyle = MoveSpeed >= MinRunSpeed ? AnimationController.MoveStyles.Run : AnimationController.MoveStyles.Walk;
-        Animator.DuckLevel = IsCrouching ? 1f : 0f;
-        Animator.FootShuffle = 0f;
+        // Animator.IsGrounded = Controller.IsOnGround;
+        // Animator.MoveStyle = MoveSpeed >= MinRunSpeed ? AnimationController.MoveStyles.Run : AnimationController.MoveStyles.Walk;
+        // Animator.DuckLevel = IsCrouching ? 1f : 0f;
+        // Animator.FootShuffle = 0f;
+        //
+        // Animator.WithVelocity(Controller.Velocity);
+        // Animator.WithWishVelocity(WishVelocity);
+        // Animator.WithLook(EyeAngles.Forward);
+        // Animator.UpdateIk();
 
-        Animator.WithVelocity(Controller.Velocity);
-        Animator.WithWishVelocity(WishVelocity);
-        Animator.WithLook(EyeAngles.Forward);
-        Animator.UpdateIk();
+        foreach (AnimationController anim in Animators)
+        {
+            anim.WithVelocity(Controller.Velocity);
+            anim.WithWishVelocity(WishVelocity);
+            anim.IsGrounded = Controller.IsOnGround;
+            anim.WithLook(EyeAngles.Forward, 1, 1, 1.0f);
+            bool isRunning = MoveSpeed >= MinRunSpeed;
+            anim.MoveStyle = isRunning ? AnimationController.MoveStyles.Run : AnimationController.MoveStyles.Walk;
+        }
     }
 
     public void UpdateAnimatorOnDeath()
     {
-        Animator.IsGrounded = true;
-        Animator.FootShuffle = 0;
-        Animator.WithVelocity(Vector3.Zero);
-        Animator.WithWishVelocity(Vector3.Zero);
+        foreach (AnimationController anim in Animators)
+        {
+            anim.IsGrounded = true;
+            anim.FootShuffle = 0;
+            anim.WithVelocity(Vector3.Zero);
+            anim.WithWishVelocity(Vector3.Zero);
+        }
     }
 
     private void UpdateLook()
     {
-        var angles = EyeAngles.Normal;
+        var angles = EyeAngles;
         angles += Input.AnalogLook * 0.5f;
+        angles.roll = 0;
+        EyeAngles = angles;
 
-        if (RecoilTimeSince < RecoilDuration)
+        // if (RecoilTimeSince < RecoilDuration)
+        // {
+        // // Do Recoil
+        // }
+
+        var lookDir = EyeAngles.ToRotation();
+
+        if (ViewMode == ViewModes.FIRST_PERSON)
         {
+            // cam.Transform.Position = Eye.Transform.Position;
+            // cam.Transform.Rotation = lookDir;
+            camController.SetAngles(Eye.Transform.Position, lookDir);
         }
 
-        angles += Recoil * Time.Delta;
-        angles.pitch = angles.pitch.Clamp(-60f, 80f);
+        // angles += Recoil * Time.Delta;
+        angles.pitch = angles.pitch.Clamp(-60f, 70f);
         EyeAngles = angles.WithRoll(0f);
     }
 
@@ -260,11 +322,6 @@ public sealed class PlayerController : Component
     //     RecoilTimeSince = 0;
     //     RecoilResetTime = 0;
     // }
-
-    public void ApplyRecoil(Angles recoil)
-    {
-        Recoil += recoil;
-    }
 
     public void ResetViewAngles()
     {
@@ -326,7 +383,7 @@ public sealed class PlayerController : Component
         if (Input.Released("Attack2"))
         {
             IsAiming = !IsAiming;
-            OnAimChanged?.Invoke(IsAiming);
+            // OnAimChanged?.Invoke(IsAiming);
         }
     }
 

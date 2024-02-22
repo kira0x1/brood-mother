@@ -6,9 +6,6 @@ namespace Kira;
 public sealed class WeaponPickup : Component, Component.ITriggerListener
 {
     [Property]
-    public WeaponData Weapon { get; set; }
-
-    [Property]
     public GameObject WeaponPrefab { get; set; }
 
     [Property]

@@ -3,14 +3,14 @@
   "Icon": "facepunch.w_spaghellim4/thumb.png",
   "Damage": 20,
   "DamageForce": 25,
-  "FireRate": 0.25,
-  "Spread": 0.5,
+  "FireRate": 0.48,
+  "Spread": 0.3,
   "Recoil": "0,1,0",
   "ShootSound": "sounds/shotgun_shoot.sound",
   "WeaponHoldType": "Shotgun",
   "ShootType": "SHOTGUN",
-  "BulletsPerShot": 4,
-  "ShotgunSpread": 0.21,
+  "BulletsPerShot": 5,
+  "ShotgunSpread": 0.2,
   "__references": [
     "facepunch.w_spaghellim4"
   ]
