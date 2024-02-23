@@ -104,7 +104,7 @@ public sealed class PlayerController : Component
         camController = Scene.GetAllComponents<CameraController>().FirstOrDefault();
 
         ResetViewAngles();
-        OnViewModeChanged();
+        // OnViewModeChanged();
     }
 
     protected override void OnStart()
@@ -117,7 +117,7 @@ public sealed class PlayerController : Component
     {
         base.OnPreRender();
 
-        if (Eye.IsValid() && ViewMode == ViewModes.FIRST_PERSON && Game.InGame && hasStarted)
+        if (Eye.IsValid() && hasStarted)
         {
             if (!Controller.IsValid())
             {
@@ -140,7 +140,7 @@ public sealed class PlayerController : Component
                 .Radius(20f)
                 .Run();
 
-            if (cam.IsValid())
+            if (camController.IsValid())
             {
                 var eyePos = trace.Hit ? trace.EndPosition : idealEyePos;
                 var eyeRot = EyeAngles.ToRotation() * Rotation.FromPitch(-10f);
@@ -149,6 +149,10 @@ public sealed class PlayerController : Component
                 // Scene.Camera.Transform.Rotation = EyeAngles.ToRotation() * Rotation.FromPitch(-10f);
 
                 camController.SetAngles(eyePos, eyeRot);
+            }
+            else
+            {
+                camController = Scene.GetAllComponents<CameraController>().FirstOrDefault();
             }
         }
     }

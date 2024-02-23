@@ -1,23 +1,13 @@
-using System.Numerics;
-
 namespace Kira;
-
-public enum CameraFollowMode
-{
-    SMOOTH_FOLLOW,
-    FIXED_FOLLOW
-}
 
 [Group("Kira/Player")]
 [Title("Camera Controller")]
 public sealed class CameraController : Component
 {
     [Property] public PlayerController PlayerController { get; set; }
-    [Property] private float LerpSpeed { get; set; } = 5f;
-    [Group("Follow Mode"), Property] public CameraFollowMode FollowMode { get; set; } = CameraFollowMode.SMOOTH_FOLLOW;
+    [Property] private float FollowSpeed { get; set; } = 5f;
+    [Property] private float LookSpeed { get; set; } = 10f;
 
-    private Vector3 Offset;
-    private GameTransform PlayerTransform;
     private Rotation StartRotation { get; set; }
 
     public static CameraController Instance;
@@ -32,17 +22,6 @@ public sealed class CameraController : Component
     {
         base.OnStart();
         StartRotation = Transform.Rotation;
-        PlayerTransform = PlayerController.Transform;
-        Offset = PlayerTransform.Position - Transform.Position;
-
-        switch (FollowMode)
-        {
-            case CameraFollowMode.FIXED_FOLLOW:
-                break;
-            case CameraFollowMode.SMOOTH_FOLLOW:
-                GameObject.SetParent(Scene);
-                break;
-        }
     }
 
     protected override void OnEnabled()
@@ -64,17 +43,10 @@ public sealed class CameraController : Component
         // Transform.Position = Vector3.Lerp(Transform.Position, targetPos, LerpSpeed * Time.Delta);
     }
 
-    protected override void OnFixedUpdate()
-    {
-        if (FollowMode != CameraFollowMode.FIXED_FOLLOW) return;
-        Vector3 targetPos = PlayerTransform.Position - Offset;
-        Transform.Position = targetPos;
-    }
-
     public void SetAngles(Vector3 pos, Rotation rot)
     {
-        Transform.Position = Vector3.Lerp(Transform.Position, pos, LerpSpeed * Time.Delta);
-        Transform.Rotation = Quaternion.Slerp(Transform.Rotation, rot, LerpSpeed * Time.Delta);
+        Transform.Position = Vector3.Lerp(Transform.Position, pos, FollowSpeed * Time.Delta);
+        Transform.Rotation = Rotation.Slerp(Transform.Rotation, rot, LookSpeed * Time.Delta);
     }
 
     public void OnViewModeChange(ViewModes vm)
