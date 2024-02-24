@@ -43,7 +43,6 @@ public sealed class PlayerController : Component
     private bool IsCrouching;
     private Angles Recoil { get; set; }
     private Inventory inventory { get; set; }
-    private CameraComponent cam;
     private CameraController camController;
 
     // private WeaponManager WeaponManager;
@@ -100,7 +99,6 @@ public sealed class PlayerController : Component
             Controller.Height = StandHeight;
         }
 
-        cam = Scene.GetAllComponents<CameraComponent>().FirstOrDefault();
         camController = Scene.GetAllComponents<CameraController>().FirstOrDefault();
 
         ResetViewAngles();

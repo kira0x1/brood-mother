@@ -1,13 +1,15 @@
 {
   "Name": "Pistol",
-  "Icon": "facepunch.w_usp/thumb.png",
+  "Icon": "textures/thumb.png",
   "Damage": 10,
   "DamageForce": 5,
   "FireRate": 0.5,
   "Spread": 0.01,
+  "Recoil": "0,1,0",
   "ShootSound": "sounds/smg_shoot.sound",
   "WeaponHoldType": "Pistol",
-  "__references": [
-    "facepunch.w_usp"
-  ]
+  "ShootType": "SINGLE",
+  "BulletsPerShot": 1,
+  "ShotgunSpread": 0.1,
+  "__references": []
 }

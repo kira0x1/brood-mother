@@ -6,7 +6,7 @@ public partial class WeaponData : GameResource
     [Property]
     public string Name { get; set; }
 
-    [Property, ResourceType("image")]
+    [Property, ResourceType("jpg")]
     public string Icon { get; set; }
 
     [Property]
