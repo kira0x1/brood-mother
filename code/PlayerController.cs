@@ -28,7 +28,7 @@ public sealed class PlayerController : Component
 
     public static PlayerController Instance { get; set; }
 
-    public Angles EyeAngles { get; private set; }
+    public Angles EyeAngles { get; set; }
     private PlayerManager playerManager;
     private RealTimeSince LastUngroundedTime;
     public CharacterController Controller;
@@ -101,8 +101,10 @@ public sealed class PlayerController : Component
 
         camController = Scene.GetAllComponents<CameraController>().FirstOrDefault();
 
-        ResetViewAngles();
+        // ResetViewAngles();
         // OnViewModeChanged();
+        Animator.Target.SetBodyGroup("head", 1);
+        ResetViewAngles();
     }
 
     protected override void OnStart()
@@ -143,8 +145,8 @@ public sealed class PlayerController : Component
                 var eyePos = trace.Hit ? trace.EndPosition : idealEyePos;
                 var eyeRot = EyeAngles.ToRotation() * Rotation.FromPitch(-10f);
 
-                // Scene.Camera.Transform.Position = trace.Hit ? trace.EndPosition : idealEyePos;
-                // Scene.Camera.Transform.Rotation = EyeAngles.ToRotation() * Rotation.FromPitch(-10f);
+                Scene.Camera.Transform.Position = trace.Hit ? trace.EndPosition : idealEyePos;
+                Scene.Camera.Transform.Rotation = EyeAngles.ToRotation() * Rotation.FromPitch(-10f);
 
                 camController.SetAngles(eyePos, eyeRot);
             }
@@ -264,8 +266,16 @@ public sealed class PlayerController : Component
         // Animator.WithLook(EyeAngles.Forward);
         // Animator.UpdateIk();
 
-        foreach (AnimationController anim in Animators)
+
+        for (var i = 0; i < Animators.Length; i++)
         {
+            AnimationController anim = Animators[i];
+            if (!anim.IsValid())
+            {
+                Log.Warning($"Animator `{i}` not valid");
+                continue;
+            }
+
             anim.WithVelocity(Controller.Velocity);
             anim.WithWishVelocity(WishVelocity);
             anim.IsGrounded = Controller.IsOnGround;

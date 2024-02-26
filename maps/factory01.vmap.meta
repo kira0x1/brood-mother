@@ -3,10 +3,10 @@
     "Allowed": true,
     "Enabled": false,
     "ProjectConfig": {
-      "Title": "stairs",
+      "Title": "factory01",
       "Type": "map",
       "Org": "local",
-      "Ident": "stairs",
+      "Ident": "factory01",
       "Tags": null,
       "Schema": 0,
       "HasAssets": false,
@@ -17,16 +17,10 @@
       "CodePath": null,
       "PackageReferences": [],
       "EditorReferences": [
-        "facepunch.old_bench#33586",
-        "randkassets.r_k_monitor#26746",
-        "saandy.wall_socket#19945",
-        "randkassets.ep4_shelves#21189",
-        "smartmario.old_tv#34404",
-        "caro.arcade#28534",
         "nolankicks.dead4left#47379"
       ],
       "Metadata": {
-        "SingleAssetSource": "maps/stairs.vmap"
+        "SingleAssetSource": "maps/factory01.vmap"
       }
     }
   }

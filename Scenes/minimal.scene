@@ -170,15 +170,13 @@
         },
         {
           "__type": "CameraController",
-          "FixedFollowOffset": "0,0,0",
-          "FollowMode": "FIXED_FOLLOW",
-          "LerpSpeed": 25,
+          "FollowSpeed": 5,
+          "LookSpeed": 10,
           "PlayerController": {
             "_type": "component",
             "go": "c73109a4-d550-40a4-88e5-6566910c5e5c",
             "component_type": "PlayerController"
-          },
-          "SmoothFollowOffset": "0,0,0"
+          }
         },
         {
           "__type": "ChromaticAberration",
@@ -288,6 +286,7 @@
         {
           "__type": "PlayerController",
           "AimSpeed": 0.5,
+          "AnimatorObject": null,
           "CrouchHeight": 28,
           "Eye": null,
           "Gravity": "0,0,800",
@@ -296,6 +295,7 @@
           "MinRunSpeed": 180,
           "MoveMode": "PLAYER_DIRECTION",
           "MoveSpeed": 280,
+          "ShadowAnimatorObject": null,
           "StandHeight": 64,
           "TurnSpeed": 540,
           "VerticalAimEnabled": false,
@@ -315,7 +315,10 @@
         },
         {
           "__type": "PlayerManager",
-          "Vitals": {}
+          "HeadshotScoreIncrease": 10,
+          "Health": 100,
+          "IsInvincible": false,
+          "MaxHealth": 100
         },
         {
           "__type": "WeaponManager",
@@ -1170,11 +1173,7 @@
         {
           "__type": "WeaponPickup",
           "hasPickedUp": false,
-          "Weapon": "data/weapons/pistol_data.weapon",
-          "WeaponPrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/mp5_prefab.prefab"
-          }
+          "WeaponPrefab": null
         }
       ],
       "Children": [
@@ -1450,6 +1449,7 @@
         {
           "__type": "PlayerController",
           "AimSpeed": 0.1,
+          "AnimatorObject": null,
           "CrouchHeight": 28,
           "Eye": null,
           "Gravity": "0,0,800",
@@ -1458,6 +1458,7 @@
           "MinRunSpeed": 180,
           "MoveMode": "PLAYER_DIRECTION",
           "MoveSpeed": 280,
+          "ShadowAnimatorObject": null,
           "StandHeight": 64,
           "TurnSpeed": 100,
           "VerticalAimEnabled": false,
@@ -1477,7 +1478,10 @@
         },
         {
           "__type": "PlayerManager",
-          "Vitals": {}
+          "HeadshotScoreIncrease": 10,
+          "Health": 100,
+          "IsInvincible": false,
+          "MaxHealth": 100
         },
         {
           "__type": "WeaponManager",
@@ -3150,7 +3154,7 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-02-18T15:30:49.282824\u002B00:00",
+  "LastSaved": "2024-02-26T01:21:24.6693533\u002B00:00",
   "__references": [
     "facepunch.watermelon",
     "nolankicks.dead4left"

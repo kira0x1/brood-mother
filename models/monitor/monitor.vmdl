@@ -11,7 +11,17 @@
 				[
 					{
 						_class = "DefaultMaterialGroup"
-						remaps = [  ]
+						remaps = 
+						[
+							{
+								from = "materials/r&k_vintage_monitor.vmat"
+								to = "models/monitor/monitor.vmat"
+							},
+							{
+								from = "materials/r&k_vintage_monitor_screen.vmat"
+								to = "models/monitor/monitor_screen.vmat"
+							},
+						]
 						use_global_default = false
 						global_default_material = ""
 					},

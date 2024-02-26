@@ -1,0 +1,112 @@
+{
+  "RootObject": {
+    "Id": "516a6be0-d00e-49cf-8bb7-23bfed5b4407",
+    "Name": "Camera",
+    "Position": "-97.5118,-1.05942,65.57927",
+    "Rotation": "-0.00000000000002531698,-0.08715378,-0.000000000000005454848,0.9961949",
+    "Tags": "maincamera",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "CameraComponent",
+        "BackgroundColor": "0.33333,0.46275,0.52157,1",
+        "ClearFlags": "All",
+        "FieldOfView": 75,
+        "IsMainCamera": true,
+        "Orthographic": false,
+        "OrthographicHeight": 1204,
+        "Priority": 1,
+        "RenderExcludeTags": "",
+        "RenderTags": "",
+        "TargetEye": "None",
+        "Viewport": "0,0,1,1",
+        "ZFar": 10000,
+        "ZNear": 10
+      },
+      {
+        "__type": "CameraController",
+        "FollowSpeed": 40,
+        "LookSpeed": 12,
+        "PlayerController": {
+          "_type": "component",
+          "go": "3b2495f6-4608-4790-886c-6d5a0cec5814",
+          "component_type": "PlayerController"
+        }
+      },
+      {
+        "__type": "Bloom",
+        "BloomColor": {
+          "color": [
+            {
+              "c": "1,1,1,1"
+            },
+            {
+              "t": 1,
+              "c": "1,1,1,1"
+            }
+          ],
+          "alpha": []
+        },
+        "BloomCurve": [
+          {
+            "y": 0.5
+          },
+          {
+            "x": 1,
+            "y": 1
+          }
+        ],
+        "Mode": "Additive",
+        "Strength": 3,
+        "Threshold": 0.1,
+        "ThresholdWidth": 0.15
+      },
+      {
+        "__type": "Tonemapping",
+        "ExposureCompensation": 0,
+        "MaximumExposure": 0.77,
+        "MinimumExposure": 0.2,
+        "Rate": 1
+      },
+      {
+        "__type": "DepthOfField",
+        "BackBlur": true,
+        "BlurSize": 64.4,
+        "FocalDistance": 436,
+        "FrontBlur": false
+      }
+    ],
+    "Children": [
+      {
+        "Id": "b0071fc4-dded-4e8e-b84d-5635433286e3",
+        "Name": "FlashLight",
+        "Position": "21.54594,-0.0001678467,0.0007007122",
+        "Rotation": "0.0000006175674,0.000000230968,-0.000003480027,0.9999908",
+        "Tags": "light_spot,light",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "SpotLight",
+            "Attenuation": 0.15,
+            "ConeInner": 52.2,
+            "ConeOuter": 26.28,
+            "Cookie": "materials/effects/lightcookies/dirt2.vtex",
+            "FogMode": "Enabled",
+            "FogStrength": 1,
+            "LightColor": "0.91373,0.98039,1,1",
+            "Radius": 1000,
+            "Shadows": true
+          },
+          {
+            "__type": "Flashlight",
+            "LightOn": true
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "__references": []
+}
