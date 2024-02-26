@@ -55,16 +55,25 @@
       {
         "__type": "PlayerController",
         "AimSpeed": 0.1,
-        "AnimatorObject": null,
+        "AnimatorObject": {
+          "_type": "gameobject",
+          "go": "ba03e188-9bcc-4fa2-beb8-c398d2d271dd"
+        },
         "CrouchHeight": 28,
-        "Eye": null,
+        "Eye": {
+          "_type": "gameobject",
+          "go": "1d14c717-87d2-45d6-b970-94d161d27779"
+        },
         "Gravity": "0,0,800",
         "IsAiming": false,
         "JumpVelocity": 300,
         "MinRunSpeed": 180,
         "MoveMode": "PLAYER_DIRECTION",
         "MoveSpeed": 280,
-        "ShadowAnimatorObject": null,
+        "ShadowAnimatorObject": {
+          "_type": "gameobject",
+          "go": "c661af1e-55c3-4ef5-972e-f12a31486c9f"
+        },
         "StandHeight": 64,
         "TurnSpeed": 100,
         "VerticalAimEnabled": false,
@@ -906,5 +915,7 @@
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
-  "__references": []
+  "__references": [
+    "facepunch.arena"
+  ]
 }

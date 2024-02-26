@@ -12,7 +12,7 @@
           "__type": "CameraComponent",
           "BackgroundColor": "0.33333,0.46275,0.52157,1",
           "ClearFlags": "All",
-          "FieldOfView": 60,
+          "FieldOfView": 90,
           "IsMainCamera": true,
           "Orthographic": false,
           "OrthographicHeight": 1204,
@@ -26,8 +26,8 @@
         },
         {
           "__type": "CameraController",
-          "FollowSpeed": 40,
-          "LookSpeed": 12,
+          "FollowSpeed": 30,
+          "LookSpeed": 10,
           "PlayerController": {
             "_type": "component",
             "go": "82881269-f0bc-4e85-8034-1523091aa2f9",
@@ -239,8 +239,8 @@
                                     {
                                       "Id": "5d8d48ae-8088-4376-a9d2-d273813ee98d",
                                       "Name": "Aim",
-                                      "Position": "6.880837,13.55507,-1.059232",
-                                      "Rotation": "0.500003,0.500003,0.500003,0.500003",
+                                      "Position": "6.880842,3.232097,-1.059236",
+                                      "Rotation": "0.5000024,0.5000024,0.5000025,0.5000024",
                                       "Enabled": true
                                     },
                                     {
@@ -1959,8 +1959,9 @@
   },
   "Title": "openarea_testroom",
   "Description": "",
-  "LastSaved": "2024-02-26T00:41:12.2710181\u002B00:00",
+  "LastSaved": "2024-02-26T18:26:47.1817491\u002B00:00",
   "__references": [
+    "facepunch.arena",
     "nolankicks.dead4left"
   ]
 }

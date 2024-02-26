@@ -314,7 +314,8 @@ public sealed class PlayerController : Component
         {
             // cam.Transform.Position = Eye.Transform.Position;
             // cam.Transform.Rotation = lookDir;
-            camController.SetAngles(Eye.Transform.Position, lookDir);
+            if (Eye.IsValid())
+                camController.SetAngles(Eye.Transform.Position, lookDir);
         }
 
         // angles += Recoil * Time.Delta;
