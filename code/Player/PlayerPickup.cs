@@ -31,11 +31,14 @@ public sealed class PlayerPickup : Component
     private float CurrentSpeed { get; set; }
     private Dictionary<int, BoostTime> Boosts = new Dictionary<int, BoostTime>();
     private PlayerController Controller { get; set; }
+    private PlayerManager PlayerManager { get; set; }
 
 
     protected override void OnStart()
     {
         Controller = Components.Get<PlayerController>();
+        PlayerManager = Components.Get<PlayerManager>();
+
         if (Controller.IsValid())
         {
             BaseSpeed = Controller.MoveSpeed;
@@ -117,6 +120,21 @@ public sealed class PlayerPickup : Component
     public void OnLoot(LootCube loot)
     {
         Sound.Play("loot_sound", Transform.Position + Transform.Local.Forward * 500f);
+
+        PlayerManager.Gold += loot.Gold;
+        PlayerManager.Score += loot.Score;
+
+        if (loot.Health > 0)
+        {
+            PlayerManager.AddHealth(loot.Health);
+        }
+
+        if (loot.Xp > 0)
+        {
+            PlayerManager.AddXp(loot.Xp);
+        }
+
+
         loot.GameObject.Destroy();
     }
 }

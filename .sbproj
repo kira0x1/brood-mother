@@ -278,6 +278,10 @@
           "a": "player",
           "b": "loot",
           "r": "Ignore"
+        },
+        {
+          "a": "solid",
+          "b": "loot"
         }
       ]
     }

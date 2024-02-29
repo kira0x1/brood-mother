@@ -74,4 +74,21 @@ public sealed class PlayerManager : Component, IHealthComponent
         if (isHeadshot) finalScore += HeadshotScoreIncrease;
         Score += finalScore;
     }
+
+    public void AddXp(int amount)
+    {
+        if (PlayerState == PlayerStates.DEAD) return;
+        CurXp += amount;
+    }
+
+    public void AddHealth(int amount)
+    {
+        if (PlayerState == PlayerStates.DEAD) return;
+
+        Health += amount;
+        if (Health > MaxHealth)
+        {
+            Health = MaxHealth;
+        }
+    }
 }

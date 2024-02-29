@@ -450,8 +450,12 @@
         {
           "__type": "CameraController",
           "FollowSpeed": 40,
-          "LookSpeed": 12,
-          "PlayerController": null
+          "LookSpeed": 55,
+          "PlayerController": {
+            "_type": "component",
+            "go": "7cb8314d-8deb-4c28-9756-bb5f331426e2",
+            "component_type": "PlayerController"
+          }
         },
         {
           "__type": "Bloom",
@@ -477,9 +481,9 @@
             }
           ],
           "Mode": "Additive",
-          "Strength": 3,
-          "Threshold": 0.1,
-          "ThresholdWidth": 0.15
+          "Strength": 2.5,
+          "Threshold": 0.2,
+          "ThresholdWidth": 0.3
         },
         {
           "__type": "Tonemapping",
@@ -510,6 +514,7 @@
           "Components": [
             {
               "__type": "SpotLight",
+              "__enabled": false,
               "Attenuation": 0.15,
               "ConeInner": 8.28,
               "ConeOuter": 28.44,
@@ -522,7 +527,7 @@
             },
             {
               "__type": "Flashlight",
-              "LightOn": true
+              "LightOn": false
             }
           ]
         }
@@ -772,7 +777,7 @@
           "Bounciness": 0.21,
           "GroundAngle": 45,
           "Height": 69.64,
-          "IgnoreLayers": "bullet,weapon",
+          "IgnoreLayers": "bullet,weapon,loot",
           "Radius": 12.5,
           "StepHeight": 17
         },
@@ -2500,7 +2505,7 @@
   },
   "Title": "spawn_testroom",
   "Description": "",
-  "LastSaved": "2024-02-29T12:50:05.0772343\u002B00:00",
+  "LastSaved": "2024-02-29T13:21:27.8300507\u002B00:00",
   "__references": [
     "facepunch.wooden_crate",
     "nolankicks.dead4left",

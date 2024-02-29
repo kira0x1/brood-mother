@@ -126,12 +126,13 @@ public sealed class PlayerController : Component
 
             var idealEyePos = Eye.Transform.Position;
             var headPosition = Transform.Position + Vector3.Up * Controller.Height;
+
             var headTrace = Scene.Trace.Ray(Transform.Position, headPosition)
                 .UsePhysicsWorld()
                 .IgnoreGameObjectHierarchy(GameObject)
                 .Run();
 
-            headPosition = headTrace.EndPosition - headTrace.Direction * 2f;
+            // headPosition = headTrace.EndPosition - headTrace.Direction * 2f;
 
             var trace = Scene.Trace.Ray(headPosition, idealEyePos)
                 .UsePhysicsWorld()
@@ -142,13 +143,16 @@ public sealed class PlayerController : Component
 
             if (camController.IsValid())
             {
-                var eyePos = trace.Hit ? trace.EndPosition : idealEyePos;
-                var eyeRot = EyeAngles.ToRotation() * Rotation.FromPitch(-10f);
+                if (trace.Hit)
+                {
+                    Scene.Camera.Transform.Position = trace.EndPosition;
+                }
 
-                Scene.Camera.Transform.Position = trace.Hit ? trace.EndPosition : idealEyePos;
-                Scene.Camera.Transform.Rotation = EyeAngles.ToRotation() * Rotation.FromPitch(-10f);
-
-                camController.SetAngles(eyePos, eyeRot);
+                // var eyePos = trace.Hit ? trace.EndPosition : idealEyePos;
+                // var eyeRot = EyeAngles.ToRotation() * Rotation.FromPitch(-10f);
+                // Scene.Camera.Transform.Position = trace.Hit ? trace.EndPosition : idealEyePos;
+                // Scene.Camera.Transform.Rotation = EyeAngles.ToRotation() * Rotation.FromPitch(-10f);
+                // camController.SetAngles(eyePos, eyeRot);
             }
             else
             {
@@ -335,6 +339,7 @@ public sealed class PlayerController : Component
     //     RecoilTimeSince = 0;
     //     RecoilResetTime = 0;
     // }
+
 
     public void ResetViewAngles()
     {

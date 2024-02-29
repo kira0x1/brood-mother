@@ -1,8 +1,7 @@
 {
   "RootObject": {
-    "Id": "a32bc0bf-6485-4238-ba56-892271ea80f4",
-    "Name": "Loot Cube",
-    "Position": "32,0,96",
+    "Id": "35bc5aac-11bb-4de3-aeaf-ff30065070f0",
+    "Name": "lootcube",
     "Scale": "0.1,0.1,0.1",
     "Tags": "loot",
     "Enabled": true,
@@ -13,16 +12,16 @@
         "MaterialGroup": null,
         "MaterialOverride": null,
         "Model": "models/dev/box.vmdl",
-        "RenderType": "On",
+        "RenderType": "ShadowsOnly",
         "Tint": "1,1,1,1"
       },
       {
         "__type": "HighlightOutline",
-        "Color": "1,1,1,1",
-        "InsideColor": "7.19938,21.53242,36.85395,0.05",
+        "Color": "0,0,0,0",
+        "InsideColor": "6.99088,26.31413,46.97,0.08",
         "InsideObscuredColor": "0,0,0,0",
         "Material": null,
-        "ObscuredColor": "0,0,0,0.4",
+        "ObscuredColor": "0,0,0,0",
         "Width": 0
       },
       {
@@ -45,13 +44,14 @@
       },
       {
         "__type": "LootCube",
-        "Gold": 0,
+        "Gold": 10,
         "Health": 0,
         "LerpSpeed": 8,
-        "PickUpDistance": 40,
+        "PickUpDistance": 60,
         "Xp": 0
       }
-    ]
+    ],
+    "Children": []
   },
   "ShowInMenu": false,
   "MenuPath": null,

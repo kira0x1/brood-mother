@@ -19,6 +19,7 @@ public sealed class LootCube : Component
     [Property, Range(0, 50), Group("Loot")] public int Gold { get; set; } = 0;
     [Property, Range(0, 50), Group("Loot")] public int Xp { get; set; } = 0;
     [Property, Range(0, 50), Group("Loot")] public int Health { get; set; } = 0;
+    [Property, Range(0, 50), Group("Loot")] public int Score { get; set; } = 0;
 
     protected override void OnStart()
     {
@@ -42,7 +43,7 @@ public sealed class LootCube : Component
         base.OnUpdate();
         if (!IsLerping) return;
 
-        var targetPos = playerTransform.Position.WithZ(50f);
+        var targetPos = playerTransform.Position.WithZ(40f);
         float distance = Vector3.DistanceBetween(Transform.Position, targetPos);
 
         if (distance < PickUpDistance)

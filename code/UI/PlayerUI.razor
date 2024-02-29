@@ -17,6 +17,11 @@
             <score-value>@ScoreValue</score-value>
         </div>
 
+        <div class="gold">
+            <gold-text>Gold:</gold-text>
+            <gold-value>@GoldValue</gold-value>
+        </div>
+
         <div class="mobs">
             <div class="mob-li">
                 <mobs-text>Mobs Alive: </mobs-text>
@@ -92,6 +97,16 @@
         }
     }
 
+    public string GoldValue
+    {
+        get
+        {
+            if (!Player.IsValid()) return "Error";
+            return Player.Gold.ToString();
+        }
+    }
+
+
     public string MobValue
     {
         get
@@ -113,5 +128,5 @@
     /// <summary>
     /// the hash determines if the system should be rebuilt. If it changes, it will be rebuilt
     /// </summary>
-    protected override int BuildHash() => HashCode.Combine(HealthText, CurrentSlotId, Player.Inventory.GetHashCode, Player.Score, Spawner?.CurMobsAlive);
+    protected override int BuildHash() => HashCode.Combine(HealthText, CurrentSlotId, Player.Inventory.GetHashCode, Player.Score, Player.Gold, Spawner?.CurMobsAlive);
 }
