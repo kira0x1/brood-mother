@@ -11,7 +11,7 @@
         "BodyGroups": 18446744073709551615,
         "MaterialGroup": null,
         "MaterialOverride": null,
-        "Model": "models/items/ammo.vmdl",
+        "Model": "models/citizen_props/crate01.vmdl",
         "RenderType": "On",
         "Tint": "1,1,1,1"
       },
@@ -34,7 +34,6 @@
       {
         "__type": "WeaponPickup",
         "hasPickedUp": false,
-        "Weapon": "data/weapons/shotgun_data.weapon",
         "WeaponPrefab": {
           "_type": "gameobject",
           "prefab": "prefabs/guns/shotgun_prefab.prefab"
@@ -46,7 +45,5 @@
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
-  "__references": [
-    "nolankicks.dead4left"
-  ]
+  "__references": []
 }

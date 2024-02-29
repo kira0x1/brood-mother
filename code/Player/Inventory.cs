@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Transactions;
-using Sandbox;
 
 namespace Kira;
 
@@ -8,7 +6,6 @@ namespace Kira;
 public class Inventory : Component
 {
     public Slot[] Slots = Array.Empty<Slot>();
-
     public bool HasItem { get; private set; }
     public int PreviousSlot { get; set; }
     public int CurrentSlot { get; set; }

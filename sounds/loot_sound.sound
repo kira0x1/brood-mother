@@ -1,0 +1,14 @@
+{
+  "UI": false,
+  "Volume": "0.80,1.00,0",
+  "Pitch": "1.00,1.00,0",
+  "Decibels": 58,
+  "SelectionMode": "RandomExclusive",
+  "Sounds": [
+    "sounds/kenney/ui/drop_004.vsnd",
+    "sounds/kenney/ui/drop_002.vsnd",
+    "sounds/kenney/ui/drop_003.vsnd",
+    "sounds/kenney/ui/drop_004.vsnd"
+  ],
+  "__references": []
+}

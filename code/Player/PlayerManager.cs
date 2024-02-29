@@ -12,6 +12,10 @@ public sealed class PlayerManager : Component, IHealthComponent
     [Property] public float MaxHealth { get; private set; } = 100;
     [Property] public float Health { get; private set; } = 100;
 
+    public int Gold { get; set; }
+    public int CurXp { get; set; }
+
+
     [Property] public int HeadshotScoreIncrease = 10;
     public int Score { get; set; } = 0;
     public int TotalKills { get; set; } = 0;

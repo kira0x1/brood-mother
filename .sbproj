@@ -215,7 +215,8 @@
         "weapon": "Collide",
         "player": "Collide",
         "mob": "Collide",
-        "ragdoll": "Trigger"
+        "ragdoll": "Trigger",
+        "loot": "Collide"
       },
       "Pairs": [
         {
@@ -271,6 +272,11 @@
         {
           "a": "player",
           "b": "ragdoll",
+          "r": "Ignore"
+        },
+        {
+          "a": "player",
+          "b": "loot",
           "r": "Ignore"
         }
       ]
