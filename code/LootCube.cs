@@ -21,19 +21,22 @@ public sealed class LootCube : Component
     [Property, Range(0, 50), Group("Loot")] public int Health { get; set; } = 0;
     [Property, Range(0, 50), Group("Loot")] public int Score { get; set; } = 0;
 
-    protected override void OnStart()
+    protected override void OnAwake()
     {
-        base.OnStart();
+        base.OnAwake();
+
         rigidbody = Components.Get<Rigidbody>();
         collider = Components.Get<BoxCollider>();
     }
 
     public void Loot(PlayerPickup player)
     {
+        IsLooted = true;
+
         playerPickup = player;
         playerTransform = player.Transform;
         IsLerping = true;
-        IsLooted = true;
+
         rigidbody.Enabled = false;
         collider.Enabled = false;
     }

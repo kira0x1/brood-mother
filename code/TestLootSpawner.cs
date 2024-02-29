@@ -9,16 +9,16 @@ public sealed class TestLootSpawner : Component
 
     [Property, Range(0, 100)]
     public int SpawnAmount { get; set; } = 10;
+    [Property] public string InputAction { get; set; } = "Slot1";
 
-    [Property]
-    private float SpawnCD { get; set; } = 0.1f;
+    [Property] private float SpawnCD { get; set; } = 0.1f;
     private TimeSince SpawnTimeSince { get; set; } = 0;
 
     protected override void OnUpdate()
     {
         base.OnUpdate();
 
-        if (Input.Down("Slot1"))
+        if (Input.Down(InputAction))
         {
             if (SpawnTimeSince > SpawnCD)
             {

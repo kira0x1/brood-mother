@@ -1,5 +1,3 @@
-using Sandbox;
-
 namespace Kira;
 
 // Found this in the FacePunch.Arena project
@@ -8,12 +6,8 @@ namespace Kira;
 [Title("Character Footsteps")]
 public sealed class CharacterFootsteps : Component
 {
-    [Property]
-    private SkinnedModelRenderer ModelRenderer { get; set; }
-
-    [Property, Range(0.01f, 0.5f)]
-    private float MinStepTime { get; set; }
-
+    [Property, Range(0, 5f)] private float VolumeBoost { get; set; } = 1.0f;
+    [Property] private SkinnedModelRenderer ModelRenderer { get; set; }
     private TimeSince TimeSinceLastStep { get; set; }
 
     protected override void OnEnabled()
@@ -44,8 +38,8 @@ public sealed class CharacterFootsteps : Component
         var sound = e.FootId == 0 ? trace.Surface.Sounds.FootLeft : trace.Surface.Sounds.FootRight;
         if (sound is null) return;
 
-        var handle = Sound.Play(sound, trace.HitPosition + trace.Normal * 5f);
-        handle.Volume *= e.Volume;
+        var handle = Sound.Play(sound, trace.HitPosition + trace.Normal * 10f);
+        handle.Volume *= VolumeBoost + e.Volume;
         handle.Update();
     }
 }

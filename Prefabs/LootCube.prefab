@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "Id": "35bc5aac-11bb-4de3-aeaf-ff30065070f0",
+    "Id": "ddc31cd2-2f53-42a4-a29a-6ec4b7f21dfa",
     "Name": "lootcube",
     "Scale": "0.1,0.1,0.1",
     "Tags": "loot",
@@ -44,11 +44,12 @@
       },
       {
         "__type": "LootCube",
-        "Gold": 10,
+        "Gold": 5,
         "Health": 0,
         "LerpSpeed": 8,
         "PickUpDistance": 60,
-        "Xp": 0
+        "Score": 1,
+        "Xp": 1
       }
     ],
     "Children": []
