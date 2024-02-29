@@ -29,6 +29,7 @@ public sealed class AnimationController : Component, Component.ExecuteInEditor
     [Property, Group("Inverse kinematics"), Title("Left Foot")] public GameObject IkLeftFoot { get; set; }
     [Property, Group("Inverse kinematics"), Title("Right Foot")] public GameObject IkRightFoot { get; set; }
 
+
     public void UpdateIk()
     {
         if (Target is null)
@@ -242,6 +243,22 @@ public sealed class AnimationController : Component, Component.ExecuteInEditor
         Punch,
         Swing,
         RPG
+    }
+
+    public enum FaceOverrides
+    {
+        None,
+        Smile,
+        Frown,
+        Suprise,
+        Sad,
+        Angry
+    }
+
+    public FaceOverrides FaceOverride
+    {
+        get => (FaceOverrides)Target.GetInt("face_override");
+        set => Target.Set("face_override", (int)value);
     }
 
     public HoldTypes HoldType
