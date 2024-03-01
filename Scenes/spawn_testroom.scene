@@ -449,8 +449,8 @@
         },
         {
           "__type": "CameraController",
-          "FollowSpeed": 40,
-          "LookSpeed": 55,
+          "FollowSpeed": 30,
+          "LookSpeed": 20,
           "PlayerController": {
             "_type": "component",
             "go": "7cb8314d-8deb-4c28-9756-bb5f331426e2",
@@ -774,13 +774,13 @@
       "Components": [
         {
           "__type": "CharacterController",
-          "Acceleration": 8.05,
-          "Bounciness": 0.21,
-          "GroundAngle": 45,
-          "Height": 69.64,
-          "IgnoreLayers": "bullet,weapon,loot",
-          "Radius": 12.5,
-          "StepHeight": 17
+          "Acceleration": 26.71,
+          "Bounciness": 0.16,
+          "GroundAngle": 54.67,
+          "Height": 68.04,
+          "IgnoreLayers": "bullet,weapon,loot,ragdoll",
+          "Radius": 14.05,
+          "StepHeight": 20.87
         },
         {
           "__type": "AnimationController",
@@ -915,7 +915,7 @@
             {
               "__type": "SkinnedModelRenderer",
               "AnimationGraph": null,
-              "BodyGroups": 341,
+              "BodyGroups": 340,
               "BoneMergeTarget": null,
               "CreateBoneObjects": true,
               "MaterialGroup": null,
@@ -4135,7 +4135,7 @@
   },
   "Title": "spawn_testroom",
   "Description": "",
-  "LastSaved": "2024-03-01T09:33:54.8001543\u002B00:00",
+  "LastSaved": "2024-03-01T09:56:08.4670301\u002B00:00",
   "__references": [
     "facepunch.wooden_crate",
     "nolankicks.dead4left",

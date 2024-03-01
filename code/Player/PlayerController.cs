@@ -103,7 +103,6 @@ public sealed class PlayerController : Component
 
         // ResetViewAngles();
         // OnViewModeChanged();
-        Animator.Target.SetBodyGroup("head", 1);
         ResetViewAngles();
     }
 
@@ -124,15 +123,17 @@ public sealed class PlayerController : Component
                 Controller = Components.Get<CharacterController>();
             }
 
+            Animator.Target.SetBodyGroup("head", 1);
+
             var idealEyePos = Eye.Transform.Position;
             var headPosition = Transform.Position + Vector3.Up * Controller.Height;
 
             var headTrace = Scene.Trace.Ray(Transform.Position, headPosition)
                 .UsePhysicsWorld()
-                .IgnoreGameObjectHierarchy(GameObject)
+                .IgnoreGameObjectHierarchy(GameObject).WithoutTags("ragdoll", "mob")
                 .Run();
 
-            // headPosition = headTrace.EndPosition - headTrace.Direction * 2f;
+            headPosition = headTrace.EndPosition - headTrace.Direction * 2f;
 
             var trace = Scene.Trace.Ray(headPosition, idealEyePos)
                 .UsePhysicsWorld()

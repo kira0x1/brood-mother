@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "Id": "a8e9d898-be0f-4173-b264-26b9dc8f45a6",
+    "Id": "afe87a9c-b617-4e57-b859-f6e3386a8ffe",
     "Name": "mobtest",
     "Tags": "mob",
     "Enabled": true,
@@ -10,7 +10,7 @@
         "BodyWeight": 1,
         "EyeSource": {
           "_type": "gameobject",
-          "go": "ccc09ff7-5678-4d62-b67f-adbd6cd67e0b"
+          "go": "32882fd7-63d6-485d-a700-90a261c3bd2d"
         },
         "EyesWeight": 1,
         "HeadWeight": 1,
@@ -23,7 +23,7 @@
         "LookAtEnabled": false,
         "Target": {
           "_type": "component",
-          "go": "66362b83-c8ed-4f5e-8930-d8087f753c2e",
+          "go": "207d4545-32a9-4852-99a8-a0e6b46bfb96",
           "component_type": "SkinnedModelRenderer"
         }
       },
@@ -31,7 +31,7 @@
         "__type": "ModelHitboxes",
         "Renderer": {
           "_type": "component",
-          "go": "66362b83-c8ed-4f5e-8930-d8087f753c2e",
+          "go": "207d4545-32a9-4852-99a8-a0e6b46bfb96",
           "component_type": "SkinnedModelRenderer"
         },
         "Target": {
@@ -67,10 +67,10 @@
         "__type": "CharacterFootsteps",
         "ModelRenderer": {
           "_type": "component",
-          "go": "66362b83-c8ed-4f5e-8930-d8087f753c2e",
+          "go": "207d4545-32a9-4852-99a8-a0e6b46bfb96",
           "component_type": "SkinnedModelRenderer"
         },
-        "VolumeBoost": 1
+        "VolumeBoost": 1.8
       },
       {
         "__type": "LootSpawner",
@@ -85,7 +85,7 @@
         "ApplyClothesOnStart": true,
         "Body": {
           "_type": "component",
-          "go": "66362b83-c8ed-4f5e-8930-d8087f753c2e",
+          "go": "207d4545-32a9-4852-99a8-a0e6b46bfb96",
           "component_type": "SkinnedModelRenderer"
         },
         "OutfitChosen": 0,
@@ -97,7 +97,7 @@
     ],
     "Children": [
       {
-        "Id": "66362b83-c8ed-4f5e-8930-d8087f753c2e",
+        "Id": "207d4545-32a9-4852-99a8-a0e6b46bfb96",
         "Name": "Model",
         "Tags": "ragdoll",
         "Enabled": true,
@@ -121,7 +121,7 @@
             "Model": "models/citizen/citizen.vmdl",
             "Renderer": {
               "_type": "component",
-              "go": "66362b83-c8ed-4f5e-8930-d8087f753c2e",
+              "go": "207d4545-32a9-4852-99a8-a0e6b46bfb96",
               "component_type": "SkinnedModelRenderer"
             },
             "RigidbodyFlags": 0
@@ -140,98 +140,98 @@
         ],
         "Children": [
           {
-            "Id": "ec66cc9a-04df-42bf-8cbf-15896c37d7aa",
+            "Id": "c9fa8254-ac06-4a04-b1cb-fd6b55922d67",
             "Name": "pelvis",
             "Position": "1.266582,0.000014907,31.0736",
             "Rotation": "-0.4999993,-0.4999994,-0.5000004,0.5000009",
             "Enabled": true,
             "Children": [
               {
-                "Id": "0f135cbd-3c10-40a0-aad1-355dc3c0145d",
+                "Id": "8973e4c1-3281-4704-9722-26e098bc6f13",
                 "Name": "spine_0",
                 "Position": "3.921827,-0.002448045,-0.0001164233",
                 "Rotation": "0.0002581775,-0.0000002980232,-0.00005638599,1",
                 "Enabled": true,
                 "Children": [
                   {
-                    "Id": "5f330825-f5e7-407d-880b-2b9246d6c676",
+                    "Id": "c3474183-2f14-45e1-a86d-465104c1aa43",
                     "Name": "spine_1",
                     "Position": "5.610418,0.00001253671,0.00004611733",
                     "Rotation": "-0.000396952,0.0000002086163,0.0002739429,0.9999998",
                     "Enabled": true,
                     "Children": [
                       {
-                        "Id": "0c367bec-e738-47c4-9e58-756d04cb07e3",
+                        "Id": "a64c0b3c-8b45-4fe9-be3b-34d950bad2b2",
                         "Name": "spine_2",
                         "Position": "5.610455,0.000009457347,0.00003942099",
                         "Rotation": "0.0002120286,-0.0002525151,0.0000910759,1",
                         "Enabled": true,
                         "Children": [
                           {
-                            "Id": "72d48ea8-fc4f-4085-8d12-b6d12bfce0f9",
+                            "Id": "a62d5d6c-9302-4b2f-bdf5-80b25f3ea1d4",
                             "Name": "neck_0",
                             "Position": "5.820016,-0.09348675,-0.002965245",
                             "Rotation": "0.0000821203,-0.000251025,0.01994136,-0.9998012",
                             "Enabled": true,
                             "Children": [
                               {
-                                "Id": "ccc09ff7-5678-4d62-b67f-adbd6cd67e0b",
+                                "Id": "32882fd7-63d6-485d-a700-90a261c3bd2d",
                                 "Name": "head",
                                 "Position": "4.510834,-0.0007621644,-0.00001950618",
                                 "Rotation": "0.0000001192093,-0.00000007450581,0.01963396,0.9998072",
                                 "Enabled": true,
                                 "Children": [
                                   {
-                                    "Id": "bfef5fb4-e2f2-43e9-90fa-ec58cb6140c3",
+                                    "Id": "a56d2927-6e5e-44a3-96a7-18fa461c1149",
                                     "Name": "eye_L",
                                     "Position": "6.90887,5.140466,3.234669",
                                     "Rotation": "-0.707108,-0.7071056,-0.000003516674,0.000004142523",
                                     "Enabled": true
                                   },
                                   {
-                                    "Id": "407626c6-43d3-4629-959f-d50371ee8dbc",
+                                    "Id": "73a7a386-3757-47ef-863b-217ef931055f",
                                     "Name": "eye_R",
                                     "Position": "6.908859,5.140496,-3.234596",
                                     "Rotation": "-0.707108,-0.7071056,-0.000003516674,0.000004142523",
                                     "Enabled": true
                                   },
                                   {
-                                    "Id": "1e0e32b3-28e4-4350-9db5-6aa4cb1219cb",
+                                    "Id": "9568bf92-274a-41f9-8091-66d744ccffb9",
                                     "Name": "face_lid_lower_R",
                                     "Position": "6.908821,5.140461,-3.234583",
                                     "Rotation": "-0.3386923,0.9305478,-0.1307779,-0.04759897",
                                     "Enabled": true
                                   },
                                   {
-                                    "Id": "c8694fbb-4696-449b-a785-c554a7d428bb",
+                                    "Id": "fb652ec8-2c23-404b-a903-ae6642b7267c",
                                     "Name": "face_lid_lower_L",
                                     "Position": "6.908897,5.140467,3.23468",
                                     "Rotation": "0.3386921,-0.9305472,-0.1307825,-0.04760015",
                                     "Enabled": true
                                   },
                                   {
-                                    "Id": "14fbc770-48d5-48d4-bdd6-e1a942539692",
+                                    "Id": "e2cfe822-df24-4333-82a2-d07c28e2b6df",
                                     "Name": "face_lid_upper_L",
                                     "Position": "6.908885,5.140451,3.234676",
                                     "Rotation": "-0.8974878,-0.4185047,-0.05881736,0.1261353",
                                     "Enabled": true
                                   },
                                   {
-                                    "Id": "0144b1c2-3fb0-494c-a650-da6794639b2d",
+                                    "Id": "0c567422-8ba8-45c5-b414-94fd622da57b",
                                     "Name": "face_lid_upper_R",
                                     "Position": "6.908875,5.140513,-3.234588",
                                     "Rotation": "-0.8974884,-0.4185048,0.05881578,-0.1261319",
                                     "Enabled": true
                                   },
                                   {
-                                    "Id": "8ea9c1ad-aaa5-4cf1-ab9e-466ecee4232c",
+                                    "Id": "61254cf4-8978-42d7-bce2-f0f3d47bcb5b",
                                     "Name": "ear_R",
                                     "Position": "5.621449,-0.4154353,-5.92917",
                                     "Rotation": "0.04624295,-0.6935213,0.1379467,-0.7055925",
                                     "Enabled": true
                                   },
                                   {
-                                    "Id": "518b27de-980b-4bff-ba65-d7dadc015728",
+                                    "Id": "19eecc9d-556e-47ee-b5cc-e7c282d62156",
                                     "Name": "ear_L",
                                     "Position": "5.621478,-0.4155216,5.929071",
                                     "Rotation": "-0.7055932,0.1379533,-0.6935186,0.04625109",
@@ -242,56 +242,56 @@
                             ]
                           },
                           {
-                            "Id": "639c7ab5-86f0-4ae6-b50a-f550948b5d8d",
+                            "Id": "26e0cd2e-aec0-4076-9c0e-8f46b970fc06",
                             "Name": "clavicle_L",
                             "Position": "4.038116,0.2752069,1.103956",
                             "Rotation": "-0.08115548,0.6811197,0.08690505,-0.7224523",
                             "Enabled": true,
                             "Children": [
                               {
-                                "Id": "c6f64eae-15c5-45de-a799-2b261581a3b6",
+                                "Id": "d33d3df4-dd97-464f-8070-18d31fc0aad0",
                                 "Name": "arm_upper_L",
                                 "Position": "6.218335,0.00002176547,0.00004804133",
                                 "Rotation": "-0.02770683,-0.3880896,0.06826707,0.9186722",
                                 "Enabled": true,
                                 "Children": [
                                   {
-                                    "Id": "1d5d4ce1-14c0-4d88-ba14-7dc46e775b30",
+                                    "Id": "4d2b41cd-a702-4247-8995-b2d6dc67100b",
                                     "Name": "arm_lower_L",
                                     "Position": "10.04519,0.0000154972,-0.00004673001",
                                     "Rotation": "0.00000004470348,0.0000004693866,0.1484236,0.9889238",
                                     "Enabled": true,
                                     "Children": [
                                       {
-                                        "Id": "574d1931-07a0-4133-be81-cd0cc291203d",
+                                        "Id": "6a774456-84d2-4137-b165-f1a24bb3dd01",
                                         "Name": "hand_L",
                                         "Position": "7.706676,-0.0000008344645,-0.00007987017",
                                         "Rotation": "0.09163112,-0.03309625,0.03967814,0.9944518",
                                         "Enabled": true,
                                         "Children": [
                                           {
-                                            "Id": "79151c79-0749-4100-95f7-60fde462ddb1",
+                                            "Id": "7fbe5645-5c83-47c6-bf5e-e904b59e33d0",
                                             "Name": "hold_L",
                                             "Position": "5.361056,0.6217204,3.394403",
                                             "Rotation": "-0.6958921,-0.170415,-0.392899,0.5764749",
                                             "Enabled": true
                                           },
                                           {
-                                            "Id": "796fff31-492d-4785-8bd9-f129277cca37",
+                                            "Id": "723837a4-2a91-4171-836e-f2a8a990ae0f",
                                             "Name": "finger_thumb_0_L",
                                             "Position": "1.127924,1.648618,0.8667801",
                                             "Rotation": "0.5684277,0.1216941,0.4117243,0.7018287",
                                             "Enabled": true,
                                             "Children": [
                                               {
-                                                "Id": "d9396bb4-724b-4f37-a8ff-5b2eb13d1d3a",
+                                                "Id": "2ac12331-26e2-44a4-93ac-c70ec982028e",
                                                 "Name": "finger_thumb_1_L",
                                                 "Position": "1.906562,-0.00002780556,-0.00005733965",
                                                 "Rotation": "-0.0000006342307,-0.1627616,0.000004276633,0.9866654",
                                                 "Enabled": true,
                                                 "Children": [
                                                   {
-                                                    "Id": "4ca1f769-4951-4c0a-8410-523f37aa2aa1",
+                                                    "Id": "f57b1865-32c7-422b-8299-cec7571fcaad",
                                                     "Name": "finger_thumb_2_L",
                                                     "Position": "2.136307,-0.00004172324,-0.0000980496",
                                                     "Rotation": "0.0000002533197,-0.08419369,-0.00000004842877,0.9964494",
@@ -302,28 +302,28 @@
                                             ]
                                           },
                                           {
-                                            "Id": "6b05ddee-b9d0-48c7-bfe5-fab306b808f9",
+                                            "Id": "194ff998-9a8a-4de9-abe4-ea5740f3fec8",
                                             "Name": "finger_index_meta_L",
                                             "Position": "2.075291,1.204094,0.3774741",
                                             "Rotation": "0.06037846,0.04580591,0.1049121,0.9915894",
                                             "Enabled": true,
                                             "Children": [
                                               {
-                                                "Id": "b8c89755-4268-4560-aa51-f9b131e63204",
+                                                "Id": "6e046992-aeb7-4ee3-9179-58813250ebbd",
                                                 "Name": "finger_index_0_L",
                                                 "Position": "3.068911,-0.0000297427,-0.0001138448",
                                                 "Rotation": "-0.00339286,-0.2652392,-0.06862513,0.9617316",
                                                 "Enabled": true,
                                                 "Children": [
                                                   {
-                                                    "Id": "84e1444e-b2a9-4184-b599-9fdb8b87d309",
+                                                    "Id": "7afe217e-47d6-4310-b2cc-77b92303dc95",
                                                     "Name": "finger_index_1_L",
                                                     "Position": "2.283286,-0.000005125997,-0.000147581",
                                                     "Rotation": "-0.000001147389,-0.2335206,0.000003024936,0.972352",
                                                     "Enabled": true,
                                                     "Children": [
                                                       {
-                                                        "Id": "c7bacf05-afdc-49dd-a10d-0e610ee7d578",
+                                                        "Id": "49c5808b-c98d-4132-a52e-f646fe9a17e0",
                                                         "Name": "finger_index_2_L",
                                                         "Position": "1.594392,-0.0000593811,-0.0001720785",
                                                         "Rotation": "-0.000004693866,-0.01375909,0.000002592802,0.9999053",
@@ -336,28 +336,28 @@
                                             ]
                                           },
                                           {
-                                            "Id": "ac3dc3e0-4c01-48f0-901a-2996aae70579",
+                                            "Id": "85310fb5-4aaa-40c2-8001-3bfb2cc1aa37",
                                             "Name": "finger_middle_meta_L",
                                             "Position": "2.100665,-0.1590793,0.2858093",
                                             "Rotation": "0.00896778,0.03486501,-0.01934981,0.9991645",
                                             "Enabled": true,
                                             "Children": [
                                               {
-                                                "Id": "562069a0-894b-4473-83bd-51e47ba04a22",
+                                                "Id": "3ca17274-a46d-4c1e-b674-c0acb1783f76",
                                                 "Name": "finger_middle_0_L",
                                                 "Position": "2.999226,-0.0000219047,-0.00009429451",
                                                 "Rotation": "0.0008723736,-0.2335085,0.001296833,0.9723535",
                                                 "Enabled": true,
                                                 "Children": [
                                                   {
-                                                    "Id": "f25d267d-fee6-498f-97a3-45b697a2360d",
+                                                    "Id": "5b84663f-68e6-4706-b5f3-3c478ce443e4",
                                                     "Name": "finger_middle_1_L",
                                                     "Position": "2.560946,0.000001311302,-0.0001174211",
                                                     "Rotation": "-0.000004440546,-0.2322974,0.00004120171,0.9726449",
                                                     "Enabled": true,
                                                     "Children": [
                                                       {
-                                                        "Id": "f4d8abdb-5aae-400d-bf7f-3509fe54e887",
+                                                        "Id": "078ae210-972e-4022-82ea-5d584d3638de",
                                                         "Name": "finger_middle_2_L",
                                                         "Position": "1.68301,-0.00002819299,-0.000164031",
                                                         "Rotation": "-0.00001375377,-0.04821886,-0.00003314018,0.9988368",
@@ -370,28 +370,28 @@
                                             ]
                                           },
                                           {
-                                            "Id": "5787ad84-4fac-46cf-8573-6cb93753818b",
+                                            "Id": "548b9c07-f570-4357-a507-96c23efab8b6",
                                             "Name": "finger_ring_meta_L",
                                             "Position": "2.104887,-1.444506,0.2232285",
                                             "Rotation": "-0.06376523,-0.02919634,-0.1306909,0.9889396",
                                             "Enabled": true,
                                             "Children": [
                                               {
-                                                "Id": "07f63edf-3718-473e-9a90-bbe82da2c195",
+                                                "Id": "91e108d4-51ee-4169-bf53-626ad251accb",
                                                 "Name": "finger_ring_0_L",
                                                 "Position": "2.824281,-0.00002756714,-0.0001463889",
                                                 "Rotation": "0.004531637,-0.1855573,0.05619837,0.9810146",
                                                 "Enabled": true,
                                                 "Children": [
                                                   {
-                                                    "Id": "a20c89a5-89b7-4be1-9205-caaa48abdf05",
+                                                    "Id": "491c5733-1fbe-43ea-9aa9-ded9bd4d2dca",
                                                     "Name": "finger_ring_1_L",
                                                     "Position": "2.197991,-0.000003010033,-0.0001496076",
                                                     "Rotation": "-0.00004592538,-0.2566091,-0.00006532669,0.9665152",
                                                     "Enabled": true,
                                                     "Children": [
                                                       {
-                                                        "Id": "a3d9c3d4-0570-43b2-8c3d-179ef4f2a6e3",
+                                                        "Id": "6648f1ed-a8b0-4b9d-ab4a-893f0d277bad",
                                                         "Name": "finger_ring_2_L",
                                                         "Position": "1.535339,-0.00002688168,-0.0001718699",
                                                         "Rotation": "-0.00001230836,-0.05038811,0.000008925796,0.9987297",
@@ -404,7 +404,7 @@
                                             ]
                                           },
                                           {
-                                            "Id": "ab388091-586e-4c7c-8103-06818c90057e",
+                                            "Id": "2b2afe89-5bf9-49ac-9a54-3a5445925404",
                                             "Name": "hand_R_to_L_ikrule",
                                             "Position": "-28.15185,11.30969,27.26416",
                                             "Rotation": "-0.2772723,-0.6901741,-0.00000002980232,0.6684159",
@@ -413,19 +413,19 @@
                                         ]
                                       },
                                       {
-                                        "Id": "78873d6f-c147-480d-bd5e-63c3b1b21642",
+                                        "Id": "00accbf3-61de-4d97-acd1-eae08e13311a",
                                         "Name": "arm_lower_L_twist0",
                                         "Position": "0.000006837199,0.000007548724,-0.00006464363",
                                         "Enabled": true
                                       },
                                       {
-                                        "Id": "c193ef62-3458-41b5-a17c-4c12589d4d8c",
+                                        "Id": "0fb33a85-c95a-44be-86cf-faec58f931b7",
                                         "Name": "arm_lower_L_twist1",
                                         "Position": "3.853339,-0.000001251697,-0.00007236",
                                         "Enabled": true
                                       },
                                       {
-                                        "Id": "e361b18b-9964-49f7-99c4-2f3e808bb90a",
+                                        "Id": "95d08e04-3460-4c60-bc40-e45f98168cda",
                                         "Name": "arm_elbow_helper_L",
                                         "Position": "-0.000005216786,0.000003112479,-0.00006175246",
                                         "Rotation": "0.0000003278255,-0.00000005960464,-0.7577646,0.6525283",
@@ -434,13 +434,13 @@
                                     ]
                                   },
                                   {
-                                    "Id": "2f6bbab7-eae2-445d-9ec0-af3d42583981",
+                                    "Id": "c953c08c-5c04-4e4a-a54c-3fc234ae3d16",
                                     "Name": "arm_upper_L_twist0",
                                     "Position": "0.00001492683,0.00001386152,-0.00002693847",
                                     "Enabled": true
                                   },
                                   {
-                                    "Id": "48b595ec-52cc-4377-8232-136453a9e1a1",
+                                    "Id": "b3404862-ea12-49bb-aaa4-07a2eaaf0e7c",
                                     "Name": "arm_upper_L_twist1",
                                     "Position": "5.022609,0.000015527,-0.0000271797",
                                     "Enabled": true
@@ -450,56 +450,56 @@
                             ]
                           },
                           {
-                            "Id": "313c41b8-766b-458c-9803-c3b8fc140318",
+                            "Id": "f2003892-e128-4e9e-818e-4cdedb9d0281",
                             "Name": "clavicle_R",
                             "Position": "4.036982,0.2748705,-1.108162",
                             "Rotation": "-0.08130813,0.6814711,-0.08696642,0.7220963",
                             "Enabled": true,
                             "Children": [
                               {
-                                "Id": "553e8e33-de7f-41d9-ada2-1c2574b761c9",
+                                "Id": "30591cfe-28f7-45a0-8920-ae61bb110bcb",
                                 "Name": "arm_upper_R",
                                 "Position": "6.218294,0.000005156732,-0.00006759165",
                                 "Rotation": "0.0277065,0.3880895,0.06826836,0.918672",
                                 "Enabled": true,
                                 "Children": [
                                   {
-                                    "Id": "d1c5d644-c4a2-400a-9d5d-f1ca3684d146",
+                                    "Id": "5365e092-6055-48cb-8fb1-ab783a9b1733",
                                     "Name": "arm_lower_R",
                                     "Position": "10.04517,0.00000965595,-0.00005674361",
                                     "Rotation": "-0.0000000372529,0.0000001937151,0.1484233,0.9889239",
                                     "Enabled": true,
                                     "Children": [
                                       {
-                                        "Id": "796ed570-e0df-4102-8512-80e2ba8d2221",
+                                        "Id": "726a8c0c-eb23-405a-80a4-e6843579df3f",
                                         "Name": "hand_R",
                                         "Position": "7.706653,0.00002896785,-0.00004005432",
                                         "Rotation": "-0.09163144,0.03309621,0.03967842,0.9944515",
                                         "Enabled": true,
                                         "Children": [
                                           {
-                                            "Id": "da17a463-4956-46f1-9178-b8fb3f000df2",
+                                            "Id": "70edd903-813f-4a7c-963e-d16c81eb6a3b",
                                             "Name": "hold_R",
                                             "Position": "5.361083,0.6219016,-3.394506",
                                             "Rotation": "-0.576474,0.3928988,0.1704146,0.695893",
                                             "Enabled": true
                                           },
                                           {
-                                            "Id": "9745db33-e554-4713-8979-ee3220e4a2a2",
+                                            "Id": "819423a0-50b5-42f6-87d9-ffcd8f00f566",
                                             "Name": "finger_thumb_0_R",
                                             "Position": "1.127924,1.648677,-0.8668855",
                                             "Rotation": "-0.5684255,-0.1216944,0.4117284,0.7018281",
                                             "Enabled": true,
                                             "Children": [
                                               {
-                                                "Id": "a7a2aa03-09cd-42ff-b4e3-b60302215383",
+                                                "Id": "3eaaf9a6-a0cb-4a21-8191-ede6690f1f63",
                                                 "Name": "finger_thumb_1_R",
                                                 "Position": "1.906573,0.00001248717,-0.00005304812",
                                                 "Rotation": "0.00000147149,0.1627604,-0.000003732741,0.9866656",
                                                 "Enabled": true,
                                                 "Children": [
                                                   {
-                                                    "Id": "244a9dd3-7493-4c0c-9740-2664afb971b7",
+                                                    "Id": "560307e5-0a29-412f-b033-0eed7b59da0c",
                                                     "Name": "finger_thumb_2_R",
                                                     "Position": "2.136316,0.00003880261,-0.00007760521",
                                                     "Rotation": "0.0000000782311,0.08420044,0.0000005532056,0.9964489",
@@ -510,28 +510,28 @@
                                             ]
                                           },
                                           {
-                                            "Id": "11c7d6c1-b2dc-4b15-8614-47c4a7dfb660",
+                                            "Id": "e7c216a0-c1d1-401f-a0c6-54f0332c536d",
                                             "Name": "finger_index_meta_R",
                                             "Position": "2.075282,1.204136,-0.3776003",
                                             "Rotation": "-0.0603777,-0.04580308,0.1049159,0.9915892",
                                             "Enabled": true,
                                             "Children": [
                                               {
-                                                "Id": "1e8a73c1-666d-43b5-b5f8-8c221f365543",
+                                                "Id": "b8f65a27-b162-4a6b-b69d-e785cfc64537",
                                                 "Name": "finger_index_0_R",
                                                 "Position": "3.068901,0.00003266334,-0.00002348423",
                                                 "Rotation": "0.003392495,0.2652348,-0.06862299,0.9617328",
                                                 "Enabled": true,
                                                 "Children": [
                                                   {
-                                                    "Id": "685133da-ac74-48f8-bf83-857bed8b8730",
+                                                    "Id": "5602b0e9-a00f-44b1-996d-385d229a3938",
                                                     "Name": "finger_index_1_R",
                                                     "Position": "2.283288,0.00002986193,-0.00004714727",
                                                     "Rotation": "0.000002712011,0.2335185,-0.000001698732,0.9723523",
                                                     "Enabled": true,
                                                     "Children": [
                                                       {
-                                                        "Id": "f204f94a-3f89-4cc9-aaea-6e3f88cdcc5e",
+                                                        "Id": "38159bf6-8ef3-4865-b011-120f7d823224",
                                                         "Name": "finger_index_2_R",
                                                         "Position": "1.594425,0.00007919966,-0.0001038443",
                                                         "Rotation": "0.000004738569,0.01376472,0.0000004470348,0.9999053",
@@ -544,28 +544,28 @@
                                             ]
                                           },
                                           {
-                                            "Id": "e1f793d8-6bbf-4ad5-885b-8ba256207551",
+                                            "Id": "4187577a-eba7-4508-9f44-81caaaacef17",
                                             "Name": "finger_middle_meta_R",
                                             "Position": "2.100654,-0.159044,-0.2859281",
                                             "Rotation": "-0.008967884,-0.03486186,-0.01934614,0.9991646",
                                             "Enabled": true,
                                             "Children": [
                                               {
-                                                "Id": "ca74a247-d423-4517-973a-5d554fe4bb3d",
+                                                "Id": "8bcad38b-494c-42bd-97b1-4d39be3a1735",
                                                 "Name": "finger_middle_0_R",
                                                 "Position": "2.999228,0.00005188583,-0.0000231266",
                                                 "Rotation": "-0.0008731559,0.2335047,0.001300201,0.9723544",
                                                 "Enabled": true,
                                                 "Children": [
                                                   {
-                                                    "Id": "14160661-fd82-4574-84d3-cf96f2196e9e",
+                                                    "Id": "7cd6cc8e-184b-412c-ab8f-c3334e436f6d",
                                                     "Name": "finger_middle_1_R",
                                                     "Position": "2.560971,0.00003793835,-0.00004655122",
                                                     "Rotation": "0.000005975366,0.2322946,0.00003750622,0.9726455",
                                                     "Enabled": true,
                                                     "Children": [
                                                       {
-                                                        "Id": "0fe5422c-30fd-4b51-b9c3-f8ab4f090346",
+                                                        "Id": "8310f8ee-806d-4275-bff1-db2b8044e14c",
                                                         "Name": "finger_middle_2_R",
                                                         "Position": "1.68301,0.000066936,-0.0001042252",
                                                         "Rotation": "0.00001381338,0.04822427,-0.00003582239,0.9988364",
@@ -578,28 +578,28 @@
                                             ]
                                           },
                                           {
-                                            "Id": "504043b0-bc7a-47bf-9fca-8e374f9a5270",
+                                            "Id": "a9de5c37-d08e-4ade-991c-2afdf11d6d93",
                                             "Name": "finger_ring_meta_R",
                                             "Position": "2.104869,-1.444472,-0.2233304",
                                             "Rotation": "0.06376481,0.02919935,-0.1306878,0.9889399",
                                             "Enabled": true,
                                             "Children": [
                                               {
-                                                "Id": "aa1d85c2-74a1-48f5-baf4-a8e016ba55cf",
+                                                "Id": "f79a7d11-95f4-4c88-b30d-1c6876404dba",
                                                 "Name": "finger_ring_0_R",
                                                 "Position": "2.824278,0.00006249545,-0.00001382827",
                                                 "Rotation": "-0.004531965,0.185554,0.0562013,0.9810151",
                                                 "Enabled": true,
                                                 "Children": [
                                                   {
-                                                    "Id": "c4ec69a2-7598-4283-82a3-c80d65485f33",
+                                                    "Id": "fe301a07-0fc5-4811-8e37-d94ac701fc77",
                                                     "Name": "finger_ring_1_R",
                                                     "Position": "2.198021,0.00003910064,-0.00004911422",
                                                     "Rotation": "0.00004531443,0.2566069,-0.00006809831,0.9665158",
                                                     "Enabled": true,
                                                     "Children": [
                                                       {
-                                                        "Id": "b1e9c704-6a4c-426d-9a64-bba4f75cb42d",
+                                                        "Id": "bb2625a0-cc22-4e29-861b-c0a4b69e2683",
                                                         "Name": "finger_ring_2_R",
                                                         "Position": "1.535354,0.00007754565,-0.000111118",
                                                         "Rotation": "0.00001199543,0.05039279,0.000008508563,0.9987295",
@@ -612,7 +612,7 @@
                                             ]
                                           },
                                           {
-                                            "Id": "a9d6fedd-bce9-4a47-bb1d-bf8b4531eaf6",
+                                            "Id": "8c85e21f-1ff0-49ef-b76a-059eafc039f4",
                                             "Name": "hand_L_to_R_ikrule",
                                             "Position": "-28.15179,11.30986,-27.26431",
                                             "Rotation": "0.2772729,0.6901738,0.000000372529,0.6684158",
@@ -621,19 +621,19 @@
                                         ]
                                       },
                                       {
-                                        "Id": "23562f08-b8c5-4d7d-9bad-34de6b217aa4",
+                                        "Id": "46c83ba2-778d-4008-ab5f-4068930b8136",
                                         "Name": "arm_lower_R_twist1",
                                         "Position": "3.853322,0.00002682209,-0.00005733966",
                                         "Enabled": true
                                       },
                                       {
-                                        "Id": "781dfa46-40a8-45cc-9679-f5a59aa397af",
+                                        "Id": "87d94429-af0c-447d-966b-bc5f5b263115",
                                         "Name": "arm_lower_R_twist0",
                                         "Position": "-0.0000160776,0.0000261824,-0.00004466753",
                                         "Enabled": true,
                                         "Children": [
                                           {
-                                            "Id": "27e6c72d-d707-4777-b2ee-1e73ce394e01",
+                                            "Id": "bde9011e-8eb6-4e2f-b5f2-454ef209a194",
                                             "Name": "arm_elbow_helper_R",
                                             "Position": "-0.000006003497,0.00003117744,-0.00005398668",
                                             "Rotation": "-0.0000007376075,0.0000002682209,0.7577677,-0.6525244",
@@ -644,13 +644,13 @@
                                     ]
                                   },
                                   {
-                                    "Id": "4dc10829-541b-4b0e-aad9-2ddb10c1f04e",
+                                    "Id": "29508c14-9d14-4344-a25f-fd55269f0a4f",
                                     "Name": "arm_upper_R_twist0",
                                     "Position": "-0.00001033032,0.00001789448,-0.00005867187",
                                     "Enabled": true
                                   },
                                   {
-                                    "Id": "0b0a56f0-b473-4a2f-80ad-cd06d8c0b916",
+                                    "Id": "54b1aa30-b39c-4dc7-bc21-6c9d83868a80",
                                     "Name": "arm_upper_R_twist1",
                                     "Position": "5.022587,0.00001567602,-0.00004744529",
                                     "Enabled": true
@@ -660,7 +660,7 @@
                             ]
                           },
                           {
-                            "Id": "dbce8405-e85c-4258-9759-bdd24881f8af",
+                            "Id": "05746a28-75cc-4464-99bb-ea588c10dacf",
                             "Name": "neck_clothing",
                             "Position": "5.820016,-0.09348675,-0.002965245",
                             "Rotation": "0.0000821203,-0.000251025,0.01994136,-0.9998012",
@@ -673,28 +673,28 @@
                 ]
               },
               {
-                "Id": "512d47fb-04dc-4556-91c2-6684f24f780e",
+                "Id": "3f1c6d62-23c9-40fa-95bc-9d41cd56bd5f",
                 "Name": "leg_upper_R",
                 "Position": "-0.2881533,-0.4264439,-4.427378",
                 "Rotation": "-0.000001549721,1,0.0000001788139,-0.000000923872",
                 "Enabled": true,
                 "Children": [
                   {
-                    "Id": "df1753ad-5caa-46f7-ba17-72b870b27ef4",
+                    "Id": "e09140aa-8326-4f37-aab0-7c3560ed08d1",
                     "Name": "leg_lower_R",
                     "Position": "14.47037,-0.00001596073,0.00000106488",
                     "Rotation": "-0.000001326203,0.0000001043081,-0.01828091,0.9998329",
                     "Enabled": true,
                     "Children": [
                       {
-                        "Id": "68058599-d9e8-4191-bdd2-1b0fdfd8ff5c",
+                        "Id": "a25b6e21-13f3-4aaf-86e6-e953dd26dc70",
                         "Name": "ankle_R",
                         "Position": "12.51552,0.000006943942,0.000000707878",
                         "Rotation": "0.0000006258488,-0.000001043081,0.3914976,0.9201791",
                         "Enabled": true,
                         "Children": [
                           {
-                            "Id": "8320dc8c-0d5b-47b9-9ab6-0cc0fd3e4a68",
+                            "Id": "a1402385-4cf3-431f-9d88-b19d8f773767",
                             "Name": "ball_R",
                             "Position": "4.429121,0.0000002384186,0.000004078142",
                             "Rotation": "-0.0000005032102,0.000001490116,0.3907284,0.920506",
@@ -703,19 +703,19 @@
                         ]
                       },
                       {
-                        "Id": "ba324295-0496-4a25-8546-59cba56d501c",
+                        "Id": "77d5d566-d7de-4e94-9322-7b8112344e66",
                         "Name": "leg_lower_R_twist1",
                         "Position": "6.257761,0.000006318093,-0.000003699168",
                         "Enabled": true
                       },
                       {
-                        "Id": "5dbd6793-4a9e-4141-8607-02d5ccb7acd9",
+                        "Id": "1748e0d5-6461-46a2-b0b0-edbc49f01a35",
                         "Name": "leg_lower_R_twist0",
                         "Position": "-0.000005885966,0.000004377334,-0.00001049043",
                         "Enabled": true
                       },
                       {
-                        "Id": "dc2144de-f8fa-4609-a0cb-dec0a2cdb585",
+                        "Id": "f0ce32ea-edf7-409b-89b9-b963e406cef2",
                         "Name": "leg_knee_helper_R",
                         "Position": "0.000001733967,0.000004775387,-0.000009536718",
                         "Rotation": "0.0000009241048,-0.000001251698,0.7135268,0.7006278",
@@ -724,20 +724,20 @@
                     ]
                   },
                   {
-                    "Id": "e5a12eeb-1460-4711-9636-1ce97d751874",
+                    "Id": "a2c6b223-99db-43c9-afe0-29eb805892c7",
                     "Name": "leg_upper_R_twist1",
                     "Position": "7.235195,0.00002492144,-0.00001329576",
                     "Enabled": true
                   },
                   {
-                    "Id": "995126e9-d37b-4563-9ecf-95077b0cfc11",
+                    "Id": "2ef34b04-a2f2-42ae-9c54-584765c9a13a",
                     "Name": "leg_upper_R_twist0",
                     "Position": "0.000007629447,0.000005960508,-0.0000171661",
                     "Rotation": "-0.00000005960464,0,0.000003039837,1",
                     "Enabled": true
                   },
                   {
-                    "Id": "8658e474-422c-4e7a-9ca2-88f0f83979c5",
+                    "Id": "5e3cc9af-c1b3-4f60-ab56-2619d39701da",
                     "Name": "leg_glute_helper_R",
                     "Position": "0.00002098089,0.000005543324,-0.00001764288",
                     "Rotation": "-0.000001056968,-0.0000006258488,-0.7071052,0.7071084",
@@ -746,28 +746,28 @@
                 ]
               },
               {
-                "Id": "99886c1c-936c-4d80-b3c9-e428dbe2c8bd",
+                "Id": "c249c30a-772b-42c5-8679-bbb0407eeefb",
                 "Name": "leg_upper_L",
                 "Position": "-0.2881297,-0.4264377,4.427379",
                 "Rotation": "-0.000001549721,1,0.0000001788139,-0.000001162291",
                 "Enabled": true,
                 "Children": [
                   {
-                    "Id": "77fafcb1-1f87-4945-8005-8ca966c5d82f",
+                    "Id": "82b131ac-8c55-4080-bc28-fcdb3e3cf166",
                     "Name": "leg_lower_L",
                     "Position": "14.47037,-0.00004838563,-0.00002541375",
                     "Rotation": "-0.000003024936,-0.0000004023314,-0.01828231,0.9998329",
                     "Enabled": true,
                     "Children": [
                       {
-                        "Id": "b6535317-4e27-484d-bf41-630e68f82980",
+                        "Id": "851b4616-5adb-4bd7-909a-ca7f81ce3742",
                         "Name": "ankle_L",
                         "Position": "12.51552,0.000004500151,-0.000008570384",
                         "Rotation": "0.000003278255,-0.0000009536743,0.3914973,0.9201792",
                         "Enabled": true,
                         "Children": [
                           {
-                            "Id": "96c7d474-e5c0-44f4-a0b9-560d9f322a5e",
+                            "Id": "67383c4e-390c-473a-9b22-365f1891708b",
                             "Name": "ball_L",
                             "Position": "4.429115,0.000001430511,-0.00001387228",
                             "Rotation": "-0.0000004862416,0.000001206994,0.3907294,0.9205056",
@@ -776,19 +776,19 @@
                         ]
                       },
                       {
-                        "Id": "ba6fe954-1d57-483b-89f5-1372a23f0701",
+                        "Id": "b09545ab-fbed-46e5-b581-ac0414dab985",
                         "Name": "leg_lower_L_twist1",
                         "Position": "6.257759,0.000003129244,-0.00001000724",
                         "Enabled": true
                       },
                       {
-                        "Id": "d9a5a802-e35d-4697-98b8-2a98d55bec15",
+                        "Id": "7e19528a-8915-4f86-98e6-9c53173ebc21",
                         "Name": "leg_lower_L_twist0",
                         "Position": "-0.000007737578,0.000002818492,-0.000009536751",
                         "Enabled": true
                       },
                       {
-                        "Id": "31670fa4-310a-4f1e-95c8-798c4a9b58ae",
+                        "Id": "801180f8-a047-4cff-8ee8-a48f3fb68645",
                         "Name": "leg_knee_helper_L",
                         "Position": "-0.00001533572,0.000001824768,-0.000009536788",
                         "Rotation": "-0.000003013527,-0.00000166893,0.7135276,0.700627",
@@ -797,19 +797,19 @@
                     ]
                   },
                   {
-                    "Id": "a7dc157e-8393-4e3d-aef3-d170ccbd14d3",
+                    "Id": "3c455ba1-5afc-4fcb-8155-c51ca41aa694",
                     "Name": "leg_upper_L_twist1",
                     "Position": "7.235189,0.00002110672,-0.000007938437",
                     "Enabled": true
                   },
                   {
-                    "Id": "12d896a4-adb7-4f7e-bf7c-2dddf399e58b",
+                    "Id": "25efbac5-baaf-4372-a508-1033f214fb74",
                     "Name": "leg_upper_L_twist0",
                     "Position": "0.000007629402,0.000009954012,-0.000009059861",
                     "Enabled": true
                   },
                   {
-                    "Id": "59699bbc-62ff-499f-8523-3c97259125a9",
+                    "Id": "459baee2-107d-4912-8b3f-853ec56117a5",
                     "Name": "leg_glute_helper_L",
                     "Position": "0.0000190735,0.000009596425,-0.000009536643",
                     "Rotation": "-0.000001011624,-0.0000006854534,-0.7071055,0.707108",
@@ -820,33 +820,33 @@
             ]
           },
           {
-            "Id": "bc0d9195-31ef-4d18-884e-d41737bc0a94",
+            "Id": "bea895cc-77cc-4b14-a9fa-4007d7cba66c",
             "Name": "root_IK",
             "Position": "1.266575,0.0000071965,0",
             "Enabled": true,
             "Children": [
               {
-                "Id": "3879d4a9-5b64-4d58-a349-9bb0c7d992c5",
+                "Id": "7db70944-5f8f-421d-9468-590ece582ce5",
                 "Name": "hand_R_IK_target",
                 "Position": "0.6939846,-20.39473,39.24799",
                 "Rotation": "0.2871271,0.2142481,-0.5281312,0.7698917",
                 "Enabled": true
               },
               {
-                "Id": "7efddb64-9df1-4526-8c2a-0bf55a91ca44",
+                "Id": "abcbf91b-702a-4974-957d-a7127b31791d",
                 "Name": "hand_L_IK_target",
                 "Position": "0.6941153,20.3947,39.24792",
                 "Rotation": "0.7698929,0.5281296,-0.2142482,0.2871266",
                 "Enabled": true
               },
               {
-                "Id": "b016e3cf-b695-4d19-a978-3619dd79dcd8",
+                "Id": "6a5f1263-76da-479c-8c9c-b0c2d525a7ab",
                 "Name": "aim_matrix_02a",
                 "Position": "4.638925,-0.0000008343597,9.8425",
                 "Enabled": true,
                 "Children": [
                   {
-                    "Id": "5e44b858-f5d8-4330-a976-04637c090522",
+                    "Id": "6353a659-7fe5-4c36-913a-de104092bfcf",
                     "Name": "aim_matrix_02b",
                     "Position": "3.937001,-0.0000004822493,-0.00000143021",
                     "Enabled": true
@@ -854,20 +854,20 @@
                 ]
               },
               {
-                "Id": "ad44faf9-2860-4e15-b37d-80c28ff05f81",
+                "Id": "58ac12c3-6e15-49c2-baa3-e6337dc27625",
                 "Name": "aim_matrix_01",
                 "Position": "4.638925,-0.0000008343597,11.811",
                 "Enabled": true
               },
               {
-                "Id": "0c830bab-4ad4-4ba1-865d-9b83c89892bb",
+                "Id": "4d664120-8547-44a2-a086-0f9b1391a34f",
                 "Name": "foot_R_IK_target",
                 "Position": "-0.8840668,-4.427395,3.807913",
                 "Rotation": "0.6508947,0.2762884,-0.2762876,0.6508964",
                 "Enabled": true
               },
               {
-                "Id": "ef73f824-c976-4fe2-9107-2146e53a3a2f",
+                "Id": "e3579fb0-c911-43cf-bbfd-6cac6481fc41",
                 "Name": "foot_L_IK_target",
                 "Position": "-0.884093,4.427404,3.807924",
                 "Rotation": "0.650896,0.276287,-0.2762895,0.6508948",
@@ -878,7 +878,7 @@
         ]
       },
       {
-        "Id": "22f05b8e-f87f-48ed-a4af-2d8be059a300",
+        "Id": "180c605f-9b0b-4440-bb64-2a778414878f",
         "Name": "Aim",
         "Position": "9.897888,0,64.8007",
         "Enabled": true

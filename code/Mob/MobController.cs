@@ -45,8 +45,11 @@ public sealed class MobController : Component, IHealthComponent
     }
 
     private DeathModes DeathMode { get; set; } = DeathModes.RAGDOLL;
-
     private MobStates CurState { get; set; }
+
+    private bool DissapearAfterTime { get; set; } = true;
+    private float DissapearDelay { get; set; } = 5;
+    private TimeSince DissapearTime { get; set; }
 
 
     protected override void OnAwake()
@@ -96,6 +99,11 @@ public sealed class MobController : Component, IHealthComponent
             case MobStates.IDLE:
                 break;
             case MobStates.DEAD:
+                if (DissapearAfterTime && DissapearTime > DissapearDelay)
+                {
+                    GameObject.Destroy();
+                }
+
                 break;
         }
     }
@@ -194,6 +202,7 @@ public sealed class MobController : Component, IHealthComponent
 
     private void OnDeath(bool headshot, Vector3 force = new Vector3())
     {
+        DissapearTime = 0;
         CurState = MobStates.DEAD;
         Agent.Stop();
         Animator.WithVelocity(Vector3.Zero);
@@ -207,6 +216,7 @@ public sealed class MobController : Component, IHealthComponent
         {
             if (!lootSpawner.HasSpawnedLoot) lootSpawner.SpawnLoot();
         }
+
 
         switch (DeathMode)
         {
