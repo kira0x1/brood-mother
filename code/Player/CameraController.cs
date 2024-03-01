@@ -46,7 +46,7 @@ public sealed class CameraController : Component
     public void SetAngles(Vector3 pos, Rotation rot)
     {
         Transform.Position = Vector3.Lerp(Transform.Position, pos, FollowSpeed * Time.Delta);
-        Transform.Rotation = Rotation.Slerp(Transform.Rotation, rot, LookSpeed * Time.Delta);
+        Transform.Rotation = Rotation.Lerp(Transform.Rotation, rot, LookSpeed * Time.Delta);
     }
 
     public void OnViewModeChange(ViewModes vm)

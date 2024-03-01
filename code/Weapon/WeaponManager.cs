@@ -30,6 +30,7 @@ public sealed class WeaponManager : Component
         Player = Components.Get<PlayerManager>();
         Animator = Components.Get<AnimationController>();
         Controller = Components.Get<PlayerController>();
+        // Controller.OnAimChanged += OnAimChanged;
     }
 
     protected override void OnFixedUpdate()

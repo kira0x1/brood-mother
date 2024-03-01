@@ -42,11 +42,11 @@ public sealed class PlayerManager : Component, IHealthComponent
         WeaponManager = GameObject.Components.Get<WeaponManager>();
     }
 
-    public bool TryGiveItem(GameObject WeaponPrefab)
+    public bool TryGiveItem(GameObject WeaponPrefab, bool ignorePickUpCD = false)
     {
         var go = WeaponPrefab.Clone();
         var weapon = go.Components.Get<WeaponComponent>(true);
-        var gaveItem = Inventory.TryGiveItem(weapon);
+        var gaveItem = Inventory.TryGiveItem(weapon, ignorePickUpCD);
         return gaveItem;
     }
 

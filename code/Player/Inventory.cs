@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Kira;
 
@@ -11,7 +12,10 @@ public class Inventory : Component
     public int CurrentSlot { get; set; }
     public PlayerManager Player { get; set; }
     public AnimationController Animator { get; set; }
-    private TimeSince timeSinceLastPickup { get; set; }
+    private TimeSince timeSinceLastPickup { get; set; } = 0;
+
+    [Property]
+    public List<GameObject> StartWeapons { get; set; } = new List<GameObject>();
 
     [Property]
     private float PickupCooldown { get; set; } = 1.0f;
@@ -31,6 +35,17 @@ public class Inventory : Component
             slot.title = $"{i + 1}";
             slot.id = i;
             Slots[i] = slot;
+        }
+    }
+
+    protected override void OnStart()
+    {
+        base.OnStart();
+
+        foreach (GameObject wep in StartWeapons)
+        {
+            Log.Info($"giving weapon: {wep.Name}");
+            Player.TryGiveItem(wep, true);
         }
     }
 
@@ -143,9 +158,9 @@ public class Inventory : Component
 
     public new int GetHashCode => HashCode.Combine(Slots[0].GetHashCode(), Slots[1].GetHashCode(), Slots[2].GetHashCode(), Slots[3].GetHashCode());
 
-    public bool TryGiveItem(WeaponComponent weapon)
+    public bool TryGiveItem(WeaponComponent weapon, bool ignorePickUpCD = false)
     {
-        if (timeSinceLastPickup < PickupCooldown)
+        if (!ignorePickUpCD && timeSinceLastPickup < PickupCooldown)
         {
             return false;
         }

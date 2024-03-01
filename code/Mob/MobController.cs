@@ -27,6 +27,7 @@ public sealed class MobController : Component, IHealthComponent
     public Action<MobController> OnDeathEvent;
     private TimeSince NextAttackTime = 0;
     private float DistanceToPlayer;
+    private ClothingRenderer Clothing { get; set; }
     private ModelPhysics ModelPhys { get; set; }
 
     private enum MobStates
@@ -53,8 +54,21 @@ public sealed class MobController : Component, IHealthComponent
         base.OnAwake();
         Agent = Components.Get<NavMeshAgent>();
         Animator = Components.Get<AnimationController>();
+        Clothing = Components.Get<ClothingRenderer>();
+
         if (MobData is not null)
+        {
+            if (Clothing.IsValid())
+            {
+                if (!Clothing.ApplyClothesOnStart)
+                {
+                    Clothing.SetOutfits(MobData.Outfits);
+                    Clothing.ApplyClothing();
+                }
+            }
+
             HurtSound = MobData.HurtSound;
+        }
 
         Model = Components.GetInChildren<ModelRenderer>().Transform;
         ModelPhys = Model.GameObject.Components.Get<ModelPhysics>(true);
@@ -67,6 +81,7 @@ public sealed class MobController : Component, IHealthComponent
         Player = PlayerController.Instance;
         Agent.MoveTo(Player.Transform.Position);
         CurState = MobStates.CHASE;
+        Animator.FaceOverride = AnimationController.FaceOverrides.Angry;
     }
 
     protected override void OnUpdate()
@@ -114,8 +129,10 @@ public sealed class MobController : Component, IHealthComponent
 
     private void UpdateAnimator()
     {
-        // Animator.LookAtEnabled = false;
-        // Animator.WithLook(Player.Transform.Position);
+        Animator.LookAtEnabled = true;
+        Animator.WithLook(-Player.Transform.Local.Forward);
+
+
         switch (CurState)
         {
             case MobStates.CHASE:
@@ -127,6 +144,7 @@ public sealed class MobController : Component, IHealthComponent
                 Animator.WithWishVelocity(rigidbody.AngularVelocity);
                 break;
         }
+
         // Transform.Rotation = Animator.EyeWorldTransform.Rotation;
     }
 
@@ -184,6 +202,12 @@ public sealed class MobController : Component, IHealthComponent
         OnDeathEvent?.Invoke(this);
         Agent.Enabled = false;
 
+        LootSpawner lootSpawner = Components.Get<LootSpawner>();
+        if (lootSpawner.IsValid())
+        {
+            if (!lootSpawner.HasSpawnedLoot) lootSpawner.SpawnLoot();
+        }
+
         switch (DeathMode)
         {
             case DeathModes.SIT:
@@ -195,8 +219,11 @@ public sealed class MobController : Component, IHealthComponent
                 GameObject.Destroy();
                 break;
             case DeathModes.RAGDOLL:
+                Animator.LookAt = Player.GameObject;
+                Animator.LookAtEnabled = true;
                 ModelPhys.Enabled = true;
                 // rigidbody.Enabled = true;
+                Tags.Set("ragdoll", true);
                 Animator.ProceduralHitReaction(new DamageInfo(), 100f, force * 100000f);
                 break;
         }

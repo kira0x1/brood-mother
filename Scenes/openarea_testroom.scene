@@ -137,15 +137,17 @@
         },
         {
           "__type": "CharacterFootsteps",
-          "MinStepTime": 0.1,
           "ModelRenderer": {
             "_type": "component",
             "go": "92dec9dc-c6dc-4131-98ef-8dbda5c3ada0",
             "component_type": "SkinnedModelRenderer"
-          }
+          },
+          "VolumeBoost": 1
         },
         {
-          "__type": "PlayerPickup"
+          "__type": "PlayerPickup",
+          "PickUpRadius": 100,
+          "ShowRadiusGizmo": false
         },
         {
           "__type": "PlayerManager",
@@ -163,7 +165,13 @@
         },
         {
           "__type": "Inventory",
-          "PickupCooldown": 0.015
+          "PickupCooldown": 0.015,
+          "StartWeapons": [
+            {
+              "_type": "gameobject",
+              "prefab": "prefabs/guns/pistol_prefab.prefab"
+            }
+          ]
         }
       ],
       "Children": [
@@ -1742,6 +1750,7 @@
       "Components": [
         {
           "__type": "MobSpawner",
+          "MobAliveLimit": 10,
           "MobGroupSpawnDelay": "4,6",
           "MobLimit": 10,
           "MobPrefabs": [
@@ -1752,7 +1761,7 @@
           ],
           "MobsInGroupAmount": "2,4",
           "MobSpawnDelay": "0.5,1",
-          "SpawningOn": false
+          "SpawningOn": true
         }
       ],
       "Children": [
@@ -1959,9 +1968,8 @@
   },
   "Title": "openarea_testroom",
   "Description": "",
-  "LastSaved": "2024-02-26T18:26:47.1817491\u002B00:00",
+  "LastSaved": "2024-03-01T09:33:13.695532\u002B00:00",
   "__references": [
-    "facepunch.arena",
     "nolankicks.dead4left"
   ]
 }

@@ -5,13 +5,17 @@ using System.Linq;
 namespace Kira;
 
 [Group("Kira/Mob")]
+[Title("Mob Spawner"), Icon("manage_accounts")]
 public sealed class MobSpawner : Component
 {
     [Property]
     private bool SpawningOn { get; set; } = true;
 
-    [Property, Group("Mobs"), Description("Does not spawn more mobs if there are this many mobs currently active in the scene")]
-    private int MobLimit { get; set; } = 10;
+    [Property, Group("Spawning"), Description("Does not spawn more mobs if there are this many mobs currently active in the scene")]
+    private int MobLimit { get; set; } = 0;
+
+    [Property, Group("Spawning"), Description("Does not spawn more if there are this many alive")]
+    private int MobAliveLimit { get; set; } = 10;
 
     [Property, Group("Mobs"), ResourceType("prefab")]
     private List<GameObject> MobPrefabs { get; set; } = new List<GameObject>();
@@ -30,6 +34,7 @@ public sealed class MobSpawner : Component
     private List<MobController> MobsSpawned { get; set; }
     private PlayerManager Player { get; set; }
     private bool doneSpawningGroup = true;
+
 
     protected override void OnAwake()
     {
@@ -51,8 +56,11 @@ public sealed class MobSpawner : Component
     {
         if (!SpawningOn || Player.PlayerState == PlayerManager.PlayerStates.DEAD) return;
 
-        if (doneSpawningGroup && MobsSpawned.Count < MobLimit)
+        if (doneSpawningGroup)
         {
+            if (MobLimit > 0 && MobsSpawned.Count >= MobLimit) return;
+            if (MobAliveLimit > 0 && CurMobsAlive >= MobAliveLimit) return;
+
             var mobsAmount = GetRandMobAmount();
             SpawnMobGroup(mobsAmount, GetRandGroupSpawnDelay());
         }

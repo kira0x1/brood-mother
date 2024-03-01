@@ -96,9 +96,9 @@ public sealed class WeaponAnimator : Component
 
     public void OnAimChanged(bool isAiming)
     {
-        // ModelRenderer.Set("ironsights", isAiming ? 2 : 0);
-        // ModelRenderer.Set("ironsights_fire_scale", isAiming ? 0.3f : 0f);
-        // ModelRenderer.Set("b_deploy", isAiming);
-        // ModelRenderer.Set("b_attack", isAiming);
+        ModelRenderer.Set("ironsights", isAiming ? 2 : 0);
+        ModelRenderer.Set("ironsights_fire_scale", isAiming ? 0.3f : 0f);
+        ModelRenderer.Set("b_deploy", isAiming);
+        ModelRenderer.Set("b_attack", isAiming);
     }
 }

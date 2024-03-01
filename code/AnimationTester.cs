@@ -7,16 +7,22 @@ namespace Kira;
 public sealed class AnimationTester : Component
 {
     private AnimationController Animator { get; set; }
+    private GameObject player;
 
     protected override void OnStart()
     {
         base.OnStart();
         Animator = Components.Get<AnimationController>();
+        player = PlayerManager.Instance.GameObject;
     }
 
     protected override void OnUpdate()
     {
         base.OnUpdate();
+
+        Animator.LookAt = player;
+        Animator.LookAtEnabled = true;
+        Animator.WithLook(-player.Transform.Local.Forward);
 
         if (Input.Released("Slot1"))
         {

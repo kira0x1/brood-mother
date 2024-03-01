@@ -1,5 +1,23 @@
 {
   "Name": "Mob",
+  "Health": 40,
+  "Outfits": [
+    {
+      "Clothes": [
+        "models/citizen_clothes/shirt/buttoned_shirt/buttoned_shirt.clothing",
+        "models/citizen_clothes/jacket/suitjacket/jacket.suit.clothing",
+        "models/citizen_clothes/trousers/smarttrousers/trousers.smart.clothing"
+      ]
+    },
+    {
+      "Clothes": [
+        "models/citizen_clothes/trousers/loosejeans/loose_jeans.clothing",
+        "models/citizen_clothes/gloves/leather_gloves/leather_gloves.clothing",
+        "models/citizen_clothes/jacket/longsleeve/longsleeve_red.clothing"
+      ]
+    }
+  ],
+  "ScoreReward": 10,
   "MinSpawnLevel": 1,
   "MaxSpawnLevel": 10,
   "SpawnRateByLevel": 1,

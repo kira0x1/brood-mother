@@ -1,0 +1,44 @@
+{
+  "Hats": [
+    "models/citizen_clothes/hat/baseball_cap/baseball_cap.clothing",
+    "models/citizen_clothes/hat/beanie/beanie.clothing",
+    null
+  ],
+  "Hair": [
+    "models/citizen_clothes/hair/hair_shortscruffy/hair_shortscruffy_brown.clothing",
+    "models/citizen_clothes/hair/hair_slickedback/hair_slickedback.clothing",
+    "models/citizen_clothes/hair/hair_thinning_short/thinning_short.clothing",
+    null
+  ],
+  "Beard": [
+    "models/citizen_clothes/hair/decorated_beard/decorated_beard.clothing",
+    null
+  ],
+  "Skin": [],
+  "Footwear": [
+    "models/citizen_clothes/shoes/boxing_boots/boxing_boots.clothing",
+    "models/citizen_clothes/shoes/crocs_and_socks/clogs_and_socks.clothing",
+    "models/citizen_clothes/shoes/trainers/trainers.clothing"
+  ],
+  "Tops": [
+    "models/citizen_clothes/jumper/sleeveless_jumper/sleeveless_jumper.clothing",
+    "models/citizen_clothes/shirt/flannel_shirt/flannel_shirt.clothing",
+    "models/citizen_clothes/shirt/flannel_shirt/variations/blue_shirt/blue_shirt.clothing",
+    "models/citizen_clothes/jumper/loose_jumper/loose_jumper.clothing"
+  ],
+  "Gloves": [
+    "models/citizen_clothes/gloves/rubber_gloves/rubber_gloves.clothing",
+    "models/citizen_clothes/gloves/rubber_gloves/rubber_gloves_black.clothing",
+    null
+  ],
+  "Facial": [
+    "models/citizen_clothes/makeup/face_tattoos/face_tattoos.clothing",
+    null,
+    "models/citizen_clothes/makeup/plump_lips/plump_lips_01.clothing",
+    "models/citizen_clothes/makeup/plump_lips/plump_lips_02.clothing"
+  ],
+  "Pants": [
+    "models/citizen_clothes/trousers/jeans/jeans.clothing"
+  ],
+  "__references": []
+}

@@ -138,7 +138,7 @@ public sealed class PlayerController : Component
                 .UsePhysicsWorld()
                 .IgnoreGameObjectHierarchy(GameObject)
                 .WithAnyTags("map", "solid", "player")
-                .Radius(20f)
+                .Radius(15f)
                 .Run();
 
             if (camController.IsValid())
@@ -250,7 +250,7 @@ public sealed class PlayerController : Component
 
         UpdateLook();
         UpdateAnimator();
-        // HandleAiming();
+        HandleAiming();
 
         if (Input.Pressed("Voice"))
         {
@@ -393,24 +393,46 @@ public sealed class PlayerController : Component
 
     private void HandleAiming()
     {
-        if (IsAiming)
-        {
-            Animator.Target?.Set("aim_yaw", EyeAngles.pitch);
-        }
-
-        if (Input.Released("Attack2"))
+        if (Input.Released("attack2"))
         {
             IsAiming = !IsAiming;
-            // OnAimChanged?.Invoke(IsAiming);
+            Animator.Handedness = IsAiming ? AnimationController.Hand.Both : AnimationController.Hand.Right;
+            // TestAim();
+            // OnAimChanged();
         }
     }
 
-    // private void OnAimChanged()
-    // {
-    //     if (!inventory.HasItem) return;
-    //
-    //     var weapon = inventory.ActiveWeapon;
-    //     if (!weapon.IsValid()) return;
-    //     weapon.OnAimChanged(IsAiming);
-    // }
+    private void TestAim()
+    {
+        var weapon = inventory.ActiveWeapon;
+        if (!weapon.IsValid())
+        {
+            Log.Info("no wep");
+            return;
+        }
+
+        var weaponAnim = weapon.Animator;
+        if (!weaponAnim.IsValid())
+        {
+            Log.Warning("weapon has no animator!");
+            return;
+        }
+
+
+        weaponAnim.ModelRenderer.Set("aim_yaw", 500f);
+        weaponAnim.ModelRenderer.Set("aim_pitch", -1200f);
+        weaponAnim.ModelRenderer.Set("b_twohanded", IsAiming);
+        weaponAnim.ModelRenderer.Set("b_deploy", !IsAiming);
+
+        // weaponAnim.ModelRenderer.Set("b_attack", true);
+    }
+
+    private void OnAimChanged()
+    {
+        if (!inventory.HasItem) return;
+
+        var weapon = inventory.ActiveWeapon;
+        if (!weapon.IsValid()) return;
+        weapon.OnAimChanged(IsAiming);
+    }
 }

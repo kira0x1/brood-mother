@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "Id": "ddc31cd2-2f53-42a4-a29a-6ec4b7f21dfa",
+    "Id": "b450fcd6-65c3-4c30-b4f9-70c054144328",
     "Name": "lootcube",
     "Scale": "0.1,0.1,0.1",
     "Tags": "loot",
@@ -10,19 +10,10 @@
         "__type": "ModelRenderer",
         "BodyGroups": 18446744073709551615,
         "MaterialGroup": null,
-        "MaterialOverride": null,
+        "MaterialOverride": "materials/dev/fake_sky_cold.vmat",
         "Model": "models/dev/box.vmdl",
-        "RenderType": "ShadowsOnly",
-        "Tint": "1,1,1,1"
-      },
-      {
-        "__type": "HighlightOutline",
-        "Color": "0,0,0,0",
-        "InsideColor": "6.99088,26.31413,46.97,0.08",
-        "InsideObscuredColor": "0,0,0,0",
-        "Material": null,
-        "ObscuredColor": "0,0,0,0",
-        "Width": 0
+        "RenderType": "On",
+        "Tint": "0.98519,0.11163,1,1"
       },
       {
         "__type": "BoxCollider",

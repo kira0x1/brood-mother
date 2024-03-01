@@ -1,8 +1,8 @@
 {
   "Name": "Pistol",
   "Icon": "textures/kenney_board-game-icons-64/bow.png",
-  "Damage": 10,
-  "DamageForce": 5,
+  "Damage": 15,
+  "DamageForce": 8,
   "FireRate": 0.5,
   "Spread": 0.01,
   "Recoil": "0,1,0",

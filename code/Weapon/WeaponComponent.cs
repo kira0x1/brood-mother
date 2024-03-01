@@ -58,7 +58,7 @@ public sealed class WeaponComponent : Component
     private ShootTypes ShootType { get; set; } = ShootTypes.SINGLE;
     private float ShotgunSpread { get; set; }
     private int BulletsPerShot { get; set; } = 1;
-    private WeaponAnimator Animator { get; set; }
+    public WeaponAnimator Animator { get; set; }
 
     [Property] private Light MuzzleLight { get; set; }
 
@@ -338,6 +338,5 @@ public sealed class WeaponComponent : Component
         }
 
         Animator.OnAimChanged(isAiming);
-        // Animator.OnDeploy();
     }
 }
