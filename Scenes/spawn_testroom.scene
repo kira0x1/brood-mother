@@ -4135,10 +4135,9 @@
   },
   "Title": "spawn_testroom",
   "Description": "",
-  "LastSaved": "2024-03-01T09:56:08.4670301\u002B00:00",
+  "LastSaved": "2024-03-01T10:15:28.7063229\u002B00:00",
   "__references": [
     "facepunch.wooden_crate",
-    "nolankicks.dead4left",
     "randkassets.r_k_monitor",
     "saandy.caged_light04",
     "tfassets.stairs_wood001a"
